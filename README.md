@@ -4,14 +4,16 @@
 - [Módulo passivo para operação de troca de arquivos](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EWsWYykBPiFPjomJDwEAA1oBBeVHxjEIiuFO8msqg74T2Q?e=hhJYAM)
 - [Manuais](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EQEvJiRLwhZHmSDv7wRNFj0B3ZFwA0ps9oHvhzfcQX9H6g?e=Zcmg3B)
 
-A E1 Tef Pay Passivo(Modo SiTEF) é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
-A Solução E1_TEFPay_Passivo(Modo SiTEF) foi desenvolvida para facilitar a utilização de transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão SITEF
-Por onde começar?
-1 - JAVA(JRE)
+A E1 Tef Pay Passivo(Modo Troca de arquivo) é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
+
+A Solução E1_TEFPay_Passivo foi desenvolvida para facilitar a utilização de transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
+
+# Por onde começar?
+- 1 - JAVA(JRE)
 Será necessario primeiramente verificar a instalação do Java SE Runtime Enviroment (JRE), por ser uma dependência da VPN que vamos ver logo a frente é necessário sua instalação p-ara funcionamento do mesmo.
 A Versão recomendada para instalação é a JRE 8u271 e pode ser encontrada no link abaixo:
 https://www.oracle.com/java/technologies/javase-jre8-downloads.html 
-2 - VPN 
+- 2 - VPN 
 A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin responsável por autorizar as transações.
 Para realizar sua instalação siga os passos abaixo:
 *IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
@@ -43,14 +45,14 @@ Para uso da solução será necessário configurar uma porta fixa para o pinpad.
 Para correta comunicação com a API é necessário que o aparelho esteja configurado na porta COM5.
 IMAGEM [ Capturar8]
 No exemplo foi usado o pínpad da marca ingenico modelo ipp320 mais isso se aplica a outras marcas também.
-# Módulo Passivo( SITEF) 
-O módulo passivo (SITEF) foi desenvolvido para facilitar a integração de parceiros que ja possuem implementações no padrão troca de arquivos SITEF.
+# Módulo Passivo
+O módulo passivo foi desenvolvido para facilitar a integração de parceiros que ja possuem implementações no padrão troca de arquivos.
 A troca de arquivos utiliza-se de dois diretorios. Um deles necessário para automação enviar os arquivos de requisição para api. A automação grava um arquivo nesse diretório para ser lido pela API, o qual esta continuamente tentando ler arquivo nesse local. O outro diretório serve para a API Elgin enviar arquivos para a automação. A Api TEF Elgin grava o arquivo de saida nesse diretorio para ser lido pela automação.
 Os diretorios são criados na execução da aplicação se caso não existirem, os caminhos usados como padrão são: 
 
-C:\Cliente\Req - para arquivo de requisição de transações.
+`C:\Cliente\Req` - para arquivo de requisição de transações.
 
-C:\Cliente\Resp - para arquivos de Status e de resposta para automação.
+`C:\Cliente\Resp` - para arquivos de Status e de resposta para automação.
 
 Há dois tipos de arquivos para troca de dados entre automação e APITEF. Um deles serve para enviar dados e o outro para enviar uma resposta confirmando o recebimento dos dados.
 O arquivo de dados rece o nome “INTPOS.001”. Já o arquivo de confirmação de recebimento de dados recebe o nome “INTPOS.STS”.
