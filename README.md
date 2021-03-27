@@ -1,12 +1,14 @@
 # TEF-Elgin
+O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
+
+A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
+
+# Downloads
 - [VPN](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EaoXRRPpHXlIun9KK-x9cUYBsCT2yYhnaozlmUOJvySZNQ?e=XjPPrB)
 - [Instalador API](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/ETEQxOghU4dOmDa19HwqvAoBBT8hThJRRwrwxuII5-NUpg?e=j20HaX)
 - [Módulo passivo para operação de troca de arquivos](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EWsWYykBPiFPjomJDwEAA1oBBeVHxjEIiuFO8msqg74T2Q?e=hhJYAM)
 - [Manuais](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EQEvJiRLwhZHmSDv7wRNFj0B3ZFwA0ps9oHvhzfcQX9H6g?e=Zcmg3B)
 
-O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
-
-A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
 
 # Por onde começar?
 ## 1 - JAVA(JRE)
@@ -18,17 +20,17 @@ A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin
 Para realizar sua instalação siga os passos abaixo:
  > IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
  
- - 1- Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
+1. Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
 IMAGEM [ Capturar1]
 
-- 2 - Após a instalação, será necessário fazer a configuração do LSS.
+2. Após a instalação, será necessário fazer a configuração do LSS.
 Abra a aplicação de configuração chamada de LSSConfig. A senha para iniciar a aplicação é: elgin123.
 IMAGEM [ Capturar2]
 
-- 3 - Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambinete de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >> na tela abaixo.
+3. Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambinete de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >> na tela abaixo.
 IMAGEM [ Capturar3]
 
-- 4- Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
+4. Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
 IMAGEM [ Capturar4]
 Feito a configuração, salve os dados e envie o código serial para Elgin realizar a ativação da VPN. O código a ser enviado se encontra no título da aplicação de configuração iniciado com LSS, conforme imagem abaixo.
 IMAGEM [ Capturar5]
@@ -38,7 +40,7 @@ Solicitando a ativação da VPN passando o número serial encontrado no passo an
 
 ## 3 - API TEF Elgin 
 Realize a instalação do executável APITEFElgin.v-1.2.3 1908201428.exe, ele é responsável por carregar as bibliotecas necessárias para realizar as transações, configuras as variaveis de ambiente e carregar arquivos com configurações do ambiente, como as portas e dados da empresa a ser utilizado no ponto de venda.
-O locala de instalação padrão da API é C:\APITEFElgin\BIN e a biblioteca a ser usada pela automação chama-se APITEFElgin.dll.
+O local de instalação padrão da API é C:\APITEFElgin\BIN e a biblioteca a ser usada pela automação chama-se APITEFElgin.dll.
 Após a instalação será necessário configurar os dados do PDV conforme imagem abaixo:
 IMAGEM [ Capturar7]
 A primeira sessão será referente a configuaração da VPN, preencha com o IP onde foi feita a instalação e a porta configurada para realizar as transações, podendo ser 2046 para produção e 44003 para homologação.
@@ -46,11 +48,13 @@ A segunda sessão é para configuração dos dados da empresa, esses dados serã
 A terceira sessão configura a autenticação da api. Até o momento esse dados ja vem como default e não devem ser alterados.
 Feita a configuração de todos os dados salve e feche o configurador. 
 Caso precise alterar os dados abra o configurador que esta instalado na pasta C:\APITEFElgin\BIN\Configurador\ApiTefElginConfig.App.exe 
-4 - Porta de comunicação  PinPad
+
+## 4 - Porta de comunicação  PinPad
 Para uso da solução será necessário configurar uma porta fixa para o pinpad.
 Para correta comunicação com a API é necessário que o aparelho esteja configurado na porta COM5.
 IMAGEM [ Capturar8]
 No exemplo foi usado o pínpad da marca ingenico modelo ipp320 mais isso se aplica a outras marcas também.
+
 # Módulo Passivo
 O módulo passivo foi desenvolvido para facilitar a integração de parceiros que ja possuem implementações no padrão troca de arquivos.
 A troca de arquivos utiliza-se de dois diretorios. Um deles necessário para automação enviar os arquivos de requisição para api. A automação grava um arquivo nesse diretório para ser lido pela API, o qual esta continuamente tentando ler arquivo nesse local. O outro diretório serve para a API Elgin enviar arquivos para a automação. A Api TEF Elgin grava o arquivo de saida nesse diretorio para ser lido pela automação.
@@ -74,28 +78,28 @@ C:\Cliente\Req\IntPos.001
 
 Dados escritos:
 
-000-000 = CRT
+`000-000 = CRT
 001-000 = 1
 002-000 = 123456
 003-000 = 4500
 004-000 = 0
-999-999 = 0
+999-999 = 0`
 
-Arquivo IntPos.Sts gerado pelo Vero PDV na Etapa 2 de uma operação CRT.
+Arquivo IntPos.Sts gerado pelo Módulo E1_TEFPAY_Passivo na Etapa 2 de uma operação CRT.
 C:\Cliente\Resp\IntPos.Sts
 
 Dados retornados pela API:
 
-000-000 = CRT
+`000-000 = CRT
 001-000 = 1
-999-999 = 0
+999-999 = 0`
 
-Arquivo IntPos.001 gerado pelo Vero PDV na Etapa 4 de uma operação CRT.
+Arquivo IntPos.001 gerado pelo Módulo E1_TEFPAY_Passivo na Etapa 4 de uma operação CRT. (Após a captura da transação na etapa 3)
 C:\Cliente\Resp\IntPos.001
 
 Dados retornados pela API:
 
-000-000 = CRT
+`000-000 = CRT
 001-000 = 1
 002-000 = 123456
 003-000 = 4500
@@ -159,23 +163,23 @@ Dados retornados pela API:
 300-001 = 0825
 600-000 = 01425787000104
 701-016 = 0326
-999-999 = 0
+999-999 = 0`
 
-Arquivo IntPos.001 gerado pela Automação na Etapa 6 de uma operação CRT.
+Arquivo IntPos.001 gerado pela Automação na Etapa 6 de uma operação CRT. (Após a automação ter realizado a impressão e armazenado os dados da transação)
 C:\Cliente\Req\IntPos.001
 
 Dados Escritos pela automação para confirmação de uma venda:
 
-000-000 = CNF
+`000-000 = CNF
 001-000 = 1
 027-000 = 123456
-999-999 = 0
+999-999 = 0`
 
-Arquivo IntPos.Sts gerado pelo Vero PDV na Etapa 7 de uma operação CRT.
+Arquivo IntPos.Sts gerado pelo Módulo E1_TEFPAY_Passivo na Etapa 7 de uma operação CRT.
 C:\Cliente\Resp\IntPos.Sts
 
 Dados Retornados pela API:
 
-000-000 = CNF
+`000-000 = CNF
 001-000 = 1
-999-999 = 0
+999-999 = 0`
