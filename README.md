@@ -4,9 +4,9 @@
 - [Módulo passivo para operação de troca de arquivos](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EWsWYykBPiFPjomJDwEAA1oBBeVHxjEIiuFO8msqg74T2Q?e=hhJYAM)
 - [Manuais](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EQEvJiRLwhZHmSDv7wRNFj0B3ZFwA0ps9oHvhzfcQX9H6g?e=Zcmg3B)
 
-A E1 Tef Pay Passivo(Modo Troca de arquivo) é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
+O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
 
-A Solução E1_TEFPay_Passivo foi desenvolvida para facilitar a utilização de transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
+A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
 
 # Por onde começar?
 - 1 - JAVA(JRE)
@@ -17,7 +17,7 @@ https://www.oracle.com/java/technologies/javase-jre8-downloads.html
 A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin responsável por autorizar as transações.
 Para realizar sua instalação siga os passos abaixo:
 *IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
-       1- Realize a instalação do executável configLSS-4.0.exe e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
+       1- Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
 IMAGEM [ Capturar1]
         2 - Após a instalação, será necessário fazer a configuração do LSS.
 Abra a aplicação de configuração chamada de LSSConfig. A senha para iniciar a aplicação é: elgin123.
