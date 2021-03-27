@@ -9,28 +9,34 @@ O Tef Pay Elgin é uma solução que fornece para Automação Comercial integra�
 A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
 
 # Por onde começar?
-- 1 - JAVA(JRE)
+## 1 - JAVA(JRE)
 Será necessario primeiramente verificar a instalação do Java SE Runtime Enviroment (JRE), por ser uma dependência da VPN que vamos ver logo a frente é necessário sua instalação p-ara funcionamento do mesmo.
 A Versão recomendada para instalação é a JRE 8u271 e pode ser encontrada no link abaixo:
 https://www.oracle.com/java/technologies/javase-jre8-downloads.html 
-- 2 - VPN 
+## 2 - VPN 
 A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin responsável por autorizar as transações.
 Para realizar sua instalação siga os passos abaixo:
-*IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
-       1- Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
+ > IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
+ 
+ - 1- Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
 IMAGEM [ Capturar1]
-        2 - Após a instalação, será necessário fazer a configuração do LSS.
+
+- 2 - Após a instalação, será necessário fazer a configuração do LSS.
 Abra a aplicação de configuração chamada de LSSConfig. A senha para iniciar a aplicação é: elgin123.
 IMAGEM [ Capturar2]
-         3 - Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambinete de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >> na tela abaixo.
+
+- 3 - Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambinete de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >> na tela abaixo.
 IMAGEM [ Capturar3]
-	4- Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
+
+- 4- Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
 IMAGEM [ Capturar4]
 Feito a configuração, salve os dados e envie o código serial para Elgin realizar a ativação da VPN. O código a ser enviado se encontra no título da aplicação de configuração iniciado com LSS, conforme imagem abaixo.
 IMAGEM [ Capturar5]
+
 Abra um chamado em https://elginbematech.com.br/chamado/ 
 Solicitando a ativação da VPN passando o número serial encontrado no passo anterior.
-3 - API TEF Elgin 
+
+## 3 - API TEF Elgin 
 Realize a instalação do executável APITEFElgin.v-1.2.3 1908201428.exe, ele é responsável por carregar as bibliotecas necessárias para realizar as transações, configuras as variaveis de ambiente e carregar arquivos com configurações do ambiente, como as portas e dados da empresa a ser utilizado no ponto de venda.
 O locala de instalação padrão da API é C:\APITEFElgin\BIN e a biblioteca a ser usada pela automação chama-se APITEFElgin.dll.
 Após a instalação será necessário configurar os dados do PDV conforme imagem abaixo:
