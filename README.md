@@ -62,7 +62,7 @@ Os diretorios são criados na execução da aplicação se caso não existirem, 
 Há dois tipos de arquivos para troca de dados entre automação e APITEF. Um deles serve para enviar dados e o outro para enviar uma resposta confirmando o recebimento dos dados.
 O arquivo de dados recebe o nome “INTPOS.001”. Já o arquivo de confirmação de recebimento de dados recebe o nome “INTPOS.STS”.
 
-Abaixo segue um diagrama do fluxo de iterações entre PDV e E1_TEFPay_Passivoe logo adiante um exemplo dos arquivos de requisição e resposta:
+Abaixo segue um diagrama do fluxo de iterações entre PDV e E1_TEFPay_Passivo e logo adiante um exemplo dos arquivos de requisição e resposta:
 
 ![Diagrama de sequencia para fluxo de comunicação entre PDV e Módulo de troca de arquivos](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/Diagrama%20de%20sequencia.png)
 
