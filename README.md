@@ -20,29 +20,24 @@ A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin
 Para realizar sua instalação siga os passos abaixo:
  > IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
  
-1. Realize a instalação do executável configLSS-4.0.exe[VPN] e na tela abaixo insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
-IMAGEM [ Capturar1]
+1. Realize a instalação do executável configLSS-4.0.exe[VPN] e insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
 
 2. Após a instalação, será necessário fazer a configuração do LSS.
 Abra a aplicação de configuração chamada de LSSConfig. A senha para iniciar a aplicação é: elgin123.
-IMAGEM [ Capturar2]
 
-3. Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambinete de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >> na tela abaixo.
-IMAGEM [ Capturar3]
+3. Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambiente de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >>.
 
 4. Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
-IMAGEM [ Capturar4]
-Feito a configuração, salve os dados e envie o código serial para Elgin realizar a ativação da VPN. O código a ser enviado se encontra no título da aplicação de configuração iniciado com LSS, conforme imagem abaixo.
-IMAGEM [ Capturar5]
+
+Feito a configuração, salve os dados e envie o código serial para Elgin realizar a ativação da VPN. O código a ser enviado se encontra no título da aplicação de configuração iniciado com LSS.
 
 Abra um chamado em https://elginbematech.com.br/chamado/ 
 Solicitando a ativação da VPN passando o número serial encontrado no passo anterior.
 
 ## 3 - API TEF Elgin 
-Realize a instalação do executável APITEFElgin.v-1.2.3 1908201428.exe, ele é responsável por carregar as bibliotecas necessárias para realizar as transações, configuras as variaveis de ambiente e carregar arquivos com configurações do ambiente, como as portas e dados da empresa a ser utilizado no ponto de venda.
+Realize a instalação do executável APITEFElgin.v-1.2.4 1204212248.exe, ele é responsável por carregar as bibliotecas necessárias para realizar as transações, configuras as variaveis de ambiente e carregar arquivos com configurações do ambiente, como as portas e dados da empresa a ser utilizado no ponto de venda.
 O local de instalação padrão da API é C:\APITEFElgin\BIN e a biblioteca a ser usada pela automação chama-se APITEFElgin.dll.
-Após a instalação será necessário configurar os dados do PDV conforme imagem abaixo:
-IMAGEM [ Capturar7]
+Após a instalação será necessário configurar os dados do PDV no configurador instalado em: C:\APITEFElgin\BIN\Configurador
 A primeira sessão será referente a configuaração da VPN, preencha com o IP onde foi feita a instalação e a porta configurada para realizar as transações, podendo ser 2046 para produção e 44003 para homologação.
 A segunda sessão é para configuração dos dados da empresa, esses dados serão enviados pela elgin. Aconselha-se que na abertura do chamado para ativação da VPN o parceiro já solicite o código da empresa, número da filial e número do pdv a ser usado na loja.
 A terceira sessão configura a autenticação da api. Até o momento esse dados ja vem como default e não devem ser alterados.
@@ -52,7 +47,7 @@ Caso precise alterar os dados abra o configurador que esta instalado na pasta C:
 ## 4 - Porta de comunicação  PinPad
 Para uso da solução será necessário configurar uma porta fixa para o pinpad.
 Para correta comunicação com a API é necessário que o aparelho esteja configurado na porta COM5.
-IMAGEM [ Capturar8]
+
 No exemplo foi usado o pínpad da marca ingenico modelo ipp320 mais isso se aplica a outras marcas também.
 
 # Módulo Passivo
@@ -65,11 +60,9 @@ Os diretorios são criados na execução da aplicação se caso não existirem, 
 `C:\Cliente\Resp` - para arquivos de Status e de resposta para automação.
 
 Há dois tipos de arquivos para troca de dados entre automação e APITEF. Um deles serve para enviar dados e o outro para enviar uma resposta confirmando o recebimento dos dados.
-O arquivo de dados rece o nome “INTPOS.001”. Já o arquivo de confirmação de recebimento de dados recebe o nome “INTPOS.STS”.
+O arquivo de dados recebe o nome “INTPOS.001”. Já o arquivo de confirmação de recebimento de dados recebe o nome “INTPOS.STS”.
 
 Abaixo segue um exemplo de um arquivo de requisição:
-
-IMAGEM [ Capturar9]
 
 Exemplo de Transação Venda Débito/Crédito 
 
