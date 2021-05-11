@@ -4,10 +4,10 @@ O Tef Pay Elgin é uma solução que fornece para Automação Comercial integra�
 A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
 
 # Downloads
-- [VPN](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EaoXRRPpHXlIun9KK-x9cUYBsCT2yYhnaozlmUOJvySZNQ?e=XjPPrB)
-- [Instalador API](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/ETEQxOghU4dOmDa19HwqvAoBBT8hThJRRwrwxuII5-NUpg?e=j20HaX)
-- [Módulo passivo para operação de troca de arquivos](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EWsWYykBPiFPjomJDwEAA1oBBeVHxjEIiuFO8msqg74T2Q?e=TOTT9c)
-- [Manuais](https://elginbrasil-my.sharepoint.com/:u:/g/personal/bruno_cruz_elgin_com_br/EQEvJiRLwhZHmSDv7wRNFj0B3ZFwA0ps9oHvhzfcQX9H6g?e=Zcmg3B)
+- [VPN](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+- [Instalador API](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+- [Módulo passivo para operação de troca de arquivos](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+- [Manuais](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Documenta%C3%A7%C3%A3o)
 
 
 # Por onde começar?
