@@ -1,3 +1,4 @@
+
 # TEF-Elgin
 O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
 
@@ -64,7 +65,7 @@ O arquivo de dados recebe o nome “INTPOS.001”. Já o arquivo de confirmaçã
 
 Abaixo segue um diagrama do fluxo de iterações entre PDV e E1_TEFPay_Passivo e logo adiante um exemplo dos arquivos de requisição e resposta:
 
-![Diagrama de sequencia para fluxo de comunicação entre PDV e Módulo de troca de arquivos](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/Diagrama%20de%20sequencia.png)
+![Diagrama de sequencia para fluxo de comunicação entre PDV e Módulo de troca de arquivos](https://user-images.githubusercontent.com/78883867/117910368-2fc08100-b2b2-11eb-8b97-952024370e13.png)
 
 Exemplo de Transação Venda Débito/Crédito 
 
