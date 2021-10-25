@@ -1,0 +1,60 @@
+﻿<Window x:Class="TEFAPI.Administrativa"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TEFAPI"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Administrativa" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="Operacoes">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Operações" Grid.Row="0" Margin="10, 8" FontWeight="Bold" FontSize="14" FontFamily="Cardana"/>
+
+            <Grid Grid.Row="1" x:Name="OperacoesBotoes">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="CancelamentoDeVenda" Content="Cancelamento de Venda" Grid.Row="0" Grid.Column="0" Margin="20, 10, 20, 20" Height="40" Width="200"/>
+                <Button x:Name="ReimpressaoAdm" Content="Reimpressão" Grid.Row="0" Grid.Column="1" Margin="0, 10, 60, 20" Height="40" Width="100"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="Processamento">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Processamento" Grid.Row="0" Margin="10, 8" FontWeight="Bold" FontSize="14" FontFamily="Cardana"/>
+
+            <Grid Grid.Row="1" x:Name="ProcessamentoDinamico">
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.RowSpan="2" x:Name="Logs">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Logs" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
+            <TextBox x:Name="LogsEntry" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="350" Margin="10"/>
+
+        </Grid>
+
+    </Grid>
+</Window>
