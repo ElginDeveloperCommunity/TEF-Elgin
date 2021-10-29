@@ -69,7 +69,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" x:Name="GridLeft">
@@ -78,7 +78,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" x:Name="Valor" Margin="0,0,20,10" MaxWidth="400">
+            <Grid Grid.Row="0" x:Name="Valor" Margin="0,0,10,10" MaxWidth="400">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -137,7 +137,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Grid.Row="1" x:Name="Operador" Margin="5,5,5,-15">
+            <Grid Grid.Row="1" x:Name="Operador" Margin="10,5,5,-15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -181,7 +181,7 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Logs" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
-                <TextBox x:Name="LogsEntry" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="auto" MinHeight="250" MaxHeight="300" Margin="10"/>
+                <TextBox x:Name="LogsEntry" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="auto" MinHeight="250" MaxHeight="400" Margin="10"/>
             </Grid>
 
             <Grid Grid.Row="1" x:Name="Cliente">
