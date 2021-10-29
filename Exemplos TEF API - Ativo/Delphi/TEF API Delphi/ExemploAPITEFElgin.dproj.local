@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/05/03 17:08:27.000.612,=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/05/03 17:09:03.000.149,=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/05/03 17:17:56.000.656,C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\FuncoesDLL.pas</Transaction>
+    <Transaction>2019/05/03 17:29:51.000.989,C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\FormPrincipal.dfm</Transaction>
+    <Transaction>2019/05/03 17:29:51.000.989,C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\FormPrincipal.pas</Transaction>
+    <Transaction>2019/05/03 17:30:10.000.657,C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\bruno.cruz.ELGIN\Documents\Embarcadero\Studio\Projects\ExemploAPITEFElgin.dproj</Transaction>
+    <Transaction>2019/05/06 14:06:58.000.982,=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/05/06 14:33:10.000.851,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\FormPagamento.dfm</Transaction>
+    <Transaction>2019/05/06 14:33:10.000.851,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\FormPagamento.pas</Transaction>
+    <Transaction>2019/07/02 17:08:57.000.902,=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\DemoTEFElgin\TEFElginDadosCaptura.pas</Transaction>
+    <Transaction>2019/07/02 17:09:20.000.239,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\DemoTEFElgin\TEFElginDadosCaptura.pas=</Transaction>
+    <Transaction>2019/07/02 17:09:47.000.562,=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\TEFElginDadosCaptura.pas</Transaction>
+    <Transaction>2019/07/02 17:41:28.000.480,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\TEFElginDadosCaptura.pas=</Transaction>
+    <Transaction>2019/07/02 17:52:53.000.234,=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\Unit1.pas</Transaction>
+    <Transaction>2019/07/02 17:53:11.000.436,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\DadosCaptura.pas=C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\Unit1.pas</Transaction>
+    <Transaction>2019/07/16 08:12:52.000.418,C:\Users\bruno.cruz.ELGIN\Documents\Projetos\Embarcadero\Studio\Projects\APITEFElgin\DadosCaptura.pas=</Transaction>
+    <Transaction>2019/10/23 17:12:05.000.180,=C:\Users\automacao\Desktop\APITEFElgin\Unit3.pas</Transaction>
+    <Transaction>2019/10/23 17:12:49.000.455,C:\Users\automacao\Desktop\APITEFElgin\Unit3.pas=C:\Users\automacao\Desktop\APITEFElgin\FormADM.pas</Transaction>
+    <Transaction>2019/10/23 17:12:49.000.455,C:\Users\automacao\Desktop\APITEFElgin\Unit3.dfm=C:\Users\automacao\Desktop\APITEFElgin\FormADM.dfm</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="FormPagamento.pas"/>
+    <File Path="FormPagamento.dfm"/>
+    <File Path="FormPrincipal.pas"/>
+    <File Path="FormPrincipal.dfm"/>
+    <File Path="FuncoesDLL.pas"/>
+    <File Path="FormADM.pas"/>
+    <File Path="FormADM.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>
