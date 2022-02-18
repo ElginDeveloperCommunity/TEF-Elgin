@@ -8,13 +8,12 @@ Foi utilizada a biblioteca:
 ## Requisitos para Teste ##
 1. Antes de poder testar o exemplo, deve-se fazer a instalação de todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/MANUAL%20DE%20INSTALA%C3%87%C3%83O%20TEF%20ELGIN.pdf).<br>
 Para compreender o funcionamento da API usar como referência esse [documento](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/API%20TEF%20ELGIN-1.02.pdf).
-<br>
 2. Instalar o arquivo a seguir seguindo as instruções. (Win 10)
-    + Baixar [esse arquivo] .zip e descompactar.
+    + Baixar [esse arquivo](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Exemplos%20TEF%20API%20-%20Ativo/VB6/msflxgrd.zip) .zip e descompactar.
     + Abrir um cmd ou powershell na pasta descompactada (isso pode ser feito com o atalho <code><Ctrl+l + cmd + enter></code>)
     + Executar o seguinte comando para copiar o arquivo na pasta necessário <code>copy msflxgrd.ocx C:\Windows\SysWoW64</code>
-    +Executar o seguinte comando para registrar a biblioteca <code>C:\Windows\SysWoW64\regsvr32 msflxgrd.ocx</code>
+    + Executar o seguinte comando para registrar a biblioteca <code>C:\Windows\SysWoW64\regsvr32 msflxgrd.ocx</code>
 
 ### Teste ###
-Para testar o exemplo, baixe essa [pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/C%23/TEFAPI/TEFAPI/bin/x86/Debug) e execute o arquivo .exe.
-
+Para testar o exemplo, baixe essa [pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/VB6/exemplotef_elgin_vb6) e execute o arquivo .exe.<br>
+Para baixar somente a pasta com o exemplo VB6, a biblioteca a ser registrada e esse README.md, clique [aqui](https://downgit.github.io/#/home?url=https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/VB6).
