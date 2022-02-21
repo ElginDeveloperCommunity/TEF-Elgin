@@ -1,0 +1,60 @@
+﻿<Window x:Class="TEFGP.JanelaConectaImpressora"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TEFGP"
+        mc:Ignorable="d"        
+        WindowStartupLocation="CenterScreen"
+        Title="JanelaConectaImpressora" Height="280" Width="600">
+
+    <Window.Resources>        
+    <!--// Text font style //-->
+        <Style x:Key="text" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Cardana"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="MinWidth" Value="110"/>
+        </Style>
+        <Style x:Key="font_style" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Cardana"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="MinWidth" Value="110"/>
+        </Style>
+        <Style x:Key="btn_style" TargetType="Button">
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18px"/>
+        </Style>
+    </Window.Resources>
+
+            <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tipo" Style="{StaticResource font_style}"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Modelo" Style="{StaticResource font_style}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Conexão" Style="{StaticResource font_style}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Parâmetro" Style="{StaticResource font_style}"/>
+        <TextBox x:Name="lblTipo" Text="1" Grid.Row="0" Grid.Column="1" Style="{StaticResource text}"/>
+        <TextBox x:Name="lblModelo" Text="i9" Grid.Row="0" Grid.Column="3" Style="{StaticResource text}"/>
+        <TextBox x:Name="lblConexao" Text="USB" Grid.Row="1" Grid.Column="1" Style="{StaticResource text}"/>
+        <TextBox x:Name="lblParam" Text="0" Grid.Row="1" Grid.Column="3" Style="{StaticResource text}"/>
+        <Button x:Name="btnConectar" Content="Conectar Impressora" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Click="BtnConectar_Click" Style="{StaticResource btn_style}"/>
+    </Grid>
+</Window>
