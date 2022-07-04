@@ -1,8 +1,0 @@
-{
-	"file_req": "IntPos.001",
-	"file_resp": "IntPos.Sts",
-	"log": 0,
-	"path_in": "C:/Cliente/Req",
-	"path_out": "C:/Cliente/Resp",
-	"produto_tef":2
-}
