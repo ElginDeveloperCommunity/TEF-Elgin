@@ -4,53 +4,6 @@ O Tef Pay Elgin é uma solução que fornece para Automação Comercial integra�
 
 A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
 
-# Downloads
-- [VPN](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
-- [Instalador API](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
-- [Módulo passivo para operação de troca de arquivos](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
-- [Manuais](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Documenta%C3%A7%C3%A3o)
-
-
-# Por onde começar?
-## 1 - JAVA(JRE)
-Será necessario primeiramente verificar a instalação do Java SE Runtime Enviroment (JRE), por ser uma dependência da VPN que vamos ver logo a frente é necessário sua instalação p-ara funcionamento do mesmo.
-A Versão recomendada para instalação é a JRE 8u271 e pode ser encontrada no link abaixo:
-https://www.oracle.com/java/technologies/javase-jre8-downloads.html 
-## 2 - VPN 
-A VPN é responsável por possibilitar a comunicação do PDV com servidor Elgin responsável por autorizar as transações.
-Para realizar sua instalação siga os passos abaixo:
- > IMPORTANTE – É necessário ter conexão com a internet no momento da instalação da VPN* 
- 
-1. Realize a instalação do executável configLSS-4.0.exe[VPN] e insira o número PKI: 94962505, este código é responsável por identificar a sua instalação no servidor Elgin.
-
-2. Após a instalação, será necessário fazer a configuração do LSS.
-Abra a aplicação de configuração chamada de LSSConfig. A senha para iniciar a aplicação é: elgin123.
-
-3. Após abrir, será necessário configurar as portas de comunicação. Para ambiente produtivo use as portas[2046] e [44002] para ambiente de homologação use as  portas [44002] e [44003]. Ambas precisam ser movidas de bandeiras disponiveis para bandeiras ativas usando o botão >>.
-
-4. Feita a configuração das portas, configure os dados da empresa onde esta sendo realizada a instalação da VPN:
-
-Feito a configuração, salve os dados e envie o código serial para Elgin realizar a ativação da VPN. O código a ser enviado se encontra no título da aplicação de configuração iniciado com LSS.
-
-Abra um chamado em https://elginbematech.com.br/chamado/ 
-Solicitando a ativação da VPN passando o número serial encontrado no passo anterior.
-
-## 3 - API TEF Elgin 
-Realize a instalação do executável APITEFElgin.v-1.2.4 1204212248.exe, ele é responsável por carregar as bibliotecas necessárias para realizar as transações, configuras as variaveis de ambiente e carregar arquivos com configurações do ambiente, como as portas e dados da empresa a ser utilizado no ponto de venda.
-O local de instalação padrão da API é C:\APITEFElgin\BIN e a biblioteca a ser usada pela automação chama-se APITEFElgin.dll.
-Após a instalação será necessário configurar os dados do PDV no configurador instalado em: C:\APITEFElgin\BIN\Configurador
-A primeira sessão será referente a configuaração da VPN, preencha com o IP onde foi feita a instalação e a porta configurada para realizar as transações, podendo ser 2046 para produção e 44003 para homologação.
-A segunda sessão é para configuração dos dados da empresa, esses dados serão enviados pela elgin. Aconselha-se que na abertura do chamado para ativação da VPN o parceiro já solicite o código da empresa, número da filial e número do pdv a ser usado na loja.
-A terceira sessão configura a autenticação da api. Até o momento esse dados ja vem como default e não devem ser alterados.
-Feita a configuração de todos os dados salve e feche o configurador. 
-Caso precise alterar os dados abra o configurador que esta instalado na pasta C:\APITEFElgin\BIN\Configurador\ApiTefElginConfig.App.exe 
-
-## 4 - Porta de comunicação  PinPad
-Para uso da solução será necessário configurar uma porta fixa para o pinpad.
-Para correta comunicação com a API é necessário que o aparelho esteja configurado na porta COM5.
-
-No exemplo foi usado o pínpad da marca ingenico modelo ipp320 mais isso se aplica a outras marcas também.
-
 # Módulo Passivo
 O módulo passivo foi desenvolvido para facilitar a integração de parceiros que ja possuem implementações no padrão troca de arquivos.
 A troca de arquivos utiliza-se de dois diretorios. Um deles necessário para automação enviar os arquivos de requisição para api. A automação grava um arquivo nesse diretório para ser lido pela API, o qual esta continuamente tentando ler arquivo nesse local. O outro diretório serve para a API Elgin enviar arquivos para a automação. A Api TEF Elgin grava o arquivo de saida nesse diretorio para ser lido pela automação.
