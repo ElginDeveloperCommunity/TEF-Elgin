@@ -1,0 +1,8 @@
+{
+    "ipTerminal": "10.0.10.204",
+    "portaStatus": 3001,
+    "portaTransacao": 3000,
+    "senha": "",
+    "senhaHabilitada": false,
+    "timeoutResposta": -1
+}
