@@ -1,5 +1,10 @@
 
 # TEF-Elgin
+
+## Documentação
+[Link para a Documentação do ElginTEF](https://elgindevelopercommunity.github.io/group__g7.html)
+
+## Elgin TEF
 O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
 
 A Solução de TEF Elgin conta também com um módulo `E1_TEFPay_Passivo` que foi desenvolvida para facilitar as transações Eletrônicas usando o Modo de troca de arquivos com mensageria padrão `CHAVE = VALOR`
