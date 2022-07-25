@@ -6,7 +6,7 @@ Para compreender o funcionamento da API usar como referência a [documentação]
 ## Exemplos C# para utilizar a API do Tef Elgin.
 
 Para os 2 exemplos foram usadas as seguintes bibliotecas:
-- **E1_Tef01.dll**, depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+- [E1_Tef01.dll](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Biblioteca), depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
 - [Newtonsoft.Json](https://www.newtonsoft.com/json) versão 13.0.1
 
 ## Exemplos
