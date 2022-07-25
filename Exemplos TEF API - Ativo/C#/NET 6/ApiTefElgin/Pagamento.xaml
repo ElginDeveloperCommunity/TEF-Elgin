@@ -1,0 +1,179 @@
+<Window x:Class="ApiTefElgin.Pagamento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApiTefElgin"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Pagamento" Height="auto" MinHeight="570" Width="auto" MinWidth="850" MaxWidth="1200">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5,3"/>
+            <Setter Property="Padding" Value="3,8"/>
+            <Setter Property="FontSize" Value="15px"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#0099ff"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="MinWidth" Value="110"/>
+            <Setter Property="MaxWidth" Value="160"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="#191919"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#005690"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="btnOperador" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5,5,5,10"/>
+            <Setter Property="FontSize" Value="15px"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Background" Value="#0099ff"/>
+            <Setter Property="Padding" Value="3,8"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="#191919"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#005690"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" x:Name="GridLeft">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" MinHeight="290"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" x:Name="Valor" Margin="0,0,10,10" MaxWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Valor" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
+
+                <Grid Grid.Row="1" x:Name="Calculadora" Margin="20,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="LblValor" Grid.Row="0" Grid.ColumnSpan="3" Margin="10,0,10,7" FontFamily="Cardana" FontWeight="Bold" FontSize="24" TextAlignment="Right"/>
+                    <TextBlock x:Name="LblReal" Grid.Row="0" Margin="10,0,0,7" FontFamily="Cardana" FontWeight="Bold" FontSize="24" TextAlignment="Left" Text="R$"/>
+                    <Button Grid.Row="1" Grid.Column="0" x:Name="btn1" Content="1" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="1" Grid.Column="2" x:Name="btn3" Content="3" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="1" Grid.Column="1" x:Name="btn2" Content="2" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="2" Grid.Column="0" x:Name="btn4" Content="4" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="2" Grid.Column="1" x:Name="btn5" Content="5" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="2" Grid.Column="2" x:Name="btn6" Content="6" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="3" Grid.Column="0" x:Name="btn7" Content="7" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="3" Grid.Column="1" x:Name="btn8" Content="8" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="3" Grid.Column="2" x:Name="btn9" Content="9" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="4" Grid.Column="0" x:Name="btnClear" Content="Apagar" Style="{StaticResource ButtonStyle}" Click="BtnClear_Click"/>
+                    <Button Grid.Row="4" Grid.Column="1" x:Name="btn0" Content="0" Style="{StaticResource ButtonStyle}" Click="Button_Click"/>
+                    <Button Grid.Row="4" Grid.Column="2" x:Name="btnBackSpace" Content="&lt;" Style="{StaticResource ButtonStyle}" Click="BtnBS_Click"/>
+                </Grid>
+
+                <Grid Grid.Row="2" x:Name="GridBotoes" Margin="20,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" x:Name="btnIniciarOperacao" Content="Iniciar Operação" Style="{StaticResource ButtonStyle}" MaxWidth="400" Click="BtnIniciarOperacao_Click"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" x:Name="Operador" Margin="10,5,5,-15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Operador" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
+
+                <Grid Grid.Row="1" x:Name="OperadorDinamico" Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="lblOperador1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="AGUARDE..." Visibility="Hidden"/>
+                    <Button x:Name="btnCancelar" Grid.Row="3" Grid.Column="1" Content="Cancelar" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnCancelar_Click"/>
+                    <Button x:Name="btnOk" Grid.Row="3" Grid.Column="2" Content="Ok" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnOk_Click" IsDefault="True"/>
+                    <TextBox x:Name="txtOperador" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Hidden"/>
+                    <ComboBox x:Name="cmbLista" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden">
+  
+                    </ComboBox>
+
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" x:Name="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" x:Name="Logs">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Logs" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
+                <TextBox x:Name="LogsEntry" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="auto" MinHeight="410" MaxHeight="450" Margin="10"/>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
