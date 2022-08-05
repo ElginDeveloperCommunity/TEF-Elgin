@@ -20,5 +20,5 @@ Para testar o exemplo já compilado para Windows 32-bits baixar [essa pasta](htt
 
 ## Imagens do Programa ##
 
-<img src="" alt="telaPrincipal" style="width:300px;"/>
-<img src="" title="tela representa um dos passos do processo de pagamento" alt="telaPagamento" style="width:800px;"/>
+<img src="https://user-images.githubusercontent.com/78883867/183124916-c8b9033c-e025-4fd4-b951-5d66fefb6428.jpg" alt="telaPrincipal" style="width:300px;"/>
+<img src="https://user-images.githubusercontent.com/78883867/183124912-aebd739c-cb63-4b09-b05d-ca66a6049051.jpg" title="tela representa um dos passos do processo de pagamento" alt="telaPagamento" style="width:800px;"/>
