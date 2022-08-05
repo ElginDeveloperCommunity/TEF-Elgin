@@ -1,20 +1,24 @@
-# Exemplo Delphi TEF API #
+# Exemplo Delphi API TEF Elgin
 
-Exemplo escrito com a seguinte configuração: 
-- Processador x86
+## Documentação
+Para compreender o funcionamento da API usar como referência a [documentação](https://elgindevelopercommunity.github.io/group__t2.html).
 
-Foi utilizada a biblioteca:
-- **APITEFElgin.dll**, depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+## Exemplos Delphi para utilizar a API do Tef Elgin.
 
+Para o exemplo foi usada a seguinte biblioteca:
+- [E1_Tef01.dll](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Biblioteca), depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+
+## Exemplo
+- [Delphi 10.4](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin)
 <hr>
 
 ## Requisitos para Teste ##
-Antes de poder testar o exemplo, deve-se fazer a instalação de todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/MANUAL%20DE%20INSTALA%C3%87%C3%83O%20TEF%20ELGIN.pdf).
+Antes de poder testar o exemplo, instalar todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Instaladores/Manual%20instala%C3%A7%C3%A3o%20TEF%20Elgin_Homologa%C3%A7%C3%A3o.pdf).
 
-Para compreender o funcionamento da API usar como referência esse [documento](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Documenta%C3%A7%C3%A3o/API%20TEF%20ELGIN-1.02.pdf).
+### Teste
+Para testar o exemplo já compilado para Windows 32-bits baixar [essa pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin/Win32/Debug).
 
-## Imagens do Exemplo ##
+## Imagens do Programa ##
 
-
-<img src="https://user-images.githubusercontent.com/78883867/139453589-4190e192-ac64-4c5b-9f05-d9334092d147.png" title="Tela principal" alt="telaPagamento" style="width:300px;"/>
-<img src="https://user-images.githubusercontent.com/78883867/139453596-a28e8537-3549-4a79-851f-61988f742cbf.png" title="Tela de Pagemento durante o processo de venda" alt="telaPagamento" style="width:800px;"/>
+<img src="" alt="telaPrincipal" style="width:300px;"/>
+<img src="" title="tela representa um dos passos do processo de pagamento" alt="telaPagamento" style="width:800px;"/>

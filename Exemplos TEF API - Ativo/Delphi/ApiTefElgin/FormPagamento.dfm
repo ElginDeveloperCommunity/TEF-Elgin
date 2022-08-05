@@ -1,0 +1,336 @@
+object frmPagamento: TfrmPagamento
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Pagamento'
+  ClientHeight = 621
+  ClientWidth = 860
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 321
+    Height = 377
+    Caption = 'Valor'
+    TabOrder = 0
+    object Panel1: TPanel
+      Left = 8
+      Top = 19
+      Width = 310
+      Height = 70
+      TabOrder = 0
+      object Label2: TLabel
+        Left = 1
+        Top = 1
+        Width = 110
+        Height = 70
+        Caption = 'R$  '
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = 70
+        Font.Name = 'digital display tfb'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lblValor: TLabel
+        Left = 80
+        Top = 0
+        Width = 225
+        Height = 63
+        AutoSize = False
+        BiDiMode = bdRightToLeft
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = 70
+        Font.Name = 'digital display tfb'
+        Font.Style = [fsBold]
+        ParentBiDiMode = False
+        ParentFont = False
+      end
+    end
+    object btn1: TButton
+      Left = 9
+      Top = 96
+      Width = 97
+      Height = 49
+      Caption = '1'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnGenericClick
+    end
+    object btn2: TButton
+      Left = 112
+      Top = 96
+      Width = 97
+      Height = 49
+      Caption = '2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnGenericClick
+    end
+    object btn3: TButton
+      Left = 215
+      Top = 96
+      Width = 97
+      Height = 49
+      Caption = '3'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnGenericClick
+    end
+    object btn4: TButton
+      Left = 9
+      Top = 149
+      Width = 97
+      Height = 49
+      Caption = '4'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = btnGenericClick
+    end
+    object btn5: TButton
+      Left = 112
+      Top = 149
+      Width = 97
+      Height = 49
+      Caption = '5'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnClick = btnGenericClick
+    end
+    object btn6: TButton
+      Left = 215
+      Top = 149
+      Width = 97
+      Height = 49
+      Caption = '6'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = btnGenericClick
+    end
+    object btn7: TButton
+      Left = 9
+      Top = 204
+      Width = 97
+      Height = 49
+      Caption = '7'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      OnClick = btnGenericClick
+    end
+    object btn8: TButton
+      Left = 112
+      Top = 204
+      Width = 97
+      Height = 49
+      Caption = '8'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      OnClick = btnGenericClick
+    end
+    object btn9: TButton
+      Left = 215
+      Top = 204
+      Width = 97
+      Height = 49
+      Caption = '9'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 9
+      OnClick = btnGenericClick
+    end
+    object btnBS: TButton
+      Left = 9
+      Top = 259
+      Width = 97
+      Height = 49
+      Caption = '<'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 10
+      OnClick = btnBSClick
+    end
+    object btn0: TButton
+      Left = 112
+      Top = 259
+      Width = 97
+      Height = 49
+      Caption = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 11
+      OnClick = btnGenericClick
+    end
+    object btnClear: TButton
+      Left = 215
+      Top = 259
+      Width = 97
+      Height = 49
+      Caption = 'X'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 12
+      OnClick = btnClearClick
+    end
+    object btnIniciarOperacao: TButton
+      Left = 9
+      Top = 314
+      Width = 303
+      Height = 49
+      Caption = 'Iniciar Opera'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 13
+      OnClick = btnIniciarOperacaoClick
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 8
+    Top = 399
+    Width = 321
+    Height = 195
+    Caption = 'Processamento Operador '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    object lblOperador: TLabel
+      Left = 3
+      Top = 16
+      Width = 4
+      Height = 16
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clCaptionText
+      Font.Height = 16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object btnOK: TButton
+      Left = 216
+      Top = 151
+      Width = 102
+      Height = 25
+      Caption = 'OK'
+      TabOrder = 0
+      Visible = False
+      OnClick = btnOKClick
+    end
+    object btnCanc: TButton
+      Left = 111
+      Top = 151
+      Width = 102
+      Height = 25
+      Caption = 'Cancelar'
+      TabOrder = 1
+      Visible = False
+      OnClick = btnCancClick
+    end
+    object txtOperador: TEdit
+      Left = 3
+      Top = 55
+      Width = 315
+      Height = 24
+      TabOrder = 2
+      Visible = False
+      OnKeyPress = txtOperadorKeyPress
+    end
+    object listOperador: TListBox
+      Left = 3
+      Top = 80
+      Width = 315
+      Height = 65
+      TabOrder = 3
+      Visible = False
+    end
+  end
+  object GroupBox3: TGroupBox
+    Left = 335
+    Top = 14
+    Width = 514
+    Height = 580
+    Caption = 'Logs'
+    TabOrder = 2
+    object memoLogs: TMemo
+      Left = 2
+      Top = 15
+      Width = 510
+      Height = 563
+      Align = alClient
+      ScrollBars = ssBoth
+      TabOrder = 0
+    end
+  end
+end
