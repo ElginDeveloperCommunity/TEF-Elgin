@@ -172,17 +172,17 @@ No arquivo de configuração `config_tef.json` pode ser adicionado um bloco opci
 
 ### Descrição das chaves de customização 
 `caminho_logo`: chave que define o caminho que se encontra a imagem que deve ser apresentada na aplicação. Exemplo: `C:/logo.png`
-@note - Caso o caminho não seja um caminho válido, a imagem não será alterada
-@n - Dimensões ideais para a imagem customizada: 800x200
-@n - Formato ideal: PNG
+- Caso o caminho não seja um caminho válido, a imagem não será alterada
+- Dimensões ideais para a imagem customizada: 800x200
+- Formato ideal: PNG
 
 `cor_destaque`: chave que recebe um valor hexadecimal para alteração da cor dos botões e da tarja principal da aplicação.
-@n`cor_fonte1`: chave que recebe um valor hexadecimal para alteração da cor dos labels que são atualizados para o usuário.
-@n`cor_fonte2`: chave que recebe um valor hexadecimal para alteração da cor da fonte dos botões e da tarja.
-@n`cor_fundo`: chave que recebe um valor hexadecimal para alteração da cor de fundo da aplicação.
-@n`cor_selecao`: chave que recebe um valor hexadecimal para alteração da cor da tarja de seleção de opções da operação.
+<br>`cor_fonte1`: chave que recebe um valor hexadecimal para alteração da cor dos labels que são atualizados para o usuário.
+<br>`cor_fonte2`: chave que recebe um valor hexadecimal para alteração da cor da fonte dos botões e da tarja.
+<br>`cor_fundo`: chave que recebe um valor hexadecimal para alteração da cor de fundo da aplicação.
+<br>`cor_selecao`: chave que recebe um valor hexadecimal para alteração da cor da tarja de seleção de opções da operação.
 
-@note Caso o valor passado não seja um valor hexadecimal válido a aplicação não sofrerá nenhuma alteração e será usada a cor definida por padrão.
+- Caso o valor passado não seja um valor hexadecimal válido a aplicação não sofrerá nenhuma alteração e será usada a cor definida por padrão.
 
 Exemplo de arquivo de configuração com customização:
 ```json
