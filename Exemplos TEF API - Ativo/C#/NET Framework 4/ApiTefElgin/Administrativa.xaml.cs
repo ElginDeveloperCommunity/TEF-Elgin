@@ -7,7 +7,7 @@ using System.Windows;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using Newtonsoft.Json.Linq;
+using System.Linq;
 using System.Threading;
 using System.Windows.Threading;
 
@@ -59,11 +59,15 @@ namespace WpfTesteVs
         [DllImport(PATH, CallingConvention = CallingConvention.StdCall)]
         internal static extern IntPtr FinalizarOperacaoTEF(int id);    
 
-        // VARIÁVEIS
+        // CONSTANTES
         const string ADM_USUARIO = "";
         const string ADM_SENHA = "";
+        const int OPERACAO_TEF = 0;
+        const int OPERACAO_ADM = 1;
+        const int OPERACAO_PIX = 2;
         public static string RetornoUI { get; set; } = "";
         public static string cancelarColeta { get; set; } = String.Empty;
+        public static string coletaMascara { get; set; } = string.Empty;
 
 
 
@@ -112,6 +116,7 @@ namespace WpfTesteVs
         // evento do botão dinâmico "Cancelar" 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            RetornoUI = "0";
             cancelarColeta = "9";
             clickEvent.Set();
         }
@@ -128,8 +133,16 @@ namespace WpfTesteVs
 
                 lblOperador1.Content = msg;
                 lblOperador1.Visibility = Visibility.Visible;
-                
-                if (!(msg.ToLower().Contains("aguarde") || msg.ToLower().Contains("finalizada"))) {
+
+                string[] msgArray = { "aguarde",
+                                          "finalizada",
+                                          "passagem",
+                                          "cancelada",
+                                          "iniciando confirmação"
+                                        };
+
+                if (!msgArray.Any(msg.ToLower().Contains))
+                {
                     txtOperador.Visibility = Visibility.Visible;
                     txtOperador.Focus();
                     btnOk.Visibility = Visibility.Visible;
@@ -151,6 +164,7 @@ namespace WpfTesteVs
 
                 lblOperador1.Visibility = Visibility.Visible;
 
+                btnCancelar.Visibility = Visibility.Visible;
                 btnOk.Visibility = Visibility.Visible;
 
                 foreach (string item in elements)
@@ -353,6 +367,7 @@ namespace WpfTesteVs
             coletaMensagem      = getStringValue(root, "tef", "mensagemResultado");
             coletaTipo          = getStringValue(root, "tef", "automacao_coleta_tipo");
             coletaOpcao         = getStringValue(root, "tef", "automacao_coleta_opcao");
+            coletaMascara       = getStringValue(root, "tef", "automacao_coleta_mascara");
 
             WriteLogs(true, __Function() + " " + coletaMensagem.ToUpper(), true);
             Print(coletaMensagem.ToUpper());
@@ -393,6 +408,12 @@ namespace WpfTesteVs
                 WriteLogs(true, "\nDIGITE A OPÇÂO DESEJADA: ", true);
                 coletaInformacao = opcoes[int.Parse(Read())];
 
+                if (cancelarColeta != String.Empty) {
+                    payload.Remove("automacao_coleta_retorno");
+                    payload.Add("automacao_coleta_retorno", cancelarColeta);
+                    cancelarColeta = String.Empty;
+                }
+
                 payload.Add("automacao_coleta_informacao", coletaInformacao);
             }
 
@@ -401,6 +422,7 @@ namespace WpfTesteVs
             if (operacao == 1) {
                 IntPtr _intptr = RealizarAdmTEF(0, stringify(payload), false);
                 resp = Marshal.PtrToStringAnsi(_intptr);
+                WriteLogs(true, resp, true);
             } else {
                 IntPtr _intptr = RealizarPagamentoTEF(0, stringify(payload), false);
                 resp = Marshal.PtrToStringAnsi(_intptr);
@@ -452,7 +474,8 @@ namespace WpfTesteVs
 
         public string getRetorno(string resp) {
             IDictionary<string, object> _jsonDic = jsonify(resp);
-            return getStringValue(_jsonDic, "tef", "resultadoTransacao");
+            return getStringValue(_jsonDic, "tef", "retorno");
+            // return getStringValue(_jsonDic, "tef", "resultadoTransacao");
         }
 
         public string getSequencial(string resp) {
@@ -525,6 +548,60 @@ namespace WpfTesteVs
         public static string __Function() {
             StackTrace stackTrace = new StackTrace();
             return stackTrace.GetFrame(1).GetMethod().Name;
+        }
+
+        private void txtOperador_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (coletaMascara == ".##")
+            {
+                // Get the current text of the textbox
+                var textBox = sender as TextBox;
+
+                if (char.IsDigit(e.Text[0]))
+                {
+                    textBox.Text = FormatValue(textBox.Text, e.Text);
+                    textBox.CaretIndex = textBox.Text.Length;
+                    e.Handled = true;
+                }
+            } 
+
+            if (coletaMascara == "dd/MM/yy")
+            {
+                // Get the current text of the textbox
+                var textBox = sender as TextBox;
+
+                if (char.IsDigit(e.Text[0]))
+                {
+                    textBox.Text = FormatDate(textBox.Text, e.Text);
+                    textBox.CaretIndex = textBox.Text.Length;
+                    e.Handled = true;
+                }
+            }
+        }
+        public static string FormatValue(string text, string key)
+        {
+            // add the entered digit to the text and format it with two decimal places
+            text = Regex.Replace(text, @"[^\d]", "");
+            return (double.Parse(text + key) / 100.0).ToString("N2").Replace(",", ".");
+        }
+        public static string FormatDate(string text, string key)
+        {
+            // add the entered digit to the text and format it with two decimal places
+            text = Regex.Replace(text, @"[^\d]", "");
+
+            text += key;
+
+            if (text.Length == 6)
+            {
+                return text.Insert(2, "/").Insert(5, "/");
+            }
+            else if (text.Length > 6)
+            {
+                return text.Remove(text.Length - 1).Insert(2, "/").Insert(5, "/");
+            }
+            {
+                return text;
+            }
         }
     }
 }

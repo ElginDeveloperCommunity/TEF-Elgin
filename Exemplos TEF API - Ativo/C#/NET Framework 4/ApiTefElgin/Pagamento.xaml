@@ -74,11 +74,11 @@
 
         <Grid Grid.Column="0" x:Name="GridLeft">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" MinHeight="290"/>
+                <RowDefinition Height="0.8" MinHeight="290"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" x:Name="Valor" Margin="0,0,10,10" MaxWidth="400">
+            <Grid Grid.Row="0" x:Name="Valor" Margin="0,0,10,0" MaxWidth="400">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -115,27 +115,29 @@
                     <Button Grid.Row="4" Grid.Column="2" x:Name="btnBackSpace" Content="&lt;" Style="{StaticResource ButtonStyle}" Click="BtnBS_Click"/>
                 </Grid>
 
-                <Grid Grid.Row="2" x:Name="GridBotoes" Margin="20,0,0,0">
+                <Grid Grid.Row="2" Grid.Column="2" x:Name="GridBotoes" Margin="20,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" x:Name="btnIniciarOperacao" Content="Iniciar Operação" Style="{StaticResource ButtonStyle}" MaxWidth="400" Click="BtnIniciarOperacao_Click"/>
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="btnIniciarOperacaoTEF" Content="Iniciar TEF" Style="{StaticResource ButtonStyle}" MaxWidth="400" Click="BtnIniciarOperacaoTEF_Click" />
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="btnInciarOperacaoPIX" Content="Iniciar PIX" Style="{StaticResource ButtonStyle}" MaxWidth="400" Click="BtnIniciarOperacaoPIX_Click" />
                 </Grid>
             </Grid>
 
-            <Grid Grid.Row="1" x:Name="Operador" Margin="10,5,5,-15">
+            <Grid Grid.Row="1" x:Name="Operador" Margin="10,0,5,-15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Operador" Grid.Row="0" Margin="10" FontSize="16" FontFamily="Candara"/>
+                <TextBlock Text="Operador" Grid.Row="0" Margin="10,0,10,6" FontSize="16" FontFamily="Candara"/>
 
-                <Grid Grid.Row="1" x:Name="OperadorDinamico" Margin="20">
+                <Grid Grid.Row="1" x:Name="OperadorDinamico" Margin="20,0,20,20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -149,12 +151,11 @@
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="lblOperador1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="AGUARDE..." Visibility="Hidden"/>
-                    <Button x:Name="btnCancelar" Grid.Row="3" Grid.Column="1" Content="Cancelar" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnCancelar_Click"/>
-                    <Button x:Name="btnOk" Grid.Row="3" Grid.Column="2" Content="Ok" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnOk_Click" IsDefault="True"/>
-                    <TextBox x:Name="txtOperador" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Hidden"/>
-                    <ComboBox x:Name="cmbLista" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden">
-
-                    </ComboBox>
+                    <Button x:Name="btnCancelar" Grid.Row="3" Grid.Column="1" Content="Cancelar" Style="{StaticResource btnOperador}" Click="btnCancelar_Click" Visibility="Hidden"/>
+                    <Button x:Name="btnOk" Grid.Row="3" Grid.Column="2" Content="Ok" Style="{StaticResource btnOperador}" Click="btnOk_Click" IsDefault="True" Visibility="Hidden"/>
+                    <TextBox x:Name="txtOperador" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="32" FontFamily="Roboto" FontSize="20" Visibility="Hidden"/>
+                    <ComboBox x:Name="cmbLista" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="28" Visibility="Hidden"/>
+                    <Image x:Name="imgQRCode" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="7caeefdac97f2292c398573e342cd717.jpg" Width="170" Height="170" Stretch="Fill" Visibility="Hidden" />
 
                 </Grid>
             </Grid>

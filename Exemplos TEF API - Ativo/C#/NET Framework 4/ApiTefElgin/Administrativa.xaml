@@ -122,7 +122,7 @@
                     <Label x:Name="lblOperador1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="AGUARDE..." Visibility="Hidden"/>
                     <Button x:Name="btnCancelar" Grid.Row="3" Grid.Column="1" Content="Cancelar" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnCancelar_Click"/>
                     <Button x:Name="btnOk" Grid.Row="3" Grid.Column="2" Content="Ok" Visibility="Hidden" Style="{StaticResource btnOperador}" Click="btnOk_Click" IsDefault="True"/>
-                    <TextBox x:Name="txtOperador" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Hidden"/>
+                    <TextBox x:Name="txtOperador" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" PreviewTextInput="txtOperador_PreviewTextInput" Visibility="Hidden"/>
                     <ComboBox x:Name="cmbLista" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden">
 
                     </ComboBox>

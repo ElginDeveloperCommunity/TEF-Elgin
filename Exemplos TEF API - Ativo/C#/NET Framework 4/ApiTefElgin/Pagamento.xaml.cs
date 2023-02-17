@@ -9,7 +9,11 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using System.Linq;
 using System.Windows.Threading;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace WpfTesteVs
 {
@@ -48,6 +52,8 @@ namespace WpfTesteVs
 
         [DllImport(PATH, CallingConvention = CallingConvention.StdCall)]
         internal static extern IntPtr RealizarPagamentoTEF(int codigoOperacao, string dadosCaptura, bool novaTransacao);
+        [DllImport(PATH, CallingConvention = CallingConvention.StdCall)]
+        internal static extern IntPtr RealizarPixTEF(string dadosCaptura, bool novaTransacao);
 
         [DllImport(PATH, CallingConvention = CallingConvention.StdCall)]
         internal static extern IntPtr RealizarAdmTEF(int codigoOperacao, string dadosCaptura, bool novaTransacao);
@@ -59,12 +65,15 @@ namespace WpfTesteVs
         internal static extern IntPtr FinalizarOperacaoTEF(int id);
 
         // VARIÁVEIS
-        const string ADM_USUARIO = "";
-        const string ADM_SENHA = "";
+        private const string ADM_USUARIO = "";
+        private const string ADM_SENHA = "";
+        private const int OPERACAO_TEF = 0;
+        private const int OPERACAO_ADM = 1;
+        private const int OPERACAO_PIX = 2;
         public static string RetornoUI { get; set; } = "";
         public static string valorTotal { get; set; } = String.Empty;
         public static string cancelarColeta { get; set; } = String.Empty;
-
+        public static int Operacao { get; set; } = OPERACAO_TEF;
 
 
         public Pagamento()
@@ -76,14 +85,27 @@ namespace WpfTesteVs
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (LblValor.Text == "0") { LblValor.Text = b.Content.ToString(); }
-            else { LblValor.Text += b.Content.ToString(); }
+            if (LblValor.Text != "0")
+            {
+                string cleanString = Regex.Replace(valorTotal + b.Content.ToString(), @"[^\d]", "");
+                string trimmed = cleanString.TrimStart('0');
+
+                if (trimmed.Length > 2) {
+                    string withDecimal = trimmed.Insert(trimmed.Length - 2, ".");
+                    valorTotal = withDecimal;
+                } else {
+                    valorTotal = trimmed.Length > 1 ? "0." + trimmed : "0.0" + trimmed;
+                }
+                LblValor.Text = valorTotal;
+            }
+            else { LblValor.Text = b.Content.ToString(); }
         }
 
         // apaga valor da venda
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            LblValor.Text = "";
+            valorTotal = "";
+            LblValor.Text = "0.00";
         }
 
         // apaga último número escrito no label de venda
@@ -91,22 +113,61 @@ namespace WpfTesteVs
         {
             if (LblValor.Text != "")
             {
-                LblValor.Text = LblValor.Text.Remove(LblValor.Text.Length - 1);
+                valorTotal = valorTotal.Remove(LblValor.Text.Length - 1);
+
+                string cleanString = Regex.Replace(valorTotal, @"[^\d]", "");
+                string trimmed = cleanString.TrimStart('0');
+
+                if (trimmed.Length > 2) {
+                    string withDecimal = trimmed.Insert(trimmed.Length - 2, ".");
+                    valorTotal = withDecimal;
+                } else {
+                    valorTotal = trimmed.Length > 1 ? "0." + trimmed : "0.0" + trimmed;
+                }
+                LblValor.Text = valorTotal;
             }
         }
 
         // evento botão de débito, inicializa processo e entra no loop principal
-        private async void BtnIniciarOperacao_Click(object sender, RoutedEventArgs e)
+        private async void BtnIniciarOperacaoTEF_Click(object sender, RoutedEventArgs e)
         {
+            Operacao = OPERACAO_TEF;
             lblOperador1.Visibility = Visibility.Visible;
             lblOperador1.Content = "AGUARDE...";
 
             valorTotal = LblValor.Text;
             LblValor.Text = "";
 
+            btnInciarOperacaoPIX.IsEnabled = false;
+            btnIniciarOperacaoTEF.IsEnabled = false;
+
             await Task.Run(() => {
                 TesteApiElginTEF();
             });
+
+            btnInciarOperacaoPIX.IsEnabled = true;
+            btnIniciarOperacaoTEF.IsEnabled = true;
+        }
+
+        // evento botão de débito, inicializa processo e entra no loop principal
+        private async void BtnIniciarOperacaoPIX_Click(object sender, RoutedEventArgs e)
+        {
+            Operacao = OPERACAO_PIX;
+            lblOperador1.Visibility = Visibility.Visible;
+            lblOperador1.Content = "AGUARDE...";
+
+            valorTotal = LblValor.Text;
+            LblValor.Text = "";
+
+            btnInciarOperacaoPIX.IsEnabled = false;
+            btnIniciarOperacaoTEF.IsEnabled = false;
+
+            await Task.Run(() => {
+                TesteApiElginTEF();
+            });
+
+            btnInciarOperacaoPIX.IsEnabled = true;
+            btnIniciarOperacaoTEF.IsEnabled = true;
         }
 
 
@@ -123,6 +184,7 @@ namespace WpfTesteVs
             btnOk.Visibility = Visibility.Hidden;
             btnCancelar.Visibility = Visibility.Hidden;
             txtOperador.Visibility = Visibility.Hidden;
+            imgQRCode.Visibility = Visibility.Hidden;
 
             if (cmbLista.Visibility == Visibility.Visible)
             {
@@ -141,6 +203,7 @@ namespace WpfTesteVs
         // evento do botão dinâmico "Cancelar" 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            RetornoUI = "0";
             cancelarColeta = "9";
             clickEvent.Set();
         }
@@ -155,16 +218,40 @@ namespace WpfTesteVs
                 btnOk.Visibility = Visibility.Hidden;
                 btnCancelar.Visibility = Visibility.Hidden;
                 txtOperador.Visibility = Visibility.Hidden;
-
-                lblOperador1.Content = msg;
-                lblOperador1.Visibility = Visibility.Visible;
-
-                if (!(msg.ToLower().Contains("aguarde") || msg.ToLower().Contains("finalizada")))
+                imgQRCode.Visibility = Visibility.Hidden;
+                
+                // QRCODE PIX
+                if (msg.Contains("QRCODE;"))
                 {
-                    txtOperador.Visibility = Visibility.Visible;
-                    txtOperador.Focus();
+                    int start = msg.IndexOf(";") + 1;
+                    int end = msg.LastIndexOf(";");
+                    string hexQrCodeString = msg.Substring(start, end - start);
+                    ShowQRCode(hexQrCodeString);
+
+                    imgQRCode.Visibility = Visibility.Visible;
                     btnOk.Visibility = Visibility.Visible;
                     btnCancelar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lblOperador1.Content = msg;
+                    lblOperador1.Visibility = Visibility.Visible;
+
+                    // quando uma dessas mensagens estiver presente não mostrar os botões
+                    string[] msgArray = { "aguarde", 
+                                          "finalizada", 
+                                          "passagem", 
+                                          "cancelada", 
+                                          "iniciando confirmação" 
+                                        };
+
+                    if (!msgArray.Any(msg.ToLower().Contains))
+                    {
+                        txtOperador.Visibility = Visibility.Visible;
+                        txtOperador.Focus();
+                        btnOk.Visibility = Visibility.Visible;
+                        btnCancelar.Visibility = Visibility.Visible;
+                    }
                 }
             });
         }
@@ -180,9 +267,11 @@ namespace WpfTesteVs
                 btnOk.Visibility = Visibility.Hidden;
                 btnCancelar.Visibility = Visibility.Hidden;
                 txtOperador.Visibility = Visibility.Hidden;
+                imgQRCode.Visibility = Visibility.Hidden;
 
                 lblOperador1.Visibility = Visibility.Visible;
 
+                btnCancelar.Visibility = Visibility.Visible;
                 btnOk.Visibility = Visibility.Visible;
 
                 foreach (string item in elements)
@@ -194,6 +283,44 @@ namespace WpfTesteVs
                 cmbLista.Visibility = Visibility.Visible;
 
             });
+        }
+
+        public void ShowQRCode(string hexString)
+        {
+            // convert hex to byte array
+            byte[] imageBytes = HexToByteArray(hexString);
+
+            // create memoryStream that wraps the byte array
+            using (MemoryStream stream = new MemoryStream(imageBytes)) {
+                BitmapImage qrImage = new BitmapImage();
+                qrImage.BeginInit();
+                qrImage.StreamSource = stream;
+                qrImage.CacheOption = BitmapCacheOption.OnLoad;
+                qrImage.EndInit();
+
+                imgQRCode.Source = qrImage;
+            }
+        }
+
+        private byte[] HexToByteArray(string hexString)
+        {
+            if (hexString == null)
+            {
+                throw new ArgumentNullException("hexString");
+            }
+
+            if (hexString.Length % 2 != 0)
+            {
+                throw new ArgumentException("hexString must have an even length");
+            }
+
+            byte[] result = new byte[hexString.Length / 2];
+            for (int i = 0; i < hexString.Length; i += 2)
+            {
+                string byteString = hexString.Substring(i, 2);
+                result[i / 2] = Convert.ToByte(byteString, 16);
+            }
+            return result;
         }
 
         public void WriteLogs(Boolean header, string logs, Boolean footer)
@@ -230,7 +357,7 @@ namespace WpfTesteVs
             try
             {
                 SetClientTCP("127.0.0.1", 60906);
-                ConfigurarDadosPDV("Meu PDV", "v1.0.000", "Elgin", "01", "T0004");
+                ConfigurarDadosPDV("Meu PDV C#", "v1.0.000", "Elgin", "01", "T0004");
 
                 // 1) INICIAR CONEXAO COM CLIENT
                 string start = iniciar();
@@ -258,7 +385,9 @@ namespace WpfTesteVs
 
                 string resp = String.Empty;
                 if (ControleApi.ModoOperacao.Contains("vender")) {
-                    resp = vender(0, sequencial);
+                    resp = Operacao == OPERACAO_TEF
+                        ? vender(0, sequencial, OPERACAO_TEF)
+                        : vender(0, sequencial, OPERACAO_PIX);
                 } else {
                     resp = adm(0, sequencial);
                 }
@@ -355,7 +484,7 @@ namespace WpfTesteVs
             return start;
         }
 
-        public string vender(int cartao, string sequencial)
+        public string vender(int cartao, string sequencial, int operacao)
         {
             WriteLogs(true, __Function() + " SEQUENCIAL UTILIZADO NA VENDA: " + sequencial, true);
 
@@ -363,14 +492,22 @@ namespace WpfTesteVs
             payload.Add("sequencial", sequencial);
 
             // se um valor tiver sido escrito antes da transação, usar esse valor em centavos
-            if (valorTotal != String.Empty)
+            if (valorTotal != string.Empty)
             {
                 valorTotal = Regex.Replace(valorTotal, @"[^\d]", "");
                 payload.Add("valorTotal", valorTotal);
             }
 
-            IntPtr _intptr = RealizarPagamentoTEF(cartao, stringify(payload), true);
-            string pgto = Marshal.PtrToStringAnsi(_intptr);
+            string pgto;
+            if (operacao == OPERACAO_TEF)
+            {
+                IntPtr _intptr = RealizarPagamentoTEF(cartao, stringify(payload), true);
+                pgto = Marshal.PtrToStringAnsi(_intptr);
+            } else
+            {
+                IntPtr _intptr = RealizarPixTEF(stringify(payload), true);
+                pgto = Marshal.PtrToStringAnsi(_intptr);
+            }
             WriteLogs(true, __Function() + "  " + pgto, true);
             return pgto;
         }
@@ -394,10 +531,6 @@ namespace WpfTesteVs
 
         public string coletar(int operacao, IDictionary<string, object> root)
         {
-            // objeto para ler a entrada do teclado
-            // string qtin;
-            // QTextStream qtin(stdin);
-
             // chaves utilizadas na coleta
             string coletaRetorno,      // In/Out; out: 0 = continuar coleta, 9 = cancelar coleta
                 coletaSequencial,   // In/Out
@@ -431,11 +564,11 @@ namespace WpfTesteVs
                 WriteLogs(true, "INFORME O VALOR SOLICITADO: ", true);
                 coletaInformacao = Read();
 
-                if (cancelarColeta != String.Empty)
+                if (cancelarColeta != string.Empty)
                 {
                     payload.Remove("automacao_coleta_retorno");
                     payload.Add("automacao_coleta_retorno", cancelarColeta);
-                    cancelarColeta = String.Empty;
+                    cancelarColeta = string.Empty;
                 }
 
                 payload.Add("automacao_coleta_informacao", coletaInformacao);
@@ -456,6 +589,13 @@ namespace WpfTesteVs
                 WriteLogs(true, "\nDIGITE A OPÇÂO DESEJADA: ", true);
                 coletaInformacao = opcoes[int.Parse(Read())];
 
+                if (cancelarColeta != string.Empty)
+                {
+                    payload.Remove("automacao_coleta_retorno");
+                    payload.Add("automacao_coleta_retorno", cancelarColeta);
+                    cancelarColeta = string.Empty;
+                }
+
                 payload.Add("automacao_coleta_informacao", coletaInformacao);
             }
 
@@ -468,10 +608,18 @@ namespace WpfTesteVs
             }
             else
             {
-                IntPtr _intptr = RealizarPagamentoTEF(0, stringify(payload), false);
-                resp = Marshal.PtrToStringAnsi(_intptr);
-            }
+                if (Operacao == OPERACAO_PIX)
+                {
+                    IntPtr _intptr = RealizarPixTEF(stringify(payload), false);
+                    resp = Marshal.PtrToStringAnsi(_intptr);
+                }
+                else
+                {
+                    IntPtr _intptr = RealizarPagamentoTEF(0, stringify(payload), false);
+                    resp = Marshal.PtrToStringAnsi(_intptr);
+                }
 
+            }
             // verifica fim da coleta
             string retorno = getRetorno(resp);
             if (retorno != string.Empty)
@@ -524,7 +672,8 @@ namespace WpfTesteVs
         public string getRetorno(string resp)
         {
             IDictionary<string, object> _jsonDic = jsonify(resp);
-            return getStringValue(_jsonDic, "tef", "resultadoTransacao");
+            return getStringValue(_jsonDic, "tef", "retorno");
+            // return getStringValue(_jsonDic, "tef", "resultadoTransacao");
         }
 
         public string getSequencial(string resp)
