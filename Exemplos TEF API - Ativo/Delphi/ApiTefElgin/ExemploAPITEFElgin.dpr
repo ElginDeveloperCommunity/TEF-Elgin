@@ -4,7 +4,8 @@ uses
   FormPrincipal in 'FormPrincipal.pas' {frmPrincipal},
   FuncoesDLL in 'FuncoesDLL.pas',
   FormPagamento in 'FormPagamento.pas' {frmPagamento},
-  FormADM in 'FormADM.pas' {frmAdm};
+  FormADM in 'FormADM.pas' {frmAdm},
+  Utils in 'Utils.pas';
 
 {$R *.res}
 begin

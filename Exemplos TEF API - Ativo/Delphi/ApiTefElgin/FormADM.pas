@@ -1,8 +1,9 @@
-unit FormADM;
+﻿unit FormADM;
 interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,System.JSON, FuncoesDLL, StrUtils;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,System.JSON,
+  Utils, FuncoesDLL, StrUtils, Vcl.Mask;
 //
 // Aplicativo Exemplo para E1_Tef Api, versão Delphi VCL
 // Gabriel Franzeri @ Elgin, 2022
@@ -31,20 +32,11 @@ type
     function finalizar():String;
 
     // M�todos utilit�rios
-    function incrementarSequencial(sequencial:String):String;
-    function getRetorno(resp:String):String;
-    function getComprovante(resp:String; via:String):String;
-    function getSequencial(resp:String):String;
-    function jsonify(jsonString:String):TJsonObject;
-    function stringify(json:TJsonObject):PAnsiChar;
-    function getStringValue(json:TJsonObject; key:String):String;
     function readInput():String;
-    function naoContem(msg: String): Boolean;
     procedure writeLogs(logs:String);
     procedure print(msg:String);
     procedure printArray(elements : TStringList);
     procedure printArrayThread(elements : TStringList);
-    procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings) ;
 
     // M�todos UI
     procedure btnOKClick(Sender: TObject);
@@ -59,6 +51,8 @@ type
     caso:Integer;
     retornoUI:String;
     cancelarColeta:String;
+    txtOperadorTextoAtual : String;
+    ApplyingMask: String;
   end;
 var
   frmAdm: TfrmAdm;
@@ -74,7 +68,14 @@ procedure TfrmAdm.txtOperadorKeyPress(Sender: TObject; var Key: Char);
 var
   retList : String;
   retTxt : String;
+  input,
+  res: string;
+  len,
+  dotPos,
+  dotIndex: Integer;
 begin
+
+// tecla "Enter"
 if Key = #13 then
 begin
   // mesmo c�digo do btnOKClick
@@ -103,6 +104,28 @@ begin
   listOperador.Visible := false;
   myThread.Resume;
 end;
+
+// APLICA MASCARAS NO TEDIT
+if ApplyingMask = '.##' then begin
+
+  if (key = removeNonNumericChars(key)) or (key = #8) then begin
+    if key = removeNonNumericChars(key) then
+      dotIndex := 1;
+    if key = #8 then
+      dotIndex := 3;
+
+    res := maskValor(txtOperador.Text, dotIndex);
+
+    txtOperador.Text := res;
+    txtOperador.SelStart := length(res);
+  end;
+end else if ApplyingMask = 'dd\/MM\/yy' then begin
+    res := maskDate(txtOperador.Text);
+
+    txtOperador.Text := res;
+    txtOperador.SelStart := length(res);
+end;
+
 end;
 
 procedure TfrmAdm.btnOKClick(Sender: TObject);
@@ -137,6 +160,7 @@ begin
 end;
 procedure TfrmAdm.btnCancClick(Sender: TObject);
 begin
+  retornoUI := '';
   cancelarColeta := '9';
   myThread.Resume;
 end;
@@ -177,6 +201,7 @@ begin
     btnCanc.Visible := false;
     lblOperador.Caption := msg;
     lblOperador.Visible := true;
+
     if naoContem(msg) then begin
       txtOperador.Visible := true;
       txtOperador.SetFocus;
@@ -211,6 +236,7 @@ begin
         listOperador.Items.Add(element);
       listOperador.Visible := true;
 end;
+
 procedure TfrmAdm.writeLogs(logs:String);
 var
   divLogs : String;
@@ -231,7 +257,6 @@ procedure TfrmAdm.TesteApiElginTEF;
 var
   start : String;
   retorno : String;
-  ret : String;
   sequencial : String;
   resp : String;
   comprovanteLoja : String;
@@ -296,8 +321,8 @@ begin
    end
   else if retorno = '1' then
     begin
-      writeLogs('TRANSA��O OK');
-      print('TRANSA��O OK');
+      writeLogs('TRANSAÇÃO OK');
+      print('TRANSAÇÃO OK');
     end
   else
     begin
@@ -318,9 +343,6 @@ function TfrmAdm.iniciar():String;
 var
   payload : TJsonObject;
   resultado : UTF8String;
-  retp : String;
-  reta : AnsiString;
-  ret : PAnsiChar;
 begin
   payload := TJsonObject.Create;
   // payload.Add("aplicacao",         "Meu PDV");
@@ -337,9 +359,12 @@ begin
   // payload.Add("identificadorPontoCaptura",     "T0004");
 
   resultado := IniciarOperacaoTEF(stringify(payload));
-  writeLogs('INICIAR: ' + jsonify(resultado).Format(2));
-  result := resultado;
+  writeLogs('INICIAR: ' + jsonify(UTF8toString(resultado)).Format(2));
+  FreeAndNil(payload);
+  result := UTF8ToString(resultado);
 end;
+
+// VENDER
 function TfrmAdm.vender(cartao:Integer; sequencial:String):String;
 var
   payload : TJsonObject;
@@ -350,9 +375,12 @@ begin
   payload.AddPair('sequencial', sequencial);
 
   resultado := FuncoesDLL.RealizarPagamentoTEF(cartao, stringify(payload), True);
-  writeLogs('VENDER: ' + jsonify(resultado).Format(2));
-  result := resultado;
+  writeLogs('VENDER: ' + jsonify(UTF8ToString(resultado)).Format(2));
+  FreeAndNil(payload);
+  result := UTF8ToString(resultado);
 end;
+
+// ADM
 function TfrmAdm.adm(opcao:Integer; sequencial:String):String;
 var
   payload : TJsonObject;
@@ -366,9 +394,11 @@ begin
   // payload.Add("admUsuario",                      ADM_USUARIO);
   // payload.Add("admSenha",                        ADM_SENHA);
   resultado := FuncoesDLL.RealizarAdmTEF(opcao, stringify(payload), True);
-  writeLogs('ADM: ' + jsonify(resultado).Format(2));
-  result := resultado;
+  writeLogs('ADM: ' + jsonify(UTF8ToString(resultado)).Format(2));
+  FreeAndNil(payload);
+  result := UTF8ToString(resultado);
 end;
+
 // COLETAR
 function TfrmAdm.coletar(operacao:Integer; root:TJsonObject):String;
 var
@@ -378,6 +408,7 @@ var
   coletaMensagem,     // In/[Out]
   coletaTipo,         // In
   coletaOpcao,        // In
+  coletaMascara,
   coletaInformacao : String;   // Out
   payload : TJsonObject;
   resp : UTF8String;
@@ -392,12 +423,17 @@ begin
   coletaMensagem      := getStringValue(root, 'tef.mensagemResultado');
   coletaTipo          := getStringValue(root, 'tef.automacao_coleta_tipo');
   coletaOpcao         := getStringValue(root, 'tef.automacao_coleta_opcao');
+  coletaMascara       := getStringValue(root, 'tef.automacao_coleta_mascara');
   writeLogs('COLETAR: ' +  UpperCase(coletaMensagem));
   print(UpperCase(coletaMensagem));
+
   // em caso de erro, encerra coleta
   if coletaRetorno <> '0' then begin
     result := stringify(root);
+    exit;
   end;
+
+  ApplyingMask := coletaMascara;
 
   // em caso de sucesso, monta o (novo) payload e continua a coleta
   payload := TJsonObject.Create;
@@ -407,11 +443,13 @@ begin
   if (coletaTipo <> '') and (coletaOpcao = '') then begin // valor inserido (texto)
     writeLogs('INFORME O VALOR SOLICITADO: ');
     coletaInformacao := readInput();
+    // se houve cancelamento, adiciona a chave com cancelamento para avisar a dll
     if (cancelarColeta <> '') then begin
       payload.RemovePair('automacao_coleta_retorno');
       payload.AddPair('automacao_coleta_retorno', cancelarColeta);
       cancelarColeta := '';
     end;
+
 
     payload.AddPair('automacao_coleta_informacao', coletaInformacao);
   end
@@ -430,8 +468,15 @@ begin
     printArray(elements);
     writeLogs(#13#10 + 'DIGITE A OP��O DESEJADA: ');
     coletaInformacao := opcoes[strtoint(readInput())];
+    // se houve cancelamento, adiciona a chave com cancelamento para avisar a dll
+    if (cancelarColeta <> '') then begin
+      payload.RemovePair('automacao_coleta_retorno');
+      payload.AddPair('automacao_coleta_retorno', cancelarColeta);
+      cancelarColeta := '';
+    end;
+
     payload.AddPair('automacao_coleta_informacao', coletaInformacao);
-    elements := nil;
+    FreeAndNil(elements);
   end;
   // informa od dados coletados
   if operacao = OPERACAO_ADM then begin
@@ -441,14 +486,14 @@ begin
     resp := FuncoesDLL.RealizarPagamentoTEF(0, stringify(payload), false);
   end;
 
-  writeLogs(jsonify(resp).Format(2));
+  writeLogs(jsonify(UTF8ToString(resp)).Format(2));
   // verifica fim da coleta
-  retorno := getRetorno(resp);
+  retorno := getRetorno(UTF8ToString(resp));
   if retorno <> '' then begin
-    result := resp;
+    result := UTF8ToString(resp);
     exit;
   end;
-  result := coletar(operacao, jsonify(resp));
+  result := coletar(operacao, jsonify(UTF8ToString(resp)));
 end;
 function TfrmAdm.confirmar(sequencial:String):String;
 var
@@ -458,8 +503,8 @@ begin
   print('AGUARDE, CONFIRMANDO OPERA��O...');
 
   resultado := FuncoesDLL.ConfirmarOperacaoTEF(strtoint(sequencial), 1);
-  writeLogs('CONFIRMAR: ' + jsonify(resultado).Format(2));
-  result := resultado;
+  writeLogs('CONFIRMAR: ' + jsonify(UTF8ToString(resultado)).Format(2));
+  result := UTF8ToString(resultado);
 end;
 
 function TfrmAdm.finalizar():String;
@@ -467,96 +512,18 @@ var
   resultado : UTF8String;
 begin
   resultado := FuncoesDLL.FinalizarOperacaoTEF(1); // api resolve o sequencial
-  writeLogs('Finalizar: ' + jsonify(resultado).Format(2));
+  writeLogs('Finalizar: ' + jsonify(UTF8ToString(resultado)).Format(2));
   print('OPERA��O FINALIZADA');
-  result := resultado;
+  result := UTF8ToString(resultado);
 end;
 // ===================================================================== //
-// ============ METODOS UTILIT�RIOS PARA O EXEMPLO C# ================== //
+// ========== METODOS UTILIT�RIOS PARA O EXEMPLO DELPHI ================ //
 // ===================================================================== //
-function TfrmAdm.incrementarSequencial(sequencial:String):String;
-var
-  seq : Integer;
-begin
-  try
-    seq := strtoint(sequencial) + 1;
-    result := IntToStr(seq);
-  except
-    on Exception : EConvertError do
-      result := ''; // sequencial informado n�o num�rico
-  end;
-end;
-function TfrmAdm.getRetorno(resp:String):String;
-begin
-  result := getStringValue(jsonify(resp), 'tef.resultadoTransacao')
-end;
-function TfrmAdm.getSequencial(resp:String):String;
-begin
-  result := getStringValue(jsonify(resp), 'tef.sequencial')
-end;
-function TfrmAdm.getComprovante(resp:String; via:String):String;
-begin
-  if via = 'loja' then begin
-    result := getStringValue(jsonify(resp), 'comprovanteDiferenciadoLoja')
-    end
-  else if via = 'cliente' then begin
-    result := getStringValue(jsonify(resp), 'comprovanteDiferenciadoPortador')
-    end
-  else begin
-    result := ''
-  end
-end;
-function TfrmAdm.jsonify(jsonString:String):TJsonObject;
-begin
-  result := TJsonObject.ParseJSONValue(jsonString) as TJsonObject;
-end;
-function TfrmAdm.stringify(json:TJsonObject):PAnsiChar;
-begin
-  result := PAnsiChar(AnsiString(json.ToString));
-end;
-function TfrmAdm.getStringValue(json:TJsonObject; key:String):String;
-var
-  value : TJsonString;
-  valueSt : String;
-begin
-  if (json.TryGetValue(key, value)) then begin
-	valueSt := value.ToString;
-    result := copy(valueSt, 2, valueSt.Length-2);
-   end
-  else
-    result := '';
-end;
-procedure TfrmAdm.Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
-begin
-   ListOfStrings.Clear;
-   ListOfStrings.Delimiter       := Delimiter;
-   ListOfStrings.StrictDelimiter := True; // Requires D2006 or newer.
-   ListOfStrings.DelimitedText   := Str;
-end;
-function TfrmAdm.naoContem(msg: string): Boolean;
-var
-  P : Integer;
-  strings : TArray<String>;
-  element : String;
-  contem : boolean;
-begin
-  strings := ['AGUARDE', 'FINALIZADA', 'PASSAGEM', 'CANCELADA'];
 
-  for element in strings do
-    begin
-        P := Pos(element, msg);
-        if P = 0 then
-          contem := true
-        else begin
-          contem := false;
-          break;
-        end;
-    end;
-    result := contem;
-end;
 function TfrmAdm.readInput():String;
 begin
   myThread.Suspended := true; //PAUSA A THREAD AGUARDANDO A ENTRADA DO USUARIO...
   result := retornoUI;
 end;
+
 end.

@@ -12,6 +12,8 @@ interface
 
   function RealizarPagamentoTEF(codigoOperacao:Integer; dadosCaptura:PAnsiChar; novaTransacao:Boolean):PAnsiChar;stdcall;external 'E1_Tef01.dll';
 
+  function RealizarPixTEF(dadosCaptura:PAnsiChar; novaTransacao:Boolean):PAnsiChar;stdcall;external 'E1_Tef01.dll';
+
   function RealizarAdmTEF(codigoOperacao:Integer; dadosCaptura:PAnsiChar; novaTransacao:Boolean):PAnsiChar;stdcall;external 'E1_Tef01.dll';
 
   function ConfirmarOperacaoTEF(id:Integer; acao:Integer):PAnsiChar; stdcall; external 'E1_Tef01.dll';

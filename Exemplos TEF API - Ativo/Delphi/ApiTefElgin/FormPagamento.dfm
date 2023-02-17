@@ -237,12 +237,12 @@ object frmPagamento: TfrmPagamento
       TabOrder = 12
       OnClick = btnClearClick
     end
-    object btnIniciarOperacao: TButton
+    object btnIniciarOperacaoTEF: TButton
       Left = 9
       Top = 314
-      Width = 303
+      Width = 148
       Height = 49
-      Caption = 'Iniciar Opera'#231#227'o'
+      Caption = 'Iniciar TEF'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 18
@@ -250,14 +250,29 @@ object frmPagamento: TfrmPagamento
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 13
-      OnClick = btnIniciarOperacaoClick
+      OnClick = btnIniciarOperacaoTEFClick
+    end
+    object btnIniciarOperacaoPIX: TButton
+      Left = 163
+      Top = 314
+      Width = 149
+      Height = 49
+      Caption = 'IniciarPIX'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 14
+      OnClick = btnIniciarOperacaoPIXClick
     end
   end
   object GroupBox2: TGroupBox
-    Left = 8
-    Top = 399
+    Left = 10
+    Top = 391
     Width = 321
-    Height = 195
+    Height = 222
     Caption = 'Processamento Operador '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -278,9 +293,16 @@ object frmPagamento: TfrmPagamento
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object imgQrcode: TImage
+      Left = 68
+      Top = 24
+      Width = 152
+      Height = 152
+      Stretch = True
+    end
     object btnOK: TButton
-      Left = 216
-      Top = 151
+      Left = 217
+      Top = 182
       Width = 102
       Height = 25
       Caption = 'OK'
@@ -289,8 +311,8 @@ object frmPagamento: TfrmPagamento
       OnClick = btnOKClick
     end
     object btnCanc: TButton
-      Left = 111
-      Top = 151
+      Left = 109
+      Top = 183
       Width = 102
       Height = 25
       Caption = 'Cancelar'
@@ -300,7 +322,7 @@ object frmPagamento: TfrmPagamento
     end
     object txtOperador: TEdit
       Left = 3
-      Top = 55
+      Top = 65
       Width = 315
       Height = 24
       TabOrder = 2
@@ -309,7 +331,7 @@ object frmPagamento: TfrmPagamento
     end
     object listOperador: TListBox
       Left = 3
-      Top = 80
+      Top = 103
       Width = 315
       Height = 65
       TabOrder = 3
