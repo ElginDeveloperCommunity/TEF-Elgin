@@ -24,4 +24,6 @@ Para testar o exemplo já compilado com .NET 6, baixar [essa pasta](https://gith
 ## Imagens do Programa ##
 
 <img src="https://user-images.githubusercontent.com/78883867/180846736-93ff6493-5263-4869-b431-9402d9a9abea.jpg" alt="telaPrincipal" style="width:300px;"/>
-<img src="https://user-images.githubusercontent.com/78883867/180846757-7c17d2a8-afd0-467d-9d6e-b84ffae8253d.jpg" title="tela representa um dos passos do processo de pagamento" alt="telaPagamento" style="width:800px;"/>
+<img src="https://user-images.githubusercontent.com/78883867/219528037-891f0423-7d3f-4fb8-a652-c6760a53a326.jpg" title="tela representa um dos passos do processo de pagamento" alt="telaPagamento" style="width:800px;"/>
+<img src="https://user-images.githubusercontent.com/78883867/219528048-3381570c-6293-4c7c-a3b9-211c51edb158.jpg" title="tela PIX" alt="telaPagamento" style="width:800px;"/>
+<img src="https://user-images.githubusercontent.com/78883867/219528061-9f879239-0530-4ed3-b2b6-f734066f87ec.jpg" title="tela representa de administração" alt="telaPagamento" style="width:800px;"/>
