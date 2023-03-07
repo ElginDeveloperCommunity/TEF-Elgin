@@ -13,6 +13,7 @@
         <ComboBox x:Name="CBox" HorizontalAlignment="Left" Margin="59,79,0,0" VerticalAlignment="Top" Width="208" IsReadOnly="True">
             <ComboBoxItem Content="Operações TEF" IsSelected="True"/>
             <ComboBoxItem Content="Operações Administrativas" />
+            <ComboBoxItem Content="Operações de Coleta PinPad"  />
         </ComboBox>
         <Button x:Name="BtnCarregar" Content="Carreagar Funções" HorizontalAlignment="Left" Margin="59,139,0,0" VerticalAlignment="Top" Width="208" Height="40" IsDefault="True"  Click="BtnCarregar_Click"/>
 

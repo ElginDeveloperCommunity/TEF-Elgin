@@ -42,7 +42,12 @@ namespace WpfTesteVs
                 Administrativa JanelaA = new Administrativa();
                 JanelaA.ShowDialog();
                 JanelaA.Focus();
-
+            }
+            else if (CBox.Text.Contains("Coleta"))
+            {
+                ColetaPinPad JanelaColetaPinPad = new ColetaPinPad();
+                _ = JanelaColetaPinPad.ShowDialog();
+                _ = JanelaColetaPinPad.Focus();
             }
             else
             {
