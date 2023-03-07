@@ -20,6 +20,10 @@ interface
 
   function FinalizarOperacaoTEF(id:Integer):PAnsiChar; stdcall; external 'E1_Tef01.dll';
 
+  function RealizarColetaPinPad(tipoColeta: integer; confirmar: boolean): PAnsiChar; stdcall; external 'E1_Tef01.dll';
+
+  function ConfirmarCapturaPinPad(tipoCaptura: integer; dadosCaptura: PAnsiChar): PAnsiChar; stdcall; external 'E1_Tef01.dll';
+
 implementation
 
 end.

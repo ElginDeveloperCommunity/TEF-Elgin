@@ -47,7 +47,8 @@ object frmPrincipal: TfrmPrincipal
       Text = 'Opera'#231#227'o'
       Items.Strings = (
         'Opera'#231#245'es TEF'
-        'Opera'#231#245'es Administrativas')
+        'Opera'#231#245'es Administrativas'
+        'Opera'#231#245'es Coleta PinPad')
     end
   end
 end

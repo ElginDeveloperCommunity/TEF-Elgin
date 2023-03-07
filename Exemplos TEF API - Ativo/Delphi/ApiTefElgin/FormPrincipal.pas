@@ -1,4 +1,4 @@
-unit FormPrincipal;
+﻿unit FormPrincipal;
 
 interface
 
@@ -32,12 +32,11 @@ implementation
 
 {$R *.dfm}
 
-uses FormPagamento, FormAdm;
+uses FormPagamento, FormAdm, FormColetaPinPad;
 
 procedure TfrmPrincipal.Button1Click(Sender: TObject);
 var
 a : Integer;
-dados : string;
 begin
 a := ComboBox2.ItemIndex;
 if  a = -1 then
@@ -52,6 +51,9 @@ if a = 0 then
 
 if a = 1 then
   frmAdm.ShowModal;
+
+if a = 2 then
+  frmColetaPinpad.ShowModal;
 
 end;
 

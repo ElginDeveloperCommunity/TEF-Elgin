@@ -21,6 +21,10 @@ type
     function MaskDate(date: string; backSpace: boolean = false): string;
     function RemoveNonNumericChars(const AStr: string): string;
     function ExtractTextBetween(const Input, Delim1, Delim2: string): string;
+    function FormatRG(rg: string): string;
+    function FormatCPF(cpf: string): string;
+    function FormatCNPJ(cnpj: string): string;
+    function FormatPhone(phone: string): string;
 implementation
 
 // ===================================================================== //
@@ -219,6 +223,38 @@ begin
       result := Copy(Input, aPos + Length(Delim1), bPos - (aPos + Length(Delim1)));
     end;
   end;
+end;
+
+function FormatCPF(cpf: string): string;
+begin
+  result := copy(cpf, 1, 3) + '.' +
+            copy(cpf, 4, 3) + '.' +
+            copy(cpf, 7, 3) + '.' +
+            copy(cpf, 10, 2)
+end;
+
+function FormatRG(rg: string): string;
+begin
+  result := copy(rg, 1, 2) + '.' +
+            copy(rg, 3, 3) + '.' +
+            copy(rg, 6, 3) + '-' +
+            copy(rg, 9, 1)
+end;
+
+function FormatCNPJ(cnpj: string): string;
+begin
+  result := copy(cnpj, 1, 2) + '.' +
+            copy(cnpj, 3, 3) + '.' +
+            copy(cnpj, 6, 3) + '/' +
+            copy(cnpj, 9, 4) + '-' +
+            copy(cnpj, 13, 2)
+end;
+
+function FormatPhone(phone: string): string;
+begin
+  result :=  '(' + copy(phone, 1, 2) + ') ' +
+                   copy(phone, 3, 5) + '-'  +
+                   copy(phone, 8, 4)
 end;
 
 end.

@@ -331,7 +331,7 @@ object frmPagamento: TfrmPagamento
     end
     object listOperador: TListBox
       Left = 3
-      Top = 103
+      Top = 111
       Width = 315
       Height = 65
       TabOrder = 3

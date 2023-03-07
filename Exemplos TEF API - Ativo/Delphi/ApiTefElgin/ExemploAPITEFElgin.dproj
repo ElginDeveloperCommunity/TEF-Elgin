@@ -111,6 +111,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Utils.pas"/>
+        <DCCReference Include="FormColetaPinPad.pas">
+            <Form>frmColetaPinpad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
