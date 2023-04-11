@@ -15,7 +15,7 @@ Para os 2 exemplos foram usadas as seguintes bibliotecas:
 <hr>
 
 ## Requisitos para Teste ##
-Antes de poder testar o exemplo, instalar todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Instaladores/Manual%20instala%C3%A7%C3%A3o%20TEF%20Elgin_Homologa%C3%A7%C3%A3o.pdf).
+Antes de poder testar o exemplo, instalar todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Instaladores_Windows/Homologa%C3%A7%C3%A3o/Manual%20instala%C3%A7%C3%A3o%20TEF%20Elgin_HOMOLOGA%C3%87%C3%83O_Ajustado.pdf).
 
 ### Teste
 Para testar o exemplo já compilado com .NET 6, baixar [essa pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Exemplos%20TEF%20API%20-%20Ativo/C%23/NET%206/ApiTefElgin-executavel/publish.zip), ou se preferir testar o exemplo para x86 em .NET Framework 4.6.1 baixar [essa pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Exemplos%20TEF%20API%20-%20Ativo/C%23/NET%20Framework%204/ApiTefElgin-executavel/ApiTefElgin-executavel.zip)
