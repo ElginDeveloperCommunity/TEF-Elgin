@@ -21,7 +21,7 @@ Begin VB.Form Form1
       Width           =   2295
    End
    Begin VB.CommandButton reImpressaoButton 
-      Caption         =   "Impressï¿½o"
+      Caption         =   "Impressão"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -102,7 +102,7 @@ Begin VB.Form Form1
       Width           =   2295
    End
    Begin VB.CommandButton btnNaoConfirmaVenda 
-      Caption         =   "Nï¿½o Confirmar Venda"
+      Caption         =   "Não Confirmar Venda"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -207,7 +207,7 @@ Begin VB.Form Form1
       Width           =   2175
    End
    Begin VB.Label Label4 
-      Caption         =   "Funï¿½ï¿½es"
+      Caption         =   "Funções"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -258,7 +258,7 @@ Begin VB.Form Form1
       Width           =   3135
    End
    Begin VB.Label Label1 
-      Caption         =   "Configuraï¿½ï¿½es"
+      Caption         =   "Configurações"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -281,20 +281,20 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-' VB6 
-' -*- coding: utf-8 -*- 
+' VB6
+' -*- coding: utf-8 -*-
 ' --------------------------------------------------------------------------------------------
 ' Created By  : Gabriel Alves Franzeri
 ' Created Date: 09/10/2021 ..etc
 ' version ='1.0'
 ' --------------------------------------------------------------------------------------------
-' """Clone de utilitÃ¡rio da Elgin para comunicaÃ§Ã£o por troca de arquivos com TEFPassivo"""
+' """Clone de utilitário da Elgin para comunicação por troca de arquivos com TEFPassivo"""
 ' --------------------------------------------------------------------------------------------
 ' IMPORTANTE
-' Executar cÃ³digo na mesma pasta que a lib E1_Impressora01.dll
+' Executar código na mesma pasta que a lib E1_Impressora01.dll
 ' --------------------------------------------------------------------------------------------
 
-'Declaraï¿½ï¿½es para a funï¿½ï¿½o do botï¿½o Browse para selecionar uma pasta
+'Declaraï¿½ï¿½es para a função do botao Browse para selecionar uma pasta
 Private Const BIF_RETURNONLYFSDIRS = 1
 Private Const BIF_DONTGOBELOWDOMAIN = 2
 Private Const MAX_PATH = 260
@@ -322,7 +322,7 @@ Public modelo As String
 Public conexao As String
 Public parametro As Long
 
-' retorna o caminho para o arquivo temporÃ¡rio e para o definitivo a ser lido pelo GP
+' retorna o caminho para o arquivo temporário e para o definitivo a ser lido pelo GP
 Public Function ConstantPath(mark As String) As String
     Dim FileTmp As String
     Dim File001 As String
@@ -335,7 +335,7 @@ Public Function ConstantPath(mark As String) As String
     End If
 End Function
 
-' FunÃ§Ã£o para escolher o diretÃ³rio
+' FunÃ§Ã£o para escolher o diretório
 Public Function OpenDirectoryTV(Optional odtvTitle As String) As String
     Dim lpIDList As Long
     Dim sBuffer As String
@@ -400,7 +400,7 @@ Private Sub AppendFile(ByVal key As String, ByVal value As String)
     Close #iFile
 End Sub
 
-' FunÃ§Ã£o que testa a conexÃ£o da impressora 
+' Função que testa a conexÃ£o da impressora
 Public Function TestaConexao() As String
     Dim int_conexao As Integer
     int_conexao = AbreConexaoImpressora(tipo, modelo, conexao, parametro)
@@ -424,7 +424,7 @@ Private Sub Imprime(ByVal dados As String)
     End If
 End Sub
 
-' FunÃ§Ã£o que faz o tratamento do texto de retorno para extrair o comprovante 
+' FunÃ§Ã£o que faz o tratamento do texto de retorno para extrair o comprovante
 Private Sub BuscaComprovante()
     Dim i As Integer
     Dim pos As Integer

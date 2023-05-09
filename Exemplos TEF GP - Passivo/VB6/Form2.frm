@@ -66,7 +66,7 @@ Begin VB.Form Form2
       Width           =   1215
    End
    Begin VB.Label Label2 
-      Caption         =   "Parï¿½metros"
+      Caption         =   "Parâmetros"
       Height          =   375
       Left            =   2880
       TabIndex        =   1
@@ -96,7 +96,7 @@ Public Sub btnConectar_Click()
     If Form1.TestaConexao <> "" Then
         MsgBox "Sua impressora estï¿½ conectada"
     Else
-        MsgBox "Houve algum problema na hora da conexï¿½o, verifique os parametros" + vbCrLf + vbCrLf + CStr(tipo) + vbCrLf + modelo + vbCrLf + conexao + vbCrLf + CStr(parametros)
+        MsgBox "Houve algum problema na hora da conexão, verifique os parametros" + vbCrLf + vbCrLf + CStr(tipo) + vbCrLf + modelo + vbCrLf + conexao + vbCrLf + CStr(parametros)
     End If
 End Sub
 
