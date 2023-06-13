@@ -1,5 +1,7 @@
 unit FuncoesDLL;
 
+// define interface com funções exportadas da DLL
+
 interface
 
   function SetClientTCP(ip:PAnsiChar; porta:Integer):PAnsiChar;stdcall; external 'E1_Tef01.dll';

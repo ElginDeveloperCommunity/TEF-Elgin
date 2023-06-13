@@ -15,7 +15,6 @@ type
     function stringify(json: TJsonObject):PAnsiChar;
     function getStringValue(json: TJsonObject; key:String):String;
     function naoContem(msg: String): Boolean;
-    procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
     function FormatNumber(const AStr: string; dotIndex: Integer = 2): string;
     function MaskValor(valor: string; dotIndex: integer): string;
     function MaskDate(date: string; backSpace: boolean = false): string;
@@ -25,6 +24,7 @@ type
     function FormatCPF(cpf: string): string;
     function FormatCNPJ(cnpj: string): string;
     function FormatPhone(phone: string): string;
+    procedure Split(Delimiter: Char; Str: string; ListOfStrings: TStrings);
 implementation
 
 // ===================================================================== //
