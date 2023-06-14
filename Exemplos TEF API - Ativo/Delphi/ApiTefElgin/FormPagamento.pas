@@ -744,7 +744,8 @@ begin
       cancelarColeta := '';
     end;
     
-    // adiciona no payload valor digitado pelo usuário payload.AddPair('automacao_coleta_informacao', coletaInformacao);
+    // adiciona no payload valor digitado pelo usuário 
+    payload.AddPair('automacao_coleta_informacao', coletaInformacao);
   end
 
   // se a chave coletaTipo não for vazia e a chave coletaOpcao também não for 
