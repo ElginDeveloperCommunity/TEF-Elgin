@@ -97,6 +97,8 @@ Public Function StrPtrToString(ByVal ponteiro As Long) As String
     StrPtrToString = Saida
 End Function
 
+' No caso de usar o VB5, não é possível retornar o tipo "Byte()", nesse
+' caso precisa modificar o tipo do retorno para "Variant"
 Public Function HexToByteArray(ByVal hexString As String) As Byte()
     ' Remove any leading "0x" from the hex string
     hexString = Replace(hexString, "0x", "")
