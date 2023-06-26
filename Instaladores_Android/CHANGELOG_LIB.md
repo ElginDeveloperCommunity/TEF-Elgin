@@ -1,18 +1,14 @@
-# 2.19.01
-## Correções
--> Corrige BUG na função de corte para IMIN MAX DUO
--> Suporte conexão com a impressora SWIFT para firmware GMS 
-
-# 2.19.00
-## Correções
--> Resolve conflito da lib IMIN com Lib de pagamentos Destaxa
--> "CONTORNA* problema de comunicação com SWIFT (MobPro)
+# 2.0.0
 
 ## Melhorias
--> Integração com impressora MAXDUO 
--> Integração com impressora MP-4200 HS 
+* Melhorias na API do Display
+* Atualização do SDK Destaxa com suporte a novos PINPADs
+    * Ingênico IPP320
+    * P200
+* Atualização do certificado de comunicação com servidor de produção. Com vencimento previsto para 31/06/2023.
+* Atualização da URL de comunicação com servidor de produção (app-prod.destaxa.cloud para app-prod-2.destaxa.cloud)
 
-# 2.18.00
+# 1.6.0
+
 ## Melhorias
--> Implementação da função fecha cupom venda e fecha cupom cancelamento
--> Atualização da lib IMIN para resolver conflitos com SDK Destaxa
+* LibPagamento - Nova função para recuperar dados da operação PIX
