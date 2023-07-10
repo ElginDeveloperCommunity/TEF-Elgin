@@ -1,8 +1,8 @@
 # TEF GP
 
-- [Glossário](glossario)
-- [Instalação do Elgin TEF GP](instalação-do-elgin-tef-gp)
-- [Configurações do GP](configurações-do-gp)
+- [Glossário](#glossário)
+- [Instalação do Elgin TEF GP](#instalação-do-elgin-tef-gp)
+- [Configurações do GP](#configurações-do-gp)
 
 ## Glossário
 
@@ -17,7 +17,7 @@ Para instalar o **Elgin TEF GP** baixar o arquivo `E1_TEFPassivo-x.exe` e execut
 Será aberta a página inicial do instalador. Se desejar poderá escolher um caminho específico onde instalar o programa, porém aconselhável deixar o caminho padrão, e clicar em `Avançar`
 <br>
 
-<img alt="1-selecionar-destino-gp" src="" width="400px" />
+<img alt="1-selecionar-destino-gp" src="./.imagens/1-selecionar-destino-gp.jpg" width="400px" />
 
 <br>
 <br>
@@ -27,63 +27,63 @@ No caso de querer usar o `TEF Web`, selecionar também a opção `Instala compon
 E então clique em avançar
 <br>
 
-<img alt="2-selecionar-componenets" src="" width="400px" />
+<img alt="2-selecionar-componenets" src="./.imagens/2-selecionar-componenets.jpg" width="400px" />
 
 <br>
 <br>
 Aqui poderá escolher se ter um atalho na área de trabalho, isso facilitará para poder iniciar o TEF GP caso seja necessário.
 <br>
 
-<img alt="3-criar-atalho" src="" width="400px" />
+<img alt="3-criar-atalho" src="./.imagens/3-criar-atalho.jpg" width="400px" />
 
 <br>
 <br>
 Nesta tela poderá revisar as opções escolhidas e caso deseje mudar algo, clique em `Voltar`, se não, clique em `Avançar`
 <br>
 
-<img alt="4-revisao" src="" width="400px" />
+<img alt="4-revisao" src="./.imagens/4-revisão.jpg" width="400px" />
 
 <br>
 <br>
 Caso tenha sido escolhido a opção de instalar o **E1_Connect**, um segundo instalador aparecerá na tela, e então basta prosseguir com o processo de instalação padrão.
 <br>
 
-<img alt="5-instalador-connect" src="" width="400px" />
+<img alt="5-instalador-connect" src="./.imagens/5-instalador-connect.jpg" width="400px" />
 
 <br>
 <br>
 Se desejar poderá escolher um caminho específico onde instalar o E1_Connect, porém aconselhável deixar o caminho padrão, e clicar em `Avançar`
 <br>
 
-<img alt="6-selecionar-destino-connect" src="" width="400px" />
+<img alt="6-selecionar-destino-connect" src="./.imagens/6-selecionar-destino-connect.jpg" width="400px" />
 
 <br>
 <br>
 Aqui poderá escolher se ter um atalho na área de trabalho, isso facilitará para poder iniciar o E1_Connect caso seja necessário.
 <br>
 
-<img alt="7-criar-atalho-connect" src="" width="400px" />
+<img alt="7-criar-atalho-connect" src="./.imagens/7-criar-atalho-connect.jpg" width="400px" />
 
 <br>
 <br>
 Nesta tela poderá revisar as opções escolhidas e caso deseje mudar algo, clique em `Voltar`, se não, clique em `Avançar`
 <br>
 
-<img alt="8-revisao-connect" src="" width="400px" />
+<img alt="8-revisao-connect" src="./.imagens/8-revisao-connect.jpg" width="400px" />
 
 <br>
 <br>
 Concluir a instalação no E1_Connect.
 <br>
 
-<img alt="9-concluir-connect" src="" width="400px" />
+<img alt="9-concluir-connect" src="./.imagens/9-concluir-connect.jpg" width="400px" />
 
 <br>
 <br>
 Concluir a instalação do TEF GP
 <br>
 
-<img alt="10-concluir-gp" src="" width="400px" />
+<img alt="10-concluir-gp" src="./.imagens/10-concluir-gp.jpg" width="400px" />
 
 ### Observações
 
@@ -100,7 +100,7 @@ Para acessar as configurações do TEF GP, clique no "reloginho" a direita infer
 
 <br>
 
-<img alt="11-reloginho-configuração" src="" width="400px" />
+<img alt="11-reloginho-configuração" src="./.imagens/11-relogin-configuracao.jpg" width="400px" />
 
 ### Configurações Gerais
 
@@ -110,7 +110,7 @@ Nesse caso é possível também configurar a impressão explicada [aqui](impress
 * **Configuração para display secundário** servirá para quando em uma transação PIX mostrar o QRCode da transação em um dispositivo **Pix4**.
 
 <br>
-<img alt="12-configurações gerais" src="" width="400px" />
+<img alt="12-configurações gerais" src="./.imagens/12-configuracoes-gerais.jpg" width="400px" />
 
 ### Troca de arquivos
 
@@ -118,7 +118,7 @@ Nessa página são escolhidos os caminhos e nomes dos arquivos que serão usados
 Também é possível configurar o comprovante, e opções de TAG028-001 e áspas no comprovante.
 
 <br>
-<img alt="13-conf-troca-de-arquivo" src="" width="400px" />
+<img alt="13-conf-troca-de-arquivo" src="./.imagens/13-conf-troca-de-arquivo.jpg" width="400px" />
 
 ### Atualicação
 
@@ -126,14 +126,14 @@ Também é possível configurar o comprovante, e opções de TAG028-001 e áspas
 * **Configuração de atualização**: quando selecionada, irá realizar a atualização automática do Gerenciador Padrão sempre que ele for iniciado.
 
 <br>
-<img alt="14-conf-atualização" src="" width="400px" />
+<img alt="14-conf-atualização" src="./.imagens/14-conf-atualizacao.jpg" width="400px" />
 
 ### Personalização
 
 Nessa página é possível personalizar o TEF GP como um whitelabel. Colocando suas cores e sua logo. A logo ficará gravado o caminho da imagem selecionada.
 
 <br>
-<img alt="15-conf-pers" src="" width="400px" />
+<img alt="15-conf-pers" src="./.imagens/15-conf-pers.jpg" width="400px" />
 
 ### Impressão TEF Autônomo
 
@@ -145,4 +145,4 @@ No caso do TEF Autônomo, poderá ser configurada a impressão automática do co
 * **Caminho para arquivos PDF**: os PDFs são criados em pastas organizadas por datas, porém você pode escolher onde guardar essas pastas selecionando um caminho nessa opção.
 
 <br>
-<img alt="16-conf-automono" src="" width="400px" />
+<img alt="16-conf-automono" src="./.imagens/16-impressao.jpg" width="400px" />
