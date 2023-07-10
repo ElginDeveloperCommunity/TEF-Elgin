@@ -1,3 +1,13 @@
+# 1.19.00
+
+## Melhorias
+
+* Implementação para operação de TEF Autônomo. Neste modo de operação o sistema não precisa de uma automação para iniciar a transação;
+* Tela de configuração do sistema com as opções de alteração do modo de operação; configurações para operação padrão de troca de arquivos; personalização do sistema; opções de impressão para operação autônoma;
+* Geração de PDF na operação autônoma
+* impressão em impressoras por spooler
+* Instalador do sistema passa a realizar a instalação do cliente tef facilitando o setup do sistema.
+
 # 1.18.00
 
 ## Melhorias
