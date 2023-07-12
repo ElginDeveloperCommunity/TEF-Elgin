@@ -12,7 +12,7 @@
 
 ## Instalação do Elgin TEF GP
 
-Para instalar o **Elgin TEF GP** baixar o arquivo `E1_TEFPassivo-x.exe` e executar em seguida.
+Para instalar o **Elgin TEF GP** baixar o arquivo `Instalador_TEFElgin-x.exe` e executar em seguida.
 <br>
 Será aberta a página inicial do instalador. Se desejar poderá escolher um caminho específico onde instalar o programa, porém aconselhável deixar o caminho padrão, e clicar em `Avançar`
 <br>
