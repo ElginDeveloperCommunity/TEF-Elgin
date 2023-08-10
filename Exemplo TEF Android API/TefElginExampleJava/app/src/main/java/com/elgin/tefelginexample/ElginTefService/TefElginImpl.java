@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.elgin.e1.pagamentos.tef.ElginTef;
+import com.elgin.tefelginexample.ElginTefService.Implementations.DadosPixImpl;
 import com.elgin.tefelginexample.ElginTefService.Implementations.DadosTransacaoImpl;
 import com.elgin.tefelginexample.ElginTefService.Implementations.FinalizarImpl;
 import com.elgin.tefelginexample.ElginTefService.Implementations.InformarValorImpl;
@@ -37,6 +38,7 @@ public class TefElginImpl {
     private final Function<String, Optional<AlertDialog.Builder>> handleDadosTransacao;
 
     private final Function<String, Optional<AlertDialog.Builder>> handleFinalizar;
+    private final Function<String, Optional<AlertDialog.Builder>> handleDadosPIX;
 
     private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -54,9 +56,10 @@ public class TefElginImpl {
             final int INFORMAR_VALOR = 3;
             final int DADOS_TRANSACAO = 4;
             final int FINALIZAR = 5;
+            final int DADOS_IMAGEM_QRCODE_PIX  = 6;
 
             // Cria o novo builder de alert, cada case do switch irá definir o builder que formará o novo alert.
-            Optional<AlertDialog.Builder> newBuilder;
+            Optional<AlertDialog.Builder> newBuilder = null;
 
             // Apenas a situação de mensagem de finalizar não deve possuír a opção de cancelamento, uma vez que a operação já finalizou.
             boolean shouldHaveCancellation = true;
@@ -89,6 +92,11 @@ public class TefElginImpl {
                         final String mensagemProgressoFinalizacao = ElginTef.ObterMensagemProgresso();
 
                         newBuilder = handleFinalizar.apply(mensagemProgressoFinalizacao);
+                        break;
+                    case DADOS_IMAGEM_QRCODE_PIX:
+                        String qrCodeHexa = msg.obj.toString();
+
+                        newBuilder = handleDadosPIX.apply(qrCodeHexa);
                         break;
                     default:
                         throw new AssertionError(msg.what);
@@ -141,6 +149,7 @@ public class TefElginImpl {
         this.handleInformarValor = new InformarValorImpl(mContext);
         this.handleDadosTransacao = new DadosTransacaoImpl();
         this.handleFinalizar = new FinalizarImpl(mContext);
+        this.handleDadosPIX = new DadosPixImpl(mContext);
 
         initTefElginConfiguration(dadosAutomacao, cnpjCpf);
     }

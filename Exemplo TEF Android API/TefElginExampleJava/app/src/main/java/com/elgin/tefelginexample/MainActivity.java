@@ -1,22 +1,14 @@
 package com.elgin.tefelginexample;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
+import static com.elgin.tefelginexample.ElginTefService.TefElginImpl.DadosAutomacao;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.elgin.tefelginexample.ElginTefService.TefElginImpl.*;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
+import com.elgin.e1.Impressora.Termica;
 import com.elgin.e1.pagamentos.tef.ElginTef;
 import com.elgin.tefelginexample.ElginTefService.Masks.InputMaskMoney;
 import com.elgin.tefelginexample.ElginTefService.TefElginImpl;
@@ -33,11 +28,8 @@ import com.elgin.tefelginexample.ElginTefService.TefElginTransactionReturn;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
-import com.elgin.e1.Impressora.Termica;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     // Objeto com implementação do comportamento do TEF.
@@ -72,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Ações disponíveis, correspondente aos botões na tela.
     private enum Acao {
-        VENDA, CANCELAMENTO
+        VENDA, CANCELAMENTO, PIX
     }
 
     // Variáveis de controle de seleção na tela.
@@ -119,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         layoutConfig();
 
         startTefElgin();
+
     }
 
     private void startTefElgin() {
@@ -237,11 +230,23 @@ public class MainActivity extends AppCompatActivity {
         buttonSendTransaction = findViewById(R.id.buttonSendTransactionTEF);
         buttonCancelTransaction = findViewById(R.id.buttonCancelTransactionTEF);
         buttonResetCachedCNPJ = findViewById(R.id.buttonResetCachedCNPJ);
+        buttonPIX = findViewById(R.id.buttonPIX);
 
         buttonSendTransaction.setOnClickListener(v -> {
             if (isEntriesValid()) {
                 try {
                     sendTefElginAction(Acao.VENDA);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new AssertionError(e);
+                }
+            }
+        });
+
+        buttonPIX.setOnClickListener(v -> {
+            if (isEntriesValid()) {
+                try {
+                    sendTefElginAction(Acao.PIX);
                 } catch (Exception e) {
                     e.printStackTrace();
                     throw new AssertionError(e);
@@ -335,6 +340,9 @@ public class MainActivity extends AppCompatActivity {
 
                 ElginTef.RealizarCancelamentoTransacao(treatedvalue, lastElginTefNSU, todayDateAsString);
                 break;
+            case PIX:
+                ElginTef.RealizarTransacaoPIX(treatedvalue);
+                break;
             default:
                 throw new AssertionError(acao); // Ainda não há opção de CONFIGURAÇÃO para o Tef Elgin, a lógica de layout não permite que esta opção seja escolhida.
         }
@@ -402,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
         return !inputTextInstallment.equals("") && Integer.parseInt(inputTextInstallment) > 0;
     }
 
-    private Handler handler = new Handler(Looper.getMainLooper()) {
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
