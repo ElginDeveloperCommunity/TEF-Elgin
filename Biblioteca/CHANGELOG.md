@@ -1,4 +1,4 @@
-# 1.07.01
+# 1.08.00
 ## Fixed
 Retirada a verificação de pendências no método RealizarPixTEF que resolve bug em que não aparecia o qrcode do pix na tela do pinpad.
 
