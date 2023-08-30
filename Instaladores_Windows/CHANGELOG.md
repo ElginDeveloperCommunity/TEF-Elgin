@@ -1,3 +1,18 @@
+# 1.19.04 
+## Correções
+* Ajuste do BUG no arquivo IntPos gerado
+
+# 1.19.02
+## Melhorias
+* Adicionada TAG 011-000
+
+## Correções
+* Ajuste no BUG no arquivo intpos
+
+# 1.19.01
+## Correções
+* Correção case insensitive para nomenclatura arquivo intpos
+
 # 1.19.00
 
 ## Melhorias
@@ -7,6 +22,7 @@
 * Geração de PDF na operação autônoma
 * impressão em impressoras por spooler
 * Instalador do sistema passa a realizar a instalação do cliente tef facilitando o setup do sistema.
+* Endpoint genérico para comunicação direta com GP via formato IntPos (/intpos)
 
 # 1.18.00
 
