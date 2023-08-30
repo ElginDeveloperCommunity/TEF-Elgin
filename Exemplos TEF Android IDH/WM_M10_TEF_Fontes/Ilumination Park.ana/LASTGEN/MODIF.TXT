@@ -1,0 +1,4 @@
+//MO006-007.TXT ANA00006 TO ANA00007
+Termo		TAR	279	new record size: 279
+Termo	nome	RUB+		nome is a new item
+Termo	cpf	RUB+		cpf is a new item

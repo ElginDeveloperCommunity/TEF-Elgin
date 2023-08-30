@@ -1,0 +1,19 @@
+//MO007-008.TXT ANA00007 TO ANA00008
+Termo		TAR	2207	new record size: 2207
+Termo		FCNX+	MyCon	
+Termo	rg	RUB+		rg is a new item
+Termo	fone	RUB+		fone is a new item
+Termo	email	RUB+		email is a new item
+Termo	endereco	RUB+		endereco is a new item
+Termo	bairro	RUB+		bairro is a new item
+Termo	cidade	RUB+		cidade is a new item
+Termo	data	RUB+		data is a new item
+Termo	rubrica	RUB+		rubrica is a new item
+Termo	nome_menor	RUB+		nome_menor is a new item
+Termo	nasc_menor	RUB+		nasc_menor is a new item
+Termo	fone_menor	RUB+		fone_menor is a new item
+Termo	email_menor	RUB+		email_menor is a new item
+Termo	restricao_menor	RUB+		restricao_menor is a new item
+Termo	emergencia_menor	RUB+		emergencia_menor is a new item
+Termo	meia	RUB+		meia is a new item
+Termo	idade	RUB+		idade is a new item

@@ -1,0 +1,3 @@
+//MO001-002.TXT ANA00001 TO ANA00002
+Config		TAR	126	new record size: 126
+Config	Terminal	RUB+		Terminal is a new item

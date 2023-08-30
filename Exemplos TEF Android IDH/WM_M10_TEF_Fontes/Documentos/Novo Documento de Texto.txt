@@ -1,0 +1,5 @@
+///            intent.putExtra("funcao", "credito");
+//            intent.putExtra("valor", "1500");
+//            intent.putExtra("parcelas", "3");
+//            intent.putExtra("financiamento", "3");
+//Tipo do financiamento (A vista(1), parcelado emissor(2) ou parcelado estabelecimento(3))

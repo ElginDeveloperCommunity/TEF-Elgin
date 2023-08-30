@@ -1,0 +1,4 @@
+//MO004-005.TXT ANA00004 TO ANA00005
+Config		TAR	169	new record size: 169
+Config	Cnpj	TAI+	6	new size of item Cnpj: 21 instead of 15
+Config	Operador	TAI+	10	new size of item Operador: 21 instead of 11

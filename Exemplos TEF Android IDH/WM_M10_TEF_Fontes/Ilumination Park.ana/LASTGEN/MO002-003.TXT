@@ -1,0 +1,3 @@
+//MO002-003.TXT ANA00002 TO ANA00003
+Config		TAR	127	new record size: 127
+Config	Kiosque	RUB+		Kiosque is a new item

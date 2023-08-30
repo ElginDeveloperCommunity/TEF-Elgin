@@ -1,0 +1,4 @@
+//MO003-004.TXT ANA00003 TO ANA00004
+Config		TAR	153	new record size: 153
+Config	Cnpj	RUB+		Cnpj is a new item
+Config	Operador	RUB+		Operador is a new item
