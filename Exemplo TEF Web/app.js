@@ -95,6 +95,18 @@ async function cancelamento() {
     if (!cancelamento) return alert('Antes de realizar uma venda\nativar o IDH se Android ou GP se Windows/Linux')
 }
 
+async function pix() {
+    const valor = prompt('Insira um valor em R$ no formato (00.00)', '1.00')
+    const venda = await sendPost('/venda/credito', {
+        valor,
+    })
+
+    if (!venda) return alert('Antes de realizar uma venda\nativar o IDH se Android ou GP se Windows/Linux')
+
+    if (venda.resultado.data !== undefined)
+        historicoVendas.push(venda)
+}
+
 async function intpos_venda() {
     const valor = prompt('Insira um valor em R$ no formato (00.00)', '1.00')
     await sendPost('/intpos', {
