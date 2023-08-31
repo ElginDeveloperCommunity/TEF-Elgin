@@ -1,4 +1,7 @@
 # 1.19.04 
+## Melhorias
+* Adicionado endpoint pix para Tef Web
+
 ## Correções
 * Ajuste do BUG no arquivo IntPos gerado
 

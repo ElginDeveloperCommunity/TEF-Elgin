@@ -1,3 +1,7 @@
+# 2.0.1
+## Melhorias
+* Adicionado endpoint pix para Tef Web
+
 # 2.0.0
 
 ## Melhorias
