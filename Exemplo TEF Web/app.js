@@ -97,7 +97,7 @@ async function cancelamento() {
 
 async function pix() {
     const valor = prompt('Insira um valor em R$ no formato (00.00)', '1.00')
-    const venda = await sendPost('/venda/credito', {
+    const venda = await sendPost('/pix', {
         valor,
     })
 
