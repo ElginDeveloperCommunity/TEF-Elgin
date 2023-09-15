@@ -1,3 +1,19 @@
+# 1.19.08
+## Melhoria
+* Melhoria no iniciar / finalizar operação TEF
+
+# 1.19.07
+## Correção
+* Ajustes finos na funcionalidades da TAG 011-000
+
+# 1.19.06
+## Melhorias
+* Geração e abertura de arquivo PDF no GP
+
+# 1.19.05
+## Correção
+* Atualização do componente E1_Connect para versão mais recente no instalador
+
 # 1.19.04 
 ## Melhorias
 * Adicionado endpoint pix para Tef Web
