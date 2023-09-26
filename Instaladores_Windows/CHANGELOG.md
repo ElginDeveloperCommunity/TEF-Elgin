@@ -1,3 +1,11 @@
+# 1.19.10
+## Melhoria
+* Atualização do Client TEF utilizado pelo instalador
+
+# 1.19.09
+## Correção
+* Correção no envio do pacote "finalizar"
+
 # 1.19.08
 ## Melhoria
 * Melhoria no iniciar / finalizar operação TEF
