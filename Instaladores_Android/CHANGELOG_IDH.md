@@ -1,4 +1,10 @@
-# 2.0.1
+# 2.01.01
+
+## Melhorias
+* Aumento no tamanho do QRCode PIX
+
+# 2.01.00
+
 ## Melhorias
 * Adicionado endpoint pix para Tef Web
 
