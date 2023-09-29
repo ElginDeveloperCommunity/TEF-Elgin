@@ -1,3 +1,7 @@
+# 1.19.11
+## Correção
+* Retirados arquivos da versão antiga que atrapalham a instalação do novo client 
+
 # 1.19.10
 ## Melhoria
 * Atualização do Client TEF utilizado pelo instalador
