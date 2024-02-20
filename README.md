@@ -3,7 +3,8 @@
 
 ## Documentação
 [Link para a Documentação do ElginTEF](https://elgindevelopercommunity.github.io/group__g7.html)
-[Como instalar e atualizar o TEF Elgin]([https://elgindevelopercommunity.github.io/group__g7.html](https://github.com/ElginDeveloperCommunity/TEF-Elgin/wiki/Instalando-e-Atualizando-TEF-Elgin))
+
+[Como instalar e atualizar o TEF Elgin](https://github.com/ElginDeveloperCommunity/TEF-Elgin/wiki/Instalando-e-Atualizando-TEF-Elgin)
 
 ## Elgin TEF
 O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
