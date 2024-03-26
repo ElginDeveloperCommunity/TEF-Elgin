@@ -6,6 +6,20 @@
 
 [Como instalar e atualizar o TEF Elgin](https://github.com/ElginDeveloperCommunity/TEF-Elgin/wiki/Instalando-e-Atualizando-TEF-Elgin)
 
+## Requisitos de sistema operacional:
+* Windows: Versões que estejam dentro da vigencia de suporte da Microsoft.
+* Linux:
+  * Ubuntu 18.04.6
+  * Ubuntu 20.04.6
+  * Ubuntu 22.04.6
+* Android: 7 ou superior.
+* ARM:
+  * Raspberry 2B - Debian Bullseye
+  * Raspberry 3B - Debian Bullseye
+  * Raspberry 4 - Debian Bullseye
+  * Raspberry 4B - Ubuntu 20.04
+   
+  
 ## Elgin TEF
 O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
 
