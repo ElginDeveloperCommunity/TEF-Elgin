@@ -6,18 +6,23 @@
 
 [Como instalar e atualizar o TEF Elgin](https://github.com/ElginDeveloperCommunity/TEF-Elgin/wiki/Instalando-e-Atualizando-TEF-Elgin)
 
-## Requisitos de sistema operacional:
-* Windows: Versões que estejam dentro da vigencia de suporte da Microsoft.
+## Requisitos para instalação:
+* Windows:
+  * Versões que estejam dentro da vigencia de suporte da Microsoft.
+  * Hardware: 4GB de RAM disponível. 80 GB de espaço disponível em disco.
 * Linux:
-  * Ubuntu 18.04.6
-  * Ubuntu 20.04.6
-  * Ubuntu 22.04.6
-* Android: 7 ou superior.
+  * Ubuntu: Versões LTS à partir da 18. (Ubuntu 18.04.6, 20.04.6 ou Ubuntu 22.04.6)
+  * Debian: 9 ou superior.
+  * Linux Lite: 6.6 ou superior.
+  * Arch: "Rolling release" oficial, garatindo que os pacotes adicionais estejam atualizados.
+  *  Hardware: 4GB de RAM disponível. 80 GB de espaço disponível em disco.
+* Android:
+  * Versão 7 ou superior.
+  * Hardware: 2GB de RAM. 16GB de espaço em disco.
 * ARM:
-  * Raspberry 2B - Debian Bullseye
-  * Raspberry 3B - Debian Bullseye
-  * Raspberry 4 - Debian Bullseye
-  * Raspberry 4B - Ubuntu 20.04
+  * Debian Bullseye, para Rasp 2B, 3B e 4.
+  * Ubuntu 20.04 para Rasp 4B.
+  * Hardware: Placas Rasp 2B, 3B, 4 e 4B.
    
   
 ## Elgin TEF
