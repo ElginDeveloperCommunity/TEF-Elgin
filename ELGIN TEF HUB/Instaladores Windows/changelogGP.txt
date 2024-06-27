@@ -1,0 +1,12 @@
+# Changelog - GP Versão 99.12.00
+
+## Adicionado
+- Débito Pré-datado (card #1956)
+- Débito Parcelado (card #1956)
+
+## Corrigido
+- Fluxo de confirmação para Tef Web (card #1951)
+
+## Alterado
+- Exe E1_Contingencia atualizado para versão 01.00.04
+- Lib E1_Tef atualizada para versão 99.12.00

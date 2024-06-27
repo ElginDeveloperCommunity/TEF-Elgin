@@ -1,0 +1,12 @@
+# Changelog - E1_Tef Versão 99.12.00
+
+## Adicionado
+- Débito Pré-datado (card #1956)
+- Débito Parcelado (card #1956)
+
+## Corrigido
+- Fluxo de confirmação para Tef Web (card #1951)
+
+## Alterado
+- Melhorias no processo de contingência: parametrização GPC (card #1948)
+- Melhorias no processo de reimpressão: padronização com Destaxa (card #1948)
