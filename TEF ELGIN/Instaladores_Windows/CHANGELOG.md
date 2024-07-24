@@ -1,3 +1,9 @@
+# 1.25.00
+## Melhoria
+* Atualização do client TEF para a versão 4.3.9
+* Ajustes para informar a data de pré-datado - BANRISUL
+*
+
 # 1.19.11
 ## Correção
 * Retirados arquivos da versão antiga que atrapalham a instalação do novo client 
