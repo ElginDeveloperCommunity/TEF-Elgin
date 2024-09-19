@@ -30,7 +30,156 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 -->
 # Release Notes - GP TEFHUB
 ----------------------------------------------
-<!-- Adiciona novas entradas abaixo deste comentário -->
+<!-- Adicionar novas entradas abaixo deste comentário -->
+
+## 10/09/2024 - v02.21.03
+
+### Melhorias
+- Atualização da lib E1_Tef para versão 02.21.02
+  - Versão 02.21.02 da E1_Tef possui melhorias no fluxo de inicialização do provider 3.
+
+### Correções
+- Correção na versão do provider 5 instalado.
+ - Anexa versão 4.3.9 ao fluxo de instalação.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.21.02    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 10/09/2024 - v02.21.02
+
+### Melhorias
+- Adiciona retorno de código do bin.
+  - IntPos de saída passa a retornar a TAG 010-004 com o bin do cartão.
+- Mantem uma cópia do arquivo de dll E1_TEF com nome antigo.
+  - Realiza uma cópia da DLL E1_TEF com a nomenclatura antiga (E1_Tef01.dll) para manter retrocompatibilidade.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.21.01    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 06/09/2024 - v02.21.01
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.21.01.
+  - Nessa versão foi feita uma correção no CDC pelo provedor #3.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.21.01    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 04/09/2024 - v02.21.00
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.21.00.
+  - Nessa versão foi implementada a funcionalidade "Relatório".
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.21.00    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 23/08/2024 - v99.20.01
+
+### Melhorias
+- Atualização da lib do ETH para versão 99.20.01.
+  - Nessa versão foram realizados ajustes finos na integração com provedor #5.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 99.20.01    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.00.04    |
+| E1_UPLOADER | 01.00.07    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 20/08/2024 - v99.20.00
+
+### Melhorias
+- Atualização de dependências do GP.
+  - Libs E1_TEF, E1_ETX e E1_UPLOADER atualizadas para as versões 99.20.00, 03.07.00 e 01.00.07, respectivamente.
+  - Nessa versão houve a integração do provedor #5 e a migração do TEF Elgin para o Elgin TEFHUB.
+
+- Melhorias no instalador.
+  - Adicionado o módulo do provedor #5, versão 4.3.9.
+  - Suporte ao provedor #5 no script de instalação.
+
+### Correções
+- Correções no modulo E1_Connect - TEFWEB
+  - Correção no envio de data e nsu da transação de cancelamento.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 99.20.00    |
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.00.04    |
+| E1_UPLOADER | 01.00.07    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
 ## 05/08/2024 - v99.17.02
 
 ### Melhorias
