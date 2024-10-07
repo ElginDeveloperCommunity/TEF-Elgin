@@ -18,11 +18,14 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_ETX      | 03.06.00    |
-| E1_UPDATER  | 01.00.04    |
-| E1_UPLOADER | 01.00.06    |
-| Provider 2  | 1.4.11      |
-| Provider 3  | C041901-D00 |
+| E1_TEF      | 02.22.01    |
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
 
 ----------------------------------------------
 
@@ -32,6 +35,54 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 ----------------------------------------------
 <!-- Adicionar novas entradas abaixo deste comentário -->
 
+## 26/09/2024 - v02.22.01
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.22.01.
+  - Nessa versão foram realizadas melhorias no envio de dados aos servidores Elgin e ajustes nos comprovantes das transações.
+- Alteração em label do instalador.
+  - A frase "Piloto contactless BIN" foi alterada para "Contactless BIN".
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.22.01    |
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 24/09/2024 - v02.22.00
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.22.00.
+  - Nessa versão foram aplicadas novas melhorias no provedor #3.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.22.00    |
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
 ## 10/09/2024 - v02.21.03
 
 ### Melhorias
@@ -40,7 +91,7 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 ### Correções
 - Correção na versão do provider 5 instalado.
- - Anexa versão 4.3.9 ao fluxo de instalação.
+  - Anexa versão 4.3.9 ao fluxo de instalação.
 
 ### Componentes
 
@@ -56,6 +107,7 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 | Provider 5  | 4.3.9       |
 
 ----------------------------------------------
+
 ## 10/09/2024 - v02.21.02
 
 ### Melhorias

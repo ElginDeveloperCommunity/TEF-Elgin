@@ -18,11 +18,12 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_ETX      | 03.06.00    |
-| E1_UPDATER  | 01.00.04    |
-| E1_UPLOADER | 01.00.06    |
-| Provider 2  | 1.4.11      |
-| Provider 3  | C041901-D00 |
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
 
 ----------------------------------------------
 
@@ -31,6 +32,161 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - Lib E1_TEF
 ----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
+
+## 26/09/2024 - v02.22.01
+
+### Melhorias
+- Envio de dados presentes no arquivo de configuração da biblioteca para os servidores Elgin.
+  - Os dados sobre o PDV configurados na biblioteca, através do método *ConfigurarDadosPDV* ou editando diretamente o arquivo, agora também são enviados aos servidores de parametrização e histórico.
+- Inclusão do "Identificador do Terminal" no comprovante das transações.
+  - A última linha dos comprovantes gerados agora possuem a informação do "Identificador do Terminal" (no formato "PDV: ID"), correspondente ao parâmetro "identificadorPontoCaptura" do método *ConfigurarDadosPDV* e à chave de mesmo nome do arquivo de configuração da biblioteca.
+
+### Correções
+- Comprovante incompleto que era retornado em casos de transação negada.
+  - A biblioteca somente retornará os comprovantes das transações caso estas sejam recebidas de seus provedores, tipicamente em caso de transação aprovada.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 23/09/2024 - v02.22.00
+
+### Melhorias
+- Melhorias adicionais na inicialização das vendas no provedor #3.
+  - Remoção da dependência "pinpad.dll" / "pinpad.so" e mudanças no tratamento do pinpad, acarretando um melhor tempo no início das operações.
+
+### Correções
+- Crash ao migrar do provedor #3 para outro provedor.
+  - A biblioteca "pinpad.dll" / "pinpad.so", responsável pelo bug que causava esse crash, foi removida.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042000-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 17/09/2024 - v02.21.02
+
+### Melhorias
+- Tempo de inicialização das vendas no provedor #3.
+  - A configuração do provedor #3 agora é realizada apenas na inicialização da 1a transação, melhorando o desempenho das próximas operações.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 06/09/2024 - v02.21.01
+
+### Melhorias
+
+### Correções
+- Data da 1a parcela sendo solicitada mais de uma vez no CDC pelo provedor #3.
+  - Nessa versão foi corrigida a situação onde a "data da 1a parcela" era solicitada mais de uma vez quando uma venda débito parcelado (CDC) era realizada atráves do provedor #3.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 04/09/2024 - v02.21.00
+
+### Melhorias
+- Implementação da funcionalidade "Relatório".
+  - Nessa versão foi implementado o "Relatório", comum a todos os provedores, onde o usuário pode consultar todas as transações realizadas numa determinada data.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 23/08/2024 - v99.20.01
+
+### Melhorias
+- Ajustes na integração com provedor #5:
+  - Melhoria no layout dos comprovantes;
+  - Remoção da mensagem sobre transações pendentes que aparecia no início das vendas;
+  - Texto default para mostrar no pinpad caso nenhum tenha sido informado pelo usuário.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.00.04    |
+| E1_UPLOADER | 01.00.07    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 20/08/2024 - v99.20.00
+
+### Melhorias
+- Integração do provedor #5 e migração do TEF Elgin para o Elgin TEFHUB.
+  - Nessa versão o provedor #5 e os recursos presentes no TEF Elgin foram migrados para o Elgin TEFHUB, formando um único pacote padronizado.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 03.07.00    |
+| E1_UPDATER  | 01.00.04    |
+| E1_UPLOADER | 01.00.07    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C041901-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
 
 ## 30/07/2024 - v99.16.01
 
