@@ -1,0 +1,24 @@
+program projexemplo;
+
+uses
+  Vcl.Forms,
+  uprinc in 'uprinc.pas' {frmprinc},
+  uconfig in 'uconfig.pas' {frmconfig},
+  udm in 'udm.pas' {dm: TDataModule},
+  tbotao in 'classes\tbotao.pas',
+  uPayerGateWayTEF in 'classes\uPayerGateWayTEF.pas',
+  uescpos in 'classes\uescpos.pas',
+  uwebtefpayer in 'classes\uwebtefpayer.pas' {frmwebtefpayer},
+  urelatorio in 'urelatorio.pas' {frmrelatorio};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(Tfrmprinc, frmprinc);
+  Application.CreateForm(Tdm, dm);
+//  Application.CreateForm(Tfrmrelatorio, frmrelatorio);
+  //  Application.CreateForm(Tfrmwebtefpayer, frmwebtefpayer);
+  Application.Run;
+end.

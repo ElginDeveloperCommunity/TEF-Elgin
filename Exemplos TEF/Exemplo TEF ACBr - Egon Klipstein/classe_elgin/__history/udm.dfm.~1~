@@ -1,0 +1,183 @@
+object dm: Tdm
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 330
+  Width = 503
+  object tblconf: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 32
+    Top = 32
+    object tblconfCompanhia: TStringField
+      FieldName = 'Companhia'
+      Size = 6
+    end
+    object tblconfLoja: TStringField
+      FieldName = 'Loja'
+      Size = 6
+    end
+    object tblconfPDV: TStringField
+      FieldName = 'PDV'
+      Size = 6
+    end
+    object tblconfNomeAutomacao: TStringField
+      FieldName = 'NomeAutomacao'
+      Size = 50
+    end
+    object tblconfCallBackPAYER: TStringField
+      FieldName = 'CallBackPAYER'
+      Size = 200
+    end
+    object tblconfLogin: TStringField
+      FieldName = 'Login'
+      Size = 60
+    end
+    object tblconfSenha: TStringField
+      FieldName = 'Senha'
+      Size = 30
+    end
+    object tblconfComprovanteCliente: TIntegerField
+      FieldName = 'ComprovanteCliente'
+    end
+    object tblconfComprovanteLoja: TIntegerField
+      FieldName = 'ComprovanteLoja'
+    end
+    object tblconfComprovanteReduzidoCliente: TIntegerField
+      FieldName = 'ComprovanteReduzidoCliente'
+    end
+    object tblconfComprovanteReduzidoLoja: TStringField
+      FieldName = 'ComprovanteReduzidoLoja'
+    end
+    object tblconfSalvarLOG: TBooleanField
+      FieldName = 'SalvarLOG'
+    end
+    object tblconfIMPRESSORAPortaNome: TStringField
+      FieldName = 'IMPRESSORAPortaNome'
+      Size = 100
+    end
+    object tblconfIMPRESSORAModelo: TIntegerField
+      FieldName = 'IMPRESSORAModelo'
+    end
+    object tblconfIMPRESSORAAvanco: TIntegerField
+      FieldName = 'IMPRESSORAAvanco'
+    end
+  end
+  object tbltef: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 32
+    Top = 104
+    object tbltefcorrelationId: TStringField
+      FieldName = 'correlationId'
+      Size = 50
+    end
+    object tbltefidPayer: TStringField
+      FieldName = 'idPayer'
+      Size = 30
+    end
+    object tbltefpaymentProvider: TStringField
+      FieldName = 'paymentProvider'
+      Size = 30
+    end
+    object tbltefacquirer: TStringField
+      FieldName = 'acquirer'
+      Size = 50
+    end
+    object tbltefflag: TStringField
+      FieldName = 'flag'
+      Size = 30
+    end
+    object tbltefoperationType: TStringField
+      FieldName = 'operationType'
+      Size = 30
+    end
+    object tbltefcompanyId: TStringField
+      FieldName = 'companyId'
+      Size = 10
+    end
+    object tbltefstoreId: TStringField
+      FieldName = 'storeId'
+      Size = 10
+    end
+    object tbltefterminalId: TStringField
+      FieldName = 'terminalId'
+      Size = 10
+    end
+    object tbltefvalue: TFloatField
+      FieldName = 'value'
+    end
+    object tbltefpaymentMethod: TStringField
+      FieldName = 'paymentMethod'
+      Size = 30
+    end
+    object tbltefpaymentType: TStringField
+      FieldName = 'paymentType'
+      Size = 30
+    end
+    object tbltefpaymentMethodSubType: TStringField
+      FieldName = 'paymentMethodSubType'
+      Size = 30
+    end
+    object tbltefinstallments: TIntegerField
+      FieldName = 'installments'
+    end
+    object tbltefcardNumber: TStringField
+      FieldName = 'cardNumber'
+      Size = 30
+    end
+    object tbltefpaymentDate: TStringField
+      FieldName = 'paymentDate'
+      Size = 30
+    end
+    object tblteftransactionDateTime: TStringField
+      FieldName = 'transactionDateTime'
+      Size = 30
+    end
+    object tbltefthirdPartyId: TStringField
+      FieldName = 'thirdPartyId'
+      Size = 30
+    end
+    object tbltefauthorizerId: TStringField
+      FieldName = 'authorizerId'
+      Size = 30
+    end
+    object tbltefauthorizerUsn: TStringField
+      FieldName = 'authorizerUsn'
+      Size = 30
+    end
+    object tbltefdocumentNumber: TStringField
+      FieldName = 'documentNumber'
+      Size = 30
+    end
+    object tbltefshopTextReceipt: TMemoField
+      FieldName = 'shopTextReceipt'
+      BlobType = ftMemo
+    end
+    object tbltefcustomerTextReceipt: TMemoField
+      FieldName = 'customerTextReceipt'
+      BlobType = ftMemo
+    end
+    object tbltefreducedShopPaymentReceipt: TMemoField
+      FieldName = 'reducedShopPaymentReceipt'
+      BlobType = ftMemo
+    end
+    object tbltefreducedCustomerPaymentReceipt: TMemoField
+      FieldName = 'reducedCustomerPaymentReceipt'
+      BlobType = ftMemo
+    end
+    object tbltefrejectionCode: TStringField
+      FieldName = 'rejectionCode'
+      Size = 30
+    end
+    object tbltefrejectionMessage: TStringField
+      FieldName = 'rejectionMessage'
+      Size = 100
+    end
+  end
+  object dtstef: TDataSource
+    AutoEdit = False
+    DataSet = tbltef
+    Left = 80
+    Top = 106
+  end
+end

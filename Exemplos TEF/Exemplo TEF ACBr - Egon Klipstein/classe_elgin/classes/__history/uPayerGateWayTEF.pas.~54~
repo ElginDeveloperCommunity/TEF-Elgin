@@ -1,0 +1,1315 @@
+unit uPayerGateWayTEF;
+
+interface
+
+Uses
+   IPPeerClient,
+   IPPeerCommon,
+   RestRequest4d,
+   ACBrPosPrinter,
+   ACBrImage,
+   uescpos,
+   uwebtefmp,
+   synacode,
+   System.JSON,
+   System.SysUtils,
+   System.Classes,
+   system.DateUtils,
+   Vcl.forms;
+
+type
+   //---------------------------------------------------------------------------
+   TPayerrejectionInfo = record
+      rejectionCode    : string;
+      rejectionMessage : string;
+   end;
+   //---------------------------------------------------------------------------
+   TPayerRetornoTEF = record
+     correlationId                 : string;
+     idPayer                       : string;
+     paymentProvider               : string;
+     acquirer                      : string;
+     flag                          : string;
+     statusTransaction             : string;
+     operationType                 : string;
+     companyId                     : string;
+     storeId                       : string;
+     terminalId                    : string;
+     value                         : real;
+     paymentMethod                 : string;
+     paymentType                   : string;
+     paymentMethodSubType          : string;
+     installments                  : string;
+     cardNumber                    : string;
+     paymentDate                   : string;
+     transactionDateTime           : string;
+     thirdPartyId                  : string;
+     authorizerId                  : string;
+     authorizerUsn                 : string;
+     documentNumber                : string;
+     shopTextReceipt               : string;
+     customerTextReceipt           : string;
+     reducedShopPaymentReceipt     : string;
+     reducedCustomerPaymentReceipt : string;
+     rejectionInfo                 : TPayerrejectionInfo;
+     ComprovanteLoja               : TStringList;
+     ComprovanteCliente            : TStringList;
+     ComprovanteLojaReduzido       : TStringList;
+     ComprovanteClienteReduzido    : TStringList;
+   end;
+   //---------------------------------------------------------------------------
+   TPayerIDToken = record
+      IDToken  : string;
+      Validade : integer;
+      Expiraem : TDateTime;
+   end;
+   //---------------------------------------------------------------------------
+   TTpPayerCartaoOperacaoTEF  = (tpPayerEscolher , tpPayerCredito, tpPayerCreditoVista , tpPayerCreditoParceladoADM , tpPayerCreditoParceladoLoja , tpPayerDebito, tpPayerDebitovISTA, tpPayerDebitoPRE, tpPayerValeAlimentacao, tpPayerValeRefeicao, tpPayerFrota, tpPayerPIX);
+   //---------------------------------------------------------------------------
+   TtpPayerImpressao          = (tpiPayerImprimir, tpiPayerPerguntar , tpiPayerNaoImprimir);
+   //---------------------------------------------------------------------------
+   TPayerGateWayTEF = class
+      const
+         PayerHOSTLogin          = 'https://bk07exvx19.execute-api.us-east-1.amazonaws.com/dev-stage/oauth/login';
+         PayerHOSTRequest        = 'https://v4kugeekeb.execute-api.us-east-1.amazonaws.com/prod-stage/cloud-notification/create';
+      private
+         //---------------------------------------------------------------------
+         LSalvarLOG  : boolean;  // Flag para definir o salvamento dos LOGs
+         LExecutando : boolean;  // Esta variável permanece TRUE enquanto o TEF tá executando
+         //---------------------------------------------------------------------
+         LComprovanteCliente         : TtpPayerImpressao; // A impressão do comprovante do cliente é automática, pergunta ou não imprimir
+         LComprovanteLoja            : TtpPayerImpressao; // A impressão do comprovante da loja é automática, pergunta ou não imprimir
+         LComprovanteLojaReduzido    : TtpPayerImpressao; // Impressão do comprovante reduzido da loja
+         LComprovanteClienteReduzido : TtpPayerImpressao; // Impressão do comprovante reduzido do cliente
+         //----------------------------------------------------------------------
+         LTpOperacaoTEF : TTpPayerCartaoOperacaoTEF;    // Qual o tipo de operação o TEF vai executar - Cartão de credito, débito, etc
+         LValor         : real;                         // Valor da operação
+         LForma         : string;                       // Forma de pagamento descritiva para ser apresentada na tela de transacionamento
+         LParcelas      : integer;   // Quantidade de parcelas
+         LCorrelationId : string;    // Identificador para fazer a consulta pelo sistema de TEF - NSU Local - Gerado automaticamente pela classe
+         LIDPayer       : string;    //  ID Payer para cancelamento de operação
+         //---------------------------------------------------------------------
+         //   Configuração de Modelo da impressora
+         //---------------------------------------------------------------------
+         LPortaImpressora      : string;   // Porta da impressora
+         LAvanco               : integer;  // Linhas de avanço ao concluir a impressão
+         LModeloImpressoraACBR : TACBrPosPrinterModelo; // Modelo da impressora
+         LPaginaDeCodigo       : TACBrPosPaginaCodigo;
+         //---------------------------------------------------------------------
+         LCancelamentoExectado : boolean; // Cancelamento foi ou n~~ao executado
+         LPagamentoExectado    : boolean; // Cancelamento foi ou n~~ao executado
+         //---------------------------------------------------------------------
+         LUserName      : string;  // Email para LOGIN
+         LPassword      : string;  // Senha
+         LCompanyId     : string;  // ID da companhia
+         LStoreId       : string;  // Código da Loja
+         LTerminalId    : string;  // Numero do Terminal
+         LIdToken       : string;  // Token de autorização
+         LValidade      : integer; // Validade Token de autorização
+         //---------------------------------------------------------------------
+         LHOSTCallBack : string;   // Host para CALLBACK
+         LHOSTResponse : string;    // Host para consulta do pooling
+         //---------------------------------------------------------------------
+         LPayerRetornoTEF   : TPayerRetornoTEF; // Conteúdo do retorno na
+         //---------------------------------------------------------------------
+         procedure SA_SalvarLog(titulo,dado: string);
+         procedure SA_Inicializar_ESCPOS;
+         function SA_GerarJsonREQ : string;
+         function SA_GerarDataPGTO: string;
+         function SA_ConsultarCallBack:TJSONValue;
+         function SA_TransformPayer(valor:real):string;
+         procedure SA_ParsingResponsePAYER(RespJSON: TJSONValue);
+         procedure SA_LimparResponsePAYER;
+         function SA_GerarJsonCANC: string;
+         function transform(valor:real):string;
+         function SA_Codificar_Chave_MSSC:string;
+         procedure SA_Salva_Arquivo_Incremental(linha,nome_arquivo:string);
+         //---------------------------------------------------------------------
+     public
+        //----------------------------------------------------------------------
+        GerenciadorImpressao : TESCPos;
+        //----------------------------------------------------------------------
+        constructor Create();
+        destructor Destroy(); override;
+        procedure SA_ProcessarPagamento;
+        procedure SA_FazerLogin;
+        procedure SA_CancelarTransacao;
+        //----------------------------------------------------------------------
+        property SalvarLOG  : boolean read LSalvarLOG write LSalvarLOG;  // Flag para definir o salvamento dos LOGs
+        property Executando : boolean read LExecutando write LExecutando;  // Esta variável permanece TRUE enquanto o TEF tá executando
+        //---------------------------------------------------------------------
+        property ComprovanteCliente         : TtpPayerImpressao read LComprovanteCliente         write LComprovanteCliente; // A impressão do comprovante do cliente é automática, pergunta ou não imprimir
+        property ComprovanteLoja            : TtpPayerImpressao read LComprovanteLoja            write LComprovanteLoja; // A impressão do comprovante da loja é automática, pergunta ou não imprimir
+        property ComprovanteLojaReduzido    : TtpPayerImpressao read LComprovanteLojaReduzido    write LComprovanteLojaReduzido; // Impressão do comprovante reduzido da loja
+        property ComprovanteClienteReduzido : TtpPayerImpressao read LComprovanteClienteReduzido write LComprovanteClienteReduzido; // Impressão do comprovante reduzido do cliente
+        //----------------------------------------------------------------------
+        property TpOperacaoTEF : TTpPayerCartaoOperacaoTEF read LTpOperacaoTEF write LTpOperacaoTEF;
+        property Valor         : real                      read LValor         write LValor;
+        property Forma         : string                    read LForma         write LForma;
+        property Parcelas      : integer                   read LParcelas      write LParcelas;   // Quantidade de parcelas
+        property CorrelationId : string                    read LCorrelationId write LCorrelationId;    // Identificador para fazer a consulta pelo sistema de TEF - NSU Local
+        property IDPayer       : string                    read LIDPayer       write LIDPayer;   //  ID Payer para cancelamento de operação
+        //----------------------------------------------------------------------
+        property HOSTCallBack      : string read LHOSTCallBack write LHOSTCallBack;  // Host para callback
+        property HOSTResponse      : string read LHOSTResponse write LHOSTResponse;    // Host para consulta do pooling
+        //----------------------------------------------------------------------
+        //   Configuração de Modelo da impressora
+        //----------------------------------------------------------------------
+        property PortaImpressora      : string                read LPortaImpressora      write LPortaImpressora;   // Porta da impressora
+        property Avanco               : integer               read LAvanco               write LAvanco;  // Linhas de avanço ao concluir a impressão
+        property ModeloImpressoraACBR : TACBrPosPrinterModelo read LModeloImpressoraACBR write LModeloImpressoraACBR; // Modelo da impressora
+        property PaginaDeCodigo       : TACBrPosPaginaCodigo  read LPaginaDeCodigo       write LPaginaDeCodigo;
+        //----------------------------------------------------------------------
+        property CancelamentoExectado : boolean read LCancelamentoExectado write LCancelamentoExectado; // Cancelamento foi ou n~~ao executado
+        property PagamentoExectado    : boolean read LPagamentoExectado    write LPagamentoExectado; // Cancelamento foi ou n~~ao executado
+        //----------------------------------------------------------------------
+        property UserName      : string read LUserName   write LUserName;  // Email
+        property Password      : string read LPassword   write LPassword; // Senha
+        property CompanyId     : string read LCompanyId  write LCompanyId; // ID da companhia
+        property StoreId       : string read LStoreId    write LStoreId; // Código da Loja
+        property TerminalId    : string read LTerminalId write LTerminalId; // Numero do Terminal
+        property IdToken       : string read LIdToken    write LIdToken; // Token de autorização
+        property Validade      : integer read LValidade  write LValidade; // Validade Token de autorização
+        //----------------------------------------------------------------------
+        property PayerRetornoTEF : TPayerRetornoTEF read LPayerRetornoTEF write LPayerRetornoTEF; // Conteúdo do retorno na
+        //----------------------------------------------------------------------
+   end;
+
+
+implementation
+
+{ TPayerGateWayTEF }
+
+constructor TPayerGateWayTEF.Create;
+begin
+   //---------------------------------------------------------------------------
+   LExecutando        := true;
+   //---------------------------------------------------------------------------
+   SA_Inicializar_ESCPOS;
+   //---------------------------------------------------------------------------
+   inherited;
+   //---------------------------------------------------------------------------
+end;
+
+destructor TPayerGateWayTEF.Destroy;
+begin
+   GerenciadorImpressao.free;
+   LPayerRetornoTEF.ComprovanteLoja.Free;
+   LPayerRetornoTEF.ComprovanteCliente.Free;
+   LPayerRetornoTEF.ComprovanteLojaReduzido.Free;
+   LPayerRetornoTEF.ComprovanteClienteReduzido.Free;
+  inherited;
+end;
+
+procedure TPayerGateWayTEF.SA_CancelarTransacao;
+var
+   //---------------------------------------------------------------------------
+   JsonREQ      : string;
+   LResponse    : IResponse;
+   RetornoJSON  : TJSONValue;
+   Statuscode   : string;
+   //---------------------------------------------------------------------------
+   sair              : boolean;
+   hi                : TDateTime;
+   dhEnvio           : TDateTime;
+   dhUltImp          : TDateTime;
+   Imprimir          : boolean;
+   SairLoopImpressao : boolean;
+   //---------------------------------------------------------------------------
+begin
+   //---------------------------------------------------------------------------
+   //   Iniciando a tela de TEF
+   //---------------------------------------------------------------------------
+   Application.CreateForm(Tfrmwebtefpayer, frmwebtefpayer);
+   frmwebtefpayer.DoubleBuffered   := true;
+   frmwebtefpayer.Cancelar         := false;
+   frmwebtefpayer.lbforma.Caption  := LForma;
+   frmwebtefpayer.lbvalor.Caption  := transform(LValor);
+   frmwebtefpayer.Show;
+   //---------------------------------------------------------------------------
+   TThread.CreateAnonymousThread(procedure
+      begin
+         //---------------------------------------------------------------------
+         //   Inicializar TEF
+         //---------------------------------------------------------------------
+         TThread.Synchronize(TThread.CurrentThread,
+            procedure
+               begin
+                  frmwebtefpayer.mensagem := 'Inicializando TEF...';
+                  SA_Mostrar_Mensagem(true);
+               end);
+         //------------------------------------------------------------------------
+         JSONReq := SA_GerarJsonCANC;
+         SA_SalvarLog('CANCELAMENTO',JSONReq);
+         //------------------------------------------------------------------------
+         LResponse := TRequest.New.BaseURL(PayerHOSTRequest)
+                        .AddBody(JSonREQ)
+                        .AddHeader('Authorization',LIdToken)
+                        .Accept('application/json')
+                        .Post;
+         SA_SalvarLog('RETORNO CANCELAMENTO',LResponse.StatusCode.ToString+' - '+LResponse.Content);
+         //---------------------------------------------------------------------
+         hi       := now;
+         dhEnvio  := now;
+         dhUltImp := now;
+         sair     := false;
+         LCancelamentoExectado := false;
+         while not sair do
+            begin
+               //---------------------------------------------------------------
+               //  Fazendo pooling no host de CALLBACK
+               //---------------------------------------------------------------
+               if SecondsBetween(now,dhUltImp)>=1 then
+                  begin
+                     //---------------------------------------------------------
+                     dhUltImp := now;
+                     TThread.Synchronize(TThread.CurrentThread,
+                        procedure
+                           begin
+                              frmwebtefpayer.mensagem := 'Aguardando pagamento '+inttostr(SecondsBetween(now,dhEnvio));
+                              SA_Mostrar_Mensagem(true);
+                           end);
+                     //---------------------------------------------------------
+                  end;
+               if SecondsBetween(now,hi)>3 then // passaram-se mais de 3 segindos da última consulta
+                  begin
+                     hi := now;
+                     //---------------------------------------------------------
+                     RetornoJSON := SA_ConsultarCallBack;
+                     statuscode  := RetornoJSON.GetValue<string>('statuscode','');
+                     if statuscode='' then  // Operação concluida com sucesso - Processar o retorno
+                        begin
+                           //---------------------------------------------------
+                           //   Processar o retorno da operação pela PAYER
+                           //---------------------------------------------------
+                           if RetornoJSON.GetValue<string>('correlationId','')<>'' then
+                              begin
+                                 //---------------------------------------------
+                                 SA_ParsingResponsePAYER(RetornoJSON);   // Desmontando o JSON para o RECORD de retorno
+                                 if (LPayerRetornoTEF.statusTransaction='CANCELLED') or (LPayerRetornoTEF.statusTransaction='ABORTED') or (LPayerRetornoTEF.statusTransaction='REJECTED') then  // O operador cancelou a operação
+                                    begin
+                                       //---------------------------------------
+                                       //  Houve um retorno negativo
+                                       //---------------------------------------
+                                       CancelamentoExectado := false;
+                                       if LPayerRetornoTEF.rejectionInfo.rejectionMessage<>'' then
+                                          frmwebtefpayer.mensagem := LPayerRetornoTEF.rejectionInfo.rejectionMessage
+                                       else
+                                          frmwebtefpayer.mensagem := 'Operação cancelada pelo operador !';
+                                       //---------------------------------------
+                                       TThread.Synchronize(TThread.CurrentThread,
+                                          procedure
+                                             begin
+                                                SA_Mostrar_Mensagem(true);
+                                             end);
+                                       //------------------------------------------------
+                                       SA_AtivarBTCancelar;   // Ativar o botão cancelar na tela de TEF
+                                       while not frmwebtefpayer.Cancelar do   // Esperando que o operador pressione o botão de cancelar
+                                          begin
+                                             sleep(50);
+                                          end;
+                                       sair := true;   // Ativar a saída do LOOP
+                                       //---------------------------------------
+                                    end
+                                 else if (LPayerRetornoTEF.statusTransaction='APPROVED') then
+                                    begin
+                                       //---------------------------------------
+                                       //   A transação foi aprovada, processar a impressão
+                                       //---------------------------------------
+                                       sair     := true;
+                                       imprimir := false;
+                                       LCancelamentoExectado := true;
+                                       if LComprovanteCliente=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteCliente.Count>0 then   // Verificando se tem conteúdo no comprovante do cliente
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir
+                                                   //---------------------------
+                                                   frmwebtefpayer.mensagem := 'Imprimir o comprovante do CLIENTE ?';
+                                                   frmwebtefpayer.opcoes   := TStringList.Create;
+                                                   frmwebtefpayer.opcoes.Clear;
+                                                   frmwebtefpayer.opcoes.Add('Imprimir');
+                                                   frmwebtefpayer.opcoes.Add('Não Imprimir');
+                                                   frmwebtefpayer.opcao    := -1;
+                                                   frmwebtefpayer.tecla    := '';
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtefpayer.tecla='1') or (frmwebtefpayer.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtefpayer.tecla='2') or (frmwebtefpayer.opcao=2) or (frmwebtefpayer.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+
+                                          end
+                                       else if LComprovanteCliente=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteCliente.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+                                       //  Comprovante da Loja
+                                       //---------------------------------------
+                                       imprimir := false;
+                                       if LComprovanteClienteReduzido=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteLojaReduzido.Count>0 then   // Verificando se tem conteúdo no comprovante reduzido do cliente
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir comprovante reduzido do cliente
+                                                   //---------------------------
+                                                   frmwebtefpayer.mensagem := 'Imprimir o comprovante reduzido do CLIENTE ?';
+                                                   frmwebtefpayer.opcoes   := TStringList.Create;
+                                                   frmwebtefpayer.opcoes.Clear;
+                                                   frmwebtefpayer.opcoes.Add('Imprimir');
+                                                   frmwebtefpayer.opcoes.Add('Não Imprimir');
+                                                   frmwebtefpayer.opcao    := -1;
+                                                   frmwebtefpayer.tecla    := '';
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtefpayer.tecla='1') or (frmwebtefpayer.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtefpayer.tecla='2') or (frmwebtefpayer.opcao=2) or (frmwebtefpayer.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+                                             //---------------------------------
+                                          end
+                                       else if LComprovanteClienteReduzido=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante reduzido do cliente
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteClienteReduzido.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+
+
+                                       imprimir := false;
+                                       if LComprovanteLoja=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteLoja.Count>0 then   // Verificando se tem conteúdo no comprovante da loja
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir
+                                                   //---------------------------
+                                                   frmwebtefpayer.mensagem := 'Imprimir o comprovante da LOJA ?';
+                                                   frmwebtefpayer.opcoes   := TStringList.Create;
+                                                   frmwebtefpayer.opcoes.Clear;
+                                                   frmwebtefpayer.opcoes.Add('Imprimir');
+                                                   frmwebtefpayer.opcoes.Add('Não Imprimir');
+                                                   frmwebtefpayer.opcao    := -1;
+                                                   frmwebtefpayer.tecla    := '';
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtefpayer.tecla='1') or (frmwebtefpayer.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtefpayer.tecla='2') or (frmwebtefpayer.opcao=2) or (frmwebtefpayer.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+
+                                          end
+                                       else if LComprovanteLoja=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteLoja.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+                                       //  Comprovante reduzido da Loja
+                                       //---------------------------------------
+                                       imprimir := false;
+                                       if LComprovanteLojaReduzido=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteClienteReduzido.Count>0 then   // Verificando se tem conteúdo no comprovante reduzido da loja
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir comprovante reduzido da Loja
+                                                   //---------------------------
+                                                   frmwebtefpayer.mensagem := 'Imprimir o comprovante reduzido da LOJA ?';
+                                                   frmwebtefpayer.opcoes   := TStringList.Create;
+                                                   frmwebtefpayer.opcoes.Clear;
+                                                   frmwebtefpayer.opcoes.Add('Imprimir');
+                                                   frmwebtefpayer.opcoes.Add('Não Imprimir');
+                                                   frmwebtefpayer.opcao    := -1;
+                                                   frmwebtefpayer.tecla    := '';
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtefpayer.tecla='1') or (frmwebtefpayer.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtefpayer.tecla='2') or (frmwebtefpayer.opcao=2) or (frmwebtefpayer.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtefpayer.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+                                             //---------------------------------
+                                          end
+                                       else if LComprovanteLojaReduzido=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante redizido da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteLojaReduzido.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+
+                                    end;
+                                 //---------------------------------------------
+
+
+
+
+
+                              end;
+                        end;
+                  end;
+            end;
+         //---------------------------------------------------------------------
+         //   Fechando a janela do TEF
+         //---------------------------------------------------------------------
+         frmwebtefpayer.Close;
+         frmwebtefpayer.Release;
+         lExecutando := false;
+         //---------------------------------------------------------------------
+      end).Start;
+end;
+
+function TPayerGateWayTEF.SA_ConsultarCallBack: TJSONValue;
+var
+   LResponse    : IResponse;
+begin
+   try
+      //------------------------------------------------------------------------
+      SA_SalvarLog('Consulta CALLBACK Payer','{"chave":"'+SA_Codificar_Chave_MSSC+'","correlationId":"'+LCorrelationId+'"}');
+      //------------------------------------------------------------------------
+      LResponse := TRequest.New.BaseURL(LHOSTResponse)
+                   .AddBody('{"chave":"'+SA_Codificar_Chave_MSSC+'","correlationId":"'+LCorrelationId+'"}')
+                   .Accept('application/json')
+                   .Post;
+      //------------------------------------------------------------------------
+      if LResponse.StatusCode=200 then  // O retorno foi positivo
+         begin
+            //------------------------------------------------------------------
+            //  Processando resposta do CALLBACK
+            //------------------------------------------------------------------
+            SA_SalvarLog('Retorno Consulta CALLBACK Payer',LResponse.StatusCode.ToString+' '+LResponse.Content);
+            Result := TJSonObject.ParseJSONValue(TEncoding.UTF8.GetBytes( LResponse.Content  ),0) as TJSONValue;
+            //------------------------------------------------------------------
+
+         end
+      else if LResponse.StatusCode=404 then
+         Result := TJSonObject.ParseJSONValue(TEncoding.UTF8.GetBytes( '{"status":"VAZIO","statuscode":"'+LResponse.StatusCode.ToString+'"}'  ),0) as TJSONValue
+      else
+         begin
+             SA_SalvarLog('Retorno Consulta CALLBACK Payer',LResponse.StatusCode.ToString+' '+LResponse.Content);
+             Result := TJSonObject.ParseJSONValue(TEncoding.UTF8.GetBytes( '{"status":"FALHA","statuscode":"'+LResponse.StatusCode.ToString+'"}'  ),0) as TJSONValue;
+         end;
+      //------------------------------------------------------------------------
+   except on e:exception do
+      begin
+         SA_SalvarLog('Resposta consulta CALLBACK Payer',e.Message);
+         Result := TJSonObject.ParseJSONValue(TEncoding.UTF8.GetBytes( '{"status":"FALHA"}'  ),0) as TJSONValue;
+      end;
+   end;
+
+
+end;
+
+procedure TPayerGateWayTEF.SA_FazerLogin;
+var
+   strJSON              : string;
+   LResponse            : IResponse;
+   RetornoJSON          : TJSONValue;
+   AuthenticationResult : TJSONValue;
+begin
+   //---------------------------------------------------------------------------
+   //   Iniciando a tela de TEF
+   //---------------------------------------------------------------------------
+   Application.CreateForm(Tfrmwebtef, frmwebtef);
+   frmwebtef.DoubleBuffered   := true;
+   frmwebtef.Cancelar         := false;
+   frmwebtef.lbforma.Caption  := LForma;
+   frmwebtef.lbvalor.Caption  := transform(LValor);
+   frmwebtef.Show;
+   //---------------------------------------------------------------------------
+   TThread.CreateAnonymousThread(procedure
+      begin
+         //---------------------------------------------------------------------
+         //---------------------------------------------------------------------
+         //   Inicializar TEF
+         //---------------------------------------------------------------------
+         TThread.Synchronize(TThread.CurrentThread,
+            procedure
+               begin
+                  frmwebtef.mensagem := 'Inicializando PAYER...';
+                  SA_Mostrar_Mensagem(true);
+               end);
+         //---------------------------------------------------------------------
+         strJSON := '{'+
+                       '"clientId":"3veb9e18d50ceqes38o1i8mlph",'+
+                       '"username":"'+LUserName+'",'+
+                       '"password":"'+LPassword+'"'+
+                    '}';
+         //---------------------------------------------------------------------
+         SA_SalvarLog('Fazendo LOGIN',strJSON);
+         //---------------------------------------------------------------------
+         try
+            //------------------------------------------------------------------
+            LResponse := TRequest.New.BaseURL(PayerHOSTLogin)
+                           .AddBody(strJSON)
+                           .Accept('application/json')
+                           .Post;
+            SA_SalvarLog('Resposta LOGIN',LResponse.Content);
+            //------------------------------------------------------------------
+            if LResponse.StatusCode=200 then
+               begin
+                  RetornoJSON          := TJSonObject.ParseJSONValue(TEncoding.UTF8.GetBytes( LResponse.Content  ),0) as TJSONValue;
+                  AuthenticationResult := RetornoJSON.GetValue<TJSONValue>('AuthenticationResult',nil);
+                  LIdToken             := AuthenticationResult.GetValue<string>('IdToken','');
+                  Lvalidade            := AuthenticationResult.GetValue<integer>('ExpiresIn',0);
+                  RetornoJSON.Free;
+               end;
+            //------------------------------------------------------------------
+         except on e:exception do
+            begin
+               SA_SalvarLog('Resposta LOGIN',e.Message);
+            end;
+         end;
+         //---------------------------------------------------------------------
+         //   Fechando a janela do TEF
+         //---------------------------------------------------------------------
+         frmwebtef.Close;
+         frmwebtef.Release;
+         lExecutando := false;
+         //---------------------------------------------------------------------
+      end).Start;
+   //---------------------------------------------------------------------------
+end;
+
+function TPayerGateWayTEF.SA_GerarDataPGTO: string;
+var
+   messagePgto : string;
+   //---------------------------------------------------------------------------
+begin
+   //---------------------------------------------------------------------------
+   LCorrelationId := LCompanyId+LStoreId+LTerminalId+formatdatetime('yyyymmdd-hhmmsszzz',now);
+   //---------------------------------------------------------------------------
+   messagePgto := '{'+
+                   '"command":"payment",'+
+                   '"value":'+SA_TransformPayer(lvalor)+',';
+   //---------------------------------------------------------------------------
+   if LTpOperacaoTEF=tpPayerPIX then
+      messagePgto := messagePgto + '"paymentMethod":"PIX",'
+   else
+      begin
+         if LTpOperacaoTEF<>tpPayerEscolher then
+            messagePgto := messagePgto + '"paymentMethod":"CARD",';
+      end;
+   //---------------------------------------------------------------------------
+   if LTpOperacaoTEF in[tpPayerCredito,tpPayerCreditoVista,tpPayerCreditoParceladoADM,tpPayerCreditoParceladoLoja] then
+      messagePgto := messagePgto + '"paymentType":"CREDIT",'
+   else if LTpOperacaoTEF in[tpPayerDebito,tpPayerDebitovISTA,tpPayerDebitoPRE] then
+      messagePgto := messagePgto + '"paymentType":"DEBIT",'
+   else if LTpOperacaoTEF in[tpPayerValeAlimentacao,tpPayerValeRefeicao,tpPayerFrota] then
+      messagePgto := messagePgto + '"paymentType":"VOUCHER",';
+   //---------------------------------------------------------------------------
+   if LTpOperacaoTEF in[tpPayerCreditoVista,tpPayerDebitovISTA] then
+      messagePgto := messagePgto + '"paymentMethodSubType":"FULL_PAYMENT",'
+   else if LTpOperacaoTEF in[tpPayerCreditoParceladoADM,tpPayerCreditoParceladoLoja] then
+      messagePgto := messagePgto + '"paymentMethodSubType":"FINANCED_DEBIT",'
+   else if LTpOperacaoTEF=tpPayerDebitoPRE then
+      messagePgto := messagePgto + '"paymentMethodSubType":"PREDATED_DEBIT",';
+   //---------------------------------------------------------------------------
+   messagePgto := messagePgto + '"installments":'+lparcelas.tostring+'}';
+   //---------------------------------------------------------------------------
+   Result :='{"correlationId":"'+LCorrelationId+'",'+
+             '"flow":"SYNC",'+
+             '"automationName":"AUTOMACAO_TESTE",'+
+             '"receiver":{"companyId":"'+LCompanyId+'","storeId":"'+LStoreId+'","terminalId":"'+LTerminalId+'"},'+
+             '"callbackUrl":"'+LHOSTCallBack+'",'+
+             '"message":'+messagePgto+'}';
+end;
+//------------------------------------------------------------------------------
+//   Gerar JSON de cancelamento
+//------------------------------------------------------------------------------
+function TPayerGateWayTEF.SA_GerarJsonCANC : string;
+begin
+   LCorrelationId := LCompanyId+LStoreId+LTerminalId+formatdatetime('yyyymmdd-hhmmsszzz',now);
+   Result := '{'+
+                '"type":"INPUT",'+
+                '"origin":"MKM AC45-X - CANCELAMENTO",'+
+                '"data":{'+
+                           '"correlationId":"'+LCorrelationId+'",'+
+                           '"flow":"SYNC",'+
+                           '"automationName":"AUTOMACAO_TESTE",'+
+                           '"receiver":{"companyId":"'+LCompanyId+'","storeId":"'+LStoreId+'","terminalId":"'+LTerminalId+'"},'+
+                           '"callbackUrl":"'+LHOSTCallBack+'",'+
+                           '"message":{'+
+                                       '"command":"cancellment",'+
+                                       '"idPayer": "'+IDPayer+'"'+
+                                       '}'+
+                        '}'+
+              '}';
+end;
+//------------------------------------------------------------------------------
+//   Gerar JSON de requisição de pagamento
+//------------------------------------------------------------------------------
+function TPayerGateWayTEF.SA_GerarJsonREQ : string;
+var
+   data : string;
+begin
+   //---------------------------------------------------------------------------
+   data   := SA_GerarDataPGTO;
+   //---------------------------------------------------------------------------
+   Result := '{'+
+                '"type":"INPUT",'+
+                '"origin":"MKM AC45-X - VENDA",'+
+                '"data":'+data+
+              '}';
+   //---------------------------------------------------------------------------
+end;
+//------------------------------------------------------------------------------
+function TPayerGateWayTEF.SA_TransformPayer(valor:real):string;
+var
+   d      : integer;
+   svalor : string;
+begin
+   svalor := transform(valor);
+   Result := '';
+   for d := 1 to length(svalor) do
+      begin
+         if charinset(svalor[d],['0'..'9']) then
+            result := result + svalor[d];
+         if svalor[d]=',' then
+            result := result + '.';
+      end;
+
+end;
+
+function TPayerGateWayTEF.SA_Codificar_Chave_MSSC:string;
+begin
+   Result := string(EncodeBase64(ansistring('MKMAZVUB'+formatdatetime('yyyymmdd',now))));
+end;
+
+function TPayerGateWayTEF.transform(valor: real): string;
+begin
+   Result := '          '+formatfloat('###,###,##0.00',valor);
+   Result := copy(Result,length(Result)-13,14);
+end;
+
+//------------------------------------------------------------------------------
+procedure TPayerGateWayTEF.SA_Inicializar_ESCPOS;
+var
+   linhas_escpos : TStringList;
+   d             : integer;
+begin
+   //---------------------------------------------------------------------------
+   GerenciadorImpressao                   := TESCPos.Create;
+   GerenciadorImpressao.PortaImpressora   := LPortaImpressora;
+   GerenciadorImpressao.ImprimirCabecalho := true;
+   GerenciadorImpressao.Avanco            := LAvanco;
+   //---------------------------------------------------------------------------
+   GerenciadorImpressao.ModeloImpressoraACBR                := LModeloImpressoraACBR;
+   GerenciadorImpressao.ImpressoraPOSPrinter.PaginaDeCodigo := LPaginaDeCodigo;
+   GerenciadorImpressao.Cabecalho.Text                      := '';
+   //---------------------------------------------------------------------------
+   linhas_escpos := TStringList.Create;
+   linhas_escpos.Add(StringOfChar('=',GerenciadorImpressao.MLNormal));
+   linhas_escpos.Add('');
+   for d := 1 to GerenciadorImpressao.Avanco do
+      linhas_escpos.Add('');
+   linhas_escpos.Add(GerenciadorImpressao.MGuilhotina);
+   GerenciadorImpressao.Rodape.Text := linhas_escpos.Text;
+   linhas_escpos.Free;
+   //---------------------------------------------------------------------------
+end;
+
+
+procedure TPayerGateWayTEF.SA_LimparResponsePAYER;
+begin
+   //---------------------------------------------------------------------------
+   LPayerRetornoTEF.correlationId                  := '';
+   LPayerRetornoTEF.idPayer                        := '';
+   LPayerRetornoTEF.paymentProvider                := '';
+   LPayerRetornoTEF.acquirer                       := '';
+   LPayerRetornoTEF.flag                           := '';
+   LPayerRetornoTEF.statusTransaction              := '';
+   LPayerRetornoTEF.operationType                  := '';
+   LPayerRetornoTEF.companyId                      := '';
+   LPayerRetornoTEF.storeId                        := '';
+   LPayerRetornoTEF.terminalId                     := '';
+   LPayerRetornoTEF.value                          := 0;
+   LPayerRetornoTEF.paymentMethod                  := '';
+   LPayerRetornoTEF.paymentType                    := '';
+   LPayerRetornoTEF.paymentMethodSubType           := '';
+   LPayerRetornoTEF.installments                   := '';
+   LPayerRetornoTEF.cardNumber                     := '';
+   LPayerRetornoTEF.paymentDate                    := '';
+   LPayerRetornoTEF.transactionDateTime            := '';
+   LPayerRetornoTEF.thirdPartyId                   := '';
+   LPayerRetornoTEF.authorizerId                   := '';
+   LPayerRetornoTEF.authorizerUsn                  := '';
+   LPayerRetornoTEF.documentNumber                 := '';
+   LPayerRetornoTEF.shopTextReceipt                := '';
+   LPayerRetornoTEF.customerTextReceipt            := '';
+   LPayerRetornoTEF.reducedShopPaymentReceipt      := '';
+   LPayerRetornoTEF.reducedCustomerPaymentReceipt  := '';
+   LPayerRetornoTEF.rejectionInfo.rejectionCode    := '';
+   LPayerRetornoTEF.rejectionInfo.rejectionMessage := '';
+   //---------------------------------------------------------------------------
+   LPayerRetornoTEF.ComprovanteLoja               := TStringList.Create;
+   LPayerRetornoTEF.ComprovanteCliente            := TStringList.Create;
+   LPayerRetornoTEF.ComprovanteLojaReduzido       := TStringList.Create;
+   LPayerRetornoTEF.ComprovanteClienteReduzido    := TStringList.Create;
+end;
+
+procedure TPayerGateWayTEF.SA_ParsingResponsePAYER(RespJSON: TJSONValue);
+var
+   rejectionInfo : TJSONObject;
+begin
+   //---------------------------------------------------------------------------
+   SA_LimparResponsePAYER;  // Reiniciando a variável de retorno da transação
+   //---------------------------------------------------------------------------
+   if RespJSON=nil then
+      begin
+         exit;
+      end;
+   rejectionInfo := RespJSON.GetValue<TJSONObject>('rejectionInfo',nil);
+   //---------------------------------------------------------------------------
+   LPayerRetornoTEF.correlationId                  := RespJSON.GetValue<string>('correlationId','');
+   LPayerRetornoTEF.idPayer                        := RespJSON.GetValue<string>('idPayer','');
+   LPayerRetornoTEF.paymentProvider                := RespJSON.GetValue<string>('paymentProvider','');
+   LPayerRetornoTEF.acquirer                       := RespJSON.GetValue<string>('acquirer','');
+   LPayerRetornoTEF.flag                           := RespJSON.GetValue<string>('flag','');
+   LPayerRetornoTEF.statusTransaction              := RespJSON.GetValue<string>('statusTransaction','');
+   LPayerRetornoTEF.operationType                  := RespJSON.GetValue<string>('operationType','');
+   LPayerRetornoTEF.companyId                      := RespJSON.GetValue<string>('companyId','');
+   LPayerRetornoTEF.storeId                        := RespJSON.GetValue<string>('storeId','');
+   LPayerRetornoTEF.terminalId                     := RespJSON.GetValue<string>('terminalId','');
+   LPayerRetornoTEF.value                          := RespJSON.GetValue<real>('value',0);
+   LPayerRetornoTEF.paymentMethod                  := RespJSON.GetValue<string>('paymentMethod','');
+   LPayerRetornoTEF.paymentType                    := RespJSON.GetValue<string>('paymentType','');
+   LPayerRetornoTEF.paymentMethodSubType           := RespJSON.GetValue<string>('paymentMethodSubType','');
+   LPayerRetornoTEF.installments                   := RespJSON.GetValue<string>('installments','');
+   LPayerRetornoTEF.cardNumber                     := RespJSON.GetValue<string>('cardNumber','');
+   LPayerRetornoTEF.paymentDate                    := RespJSON.GetValue<string>('paymentDate','');
+   LPayerRetornoTEF.transactionDateTime            := RespJSON.GetValue<string>('transactionDateTime','');
+   LPayerRetornoTEF.thirdPartyId                   := RespJSON.GetValue<string>('thirdPartyId','');
+   LPayerRetornoTEF.authorizerId                   := RespJSON.GetValue<string>('authorizerId','');
+   LPayerRetornoTEF.authorizerUsn                  := RespJSON.GetValue<string>('authorizerUsn','');
+   LPayerRetornoTEF.documentNumber                 := RespJSON.GetValue<string>('documentNumber','');
+   LPayerRetornoTEF.shopTextReceipt                := RespJSON.GetValue<string>('shopTextReceipt','');
+   LPayerRetornoTEF.customerTextReceipt            := RespJSON.GetValue<string>('customerTextReceipt','');
+   LPayerRetornoTEF.reducedShopPaymentReceipt      := RespJSON.GetValue<string>('reducedShopPaymentReceipt','');
+   LPayerRetornoTEF.reducedCustomerPaymentReceipt  := RespJSON.GetValue<string>('reducedCustomerPaymentReceipt','');
+   if rejectionInfo<>nil then
+      begin
+         LPayerRetornoTEF.rejectionInfo.rejectionCode    := rejectionInfo.GetValue<string>('rejectionCode','');
+         LPayerRetornoTEF.rejectionInfo.rejectionMessage := rejectionInfo.GetValue<string>('rejectionMessage','');
+      end;
+   //---------------------------------------------------------------------------
+   LPayerRetornoTEF.ComprovanteLoja.Text            := stringreplace(LPayerRetornoTEF.shopTextReceipt,'\n',#13,[rfReplaceAll, rfIgnoreCase]);
+   LPayerRetornoTEF.ComprovanteCliente.Text         := stringreplace(LPayerRetornoTEF.customerTextReceipt,'\n',#13,[rfReplaceAll, rfIgnoreCase]);
+   LPayerRetornoTEF.ComprovanteLojaReduzido.Text    := stringreplace(LPayerRetornoTEF.reducedShopPaymentReceipt,'\n',#13,[rfReplaceAll, rfIgnoreCase]);
+   LPayerRetornoTEF.ComprovanteClienteReduzido.Text := stringreplace(LPayerRetornoTEF.reducedCustomerPaymentReceipt,'\n',#13,[rfReplaceAll, rfIgnoreCase]);
+   //---------------------------------------------------------------------------
+   rejectionInfo.DisposeOf;
+   //---------------------------------------------------------------------------
+end;
+
+procedure TPayerGateWayTEF.SA_ProcessarPagamento;
+var
+   LResponse         : IResponse;
+   JSONReq           : string;
+   RetornoJSON       : TJSONValue;
+   sair              : boolean;
+   hi                : TDateTime;
+   dhEnvio           : TDateTime;
+   dhUltImp          : TDateTime;
+   statuscode        : string;
+   Imprimir          : boolean;
+   SairLoopImpressao : boolean;
+begin
+   //---------------------------------------------------------------------------
+   //   Iniciando a tela de TEF
+   //---------------------------------------------------------------------------
+   Application.CreateForm(Tfrmwebtef, frmwebtef);
+   frmwebtef.DoubleBuffered   := true;
+   frmwebtef.Cancelar         := false;
+   frmwebtef.lbforma.Caption  := LForma;
+   frmwebtef.lbvalor.Caption  := transform(LValor);
+//   frmwebtef.lb_tempo.Caption := '';
+   frmwebtef.Show;
+   //---------------------------------------------------------------------------
+   TThread.CreateAnonymousThread(procedure
+      begin
+         //---------------------------------------------------------------------
+         //   Inicializar TEF
+         //---------------------------------------------------------------------
+         TThread.Synchronize(TThread.CurrentThread,
+            procedure
+               begin
+                  frmwebtef.mensagem := 'Inicializando TEF...';
+                  SA_Mostrar_Mensagem(true);
+               end);
+         //------------------------------------------------------------------------
+         JSONReq := SA_GerarJsonREQ;
+         SA_SalvarLog('PAGAMENTO',JSONReq);
+         //------------------------------------------------------------------------
+         LResponse := TRequest.New.BaseURL(PayerHOSTRequest)
+                        .AddBody(JSonREQ)
+                        .AddHeader('Authorization',LIdToken)
+                        .Accept('application/json')
+                        .Post;
+         SA_SalvarLog('RETORNO PAGAMENTO',LResponse.StatusCode.ToString+' - '+LResponse.Content);
+         //---------------------------------------------------------------------
+         LPagamentoExectado := false;
+         hi                 := now;
+         dhEnvio            := now;
+         dhUltImp           := now;
+         sair               := false;
+         while not sair do
+            begin
+               //---------------------------------------------------------------
+               //  Fazendo pooling no host de CALLBACK
+               //---------------------------------------------------------------
+               if SecondsBetween(now,dhUltImp)>=1 then
+                  begin
+                     //---------------------------------------------------------
+                     dhUltImp := now;
+                     TThread.Synchronize(TThread.CurrentThread,
+                        procedure
+                           begin
+                              frmwebtef.mensagem := 'Aguardando pagamento '+inttostr(SecondsBetween(now,dhEnvio));
+                              SA_Mostrar_Mensagem(true);
+                           end);
+                     //---------------------------------------------------------
+                  end;
+               if SecondsBetween(now,hi)>3 then // passaram-se mais de 3 segindos da última consulta
+                  begin
+                     hi := now;
+                     //---------------------------------------------------------
+                     RetornoJSON := SA_ConsultarCallBack;
+                     statuscode  := RetornoJSON.GetValue<string>('statuscode','');
+                     if statuscode='' then  // Operação concluida com sucesso - Processar o retorno
+                        begin
+                           //---------------------------------------------------
+                           //   Processar o retorno da operação pela PAYER
+                           //---------------------------------------------------
+                           if RetornoJSON.GetValue<string>('correlationId','')<>'' then
+                              begin
+                                 //---------------------------------------------
+                                 SA_ParsingResponsePAYER(RetornoJSON);   // Desmontando o JSON para o RECORD de retorno
+                                 if (LPayerRetornoTEF.statusTransaction='CANCELLED') or (LPayerRetornoTEF.statusTransaction='ABORTED') then  // O operador cancelou a operação
+                                    begin
+                                       //---------------------------------------
+                                       //  Houve um retorno negativo
+                                       //---------------------------------------
+                                       if LPayerRetornoTEF.rejectionInfo.rejectionMessage<>'' then
+                                          frmwebtef.mensagem := LPayerRetornoTEF.rejectionInfo.rejectionMessage
+                                       else
+                                          frmwebtef.mensagem := 'Operação cancelada pelo operador !';
+                                       //---------------------------------------
+                                       TThread.Synchronize(TThread.CurrentThread,
+                                          procedure
+                                             begin
+                                                SA_Mostrar_Mensagem(true);
+                                             end);
+                                       //------------------------------------------------
+                                       SA_AtivarBTCancelar;   // Ativar o botão cancelar na tela de TEF
+                                       while not frmwebtef.Cancelar do   // Esperando que o operador pressione o botão de cancelar
+                                          begin
+                                             sleep(50);
+                                          end;
+                                       sair := true;   // Ativar a saída do LOOP
+                                       //---------------------------------------
+                                    end
+                                 else if (LPayerRetornoTEF.statusTransaction='APPROVED') then
+                                    begin
+                                       //---------------------------------------
+                                       //   A transação foi aprovada, processar a impressão
+                                       //---------------------------------------
+                                       LPagamentoExectado := true;
+                                       sair               := true;
+                                       imprimir           := false;
+                                       if LComprovanteCliente=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteCliente.Count>0 then   // Verificando se tem conteúdo no comprovante do cliente
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir
+                                                   //---------------------------
+                                                   frmwebtef.mensagem := 'Imprimir o comprovante do CLIENTE ?';
+                                                   frmwebtef.opcoes   := TStringList.Create;
+                                                   frmwebtef.opcoes.Clear;
+                                                   frmwebtef.opcoes.Add('Imprimir');
+                                                   frmwebtef.opcoes.Add('Não Imprimir');
+                                                   frmwebtef.opcao    := -1;
+                                                   frmwebtef.tecla    := '';
+                                                   frmwebtef.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtef.tecla='1') or (frmwebtef.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtef.tecla='2') or (frmwebtef.opcao=2) or (frmwebtef.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtef.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+
+                                          end
+                                       else if LComprovanteCliente=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteCliente.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+                                       //  Comprovante da Loja
+                                       //---------------------------------------
+                                       imprimir := false;
+                                       if LComprovanteClienteReduzido=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteLojaReduzido.Count>0 then   // Verificando se tem conteúdo no comprovante reduzido do cliente
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir comprovante reduzido do cliente
+                                                   //---------------------------
+                                                   frmwebtef.mensagem := 'Imprimir o comprovante reduzido do CLIENTE ?';
+                                                   frmwebtef.opcoes   := TStringList.Create;
+                                                   frmwebtef.opcoes.Clear;
+                                                   frmwebtef.opcoes.Add('Imprimir');
+                                                   frmwebtef.opcoes.Add('Não Imprimir');
+                                                   frmwebtef.opcao    := -1;
+                                                   frmwebtef.tecla    := '';
+                                                   frmwebtef.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtef.tecla='1') or (frmwebtef.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtef.tecla='2') or (frmwebtef.opcao=2) or (frmwebtef.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtef.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+                                             //---------------------------------
+                                          end
+                                       else if LComprovanteClienteReduzido=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante reduzido do cliente
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteClienteReduzido.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+
+
+                                       imprimir := false;
+                                       if LComprovanteLoja=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteLoja.Count>0 then   // Verificando se tem conteúdo no comprovante da loja
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir
+                                                   //---------------------------
+                                                   frmwebtef.mensagem := 'Imprimir o comprovante da LOJA ?';
+                                                   frmwebtef.opcoes   := TStringList.Create;
+                                                   frmwebtef.opcoes.Clear;
+                                                   frmwebtef.opcoes.Add('Imprimir');
+                                                   frmwebtef.opcoes.Add('Não Imprimir');
+                                                   frmwebtef.opcao    := -1;
+                                                   frmwebtef.tecla    := '';
+                                                   frmwebtef.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtef.tecla='1') or (frmwebtef.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtef.tecla='2') or (frmwebtef.opcao=2) or (frmwebtef.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtef.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+
+                                          end
+                                       else if LComprovanteLoja=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteLoja.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+                                       //  Comprovante reduzido da Loja
+                                       //---------------------------------------
+                                       imprimir := false;
+                                       if LComprovanteLojaReduzido=tpiPayerPerguntar then   // Tá configurado para perguntar
+                                          begin
+                                             //---------------------------------
+                                             if LPayerRetornoTEF.ComprovanteClienteReduzido.Count>0 then   // Verificando se tem conteúdo no comprovante reduzido da loja
+                                                begin
+                                                   //---------------------------
+                                                   //   Perguntar se quer imprimir comprovante reduzido da Loja
+                                                   //---------------------------
+                                                   frmwebtef.mensagem := 'Imprimir o comprovante reduzido da LOJA ?';
+                                                   frmwebtef.opcoes   := TStringList.Create;
+                                                   frmwebtef.opcoes.Clear;
+                                                   frmwebtef.opcoes.Add('Imprimir');
+                                                   frmwebtef.opcoes.Add('Não Imprimir');
+                                                   frmwebtef.opcao    := -1;
+                                                   frmwebtef.tecla    := '';
+                                                   frmwebtef.Cancelar := false;
+                                                   //------------------------------
+                                                   TThread.Synchronize(TThread.CurrentThread,
+                                                   procedure
+                                                      begin
+                                                         SA_Criar_Menu(true);
+                                                      end);
+                                                   //------------------------------
+                                                   Imprimir          := false;
+                                                   SairLoopImpressao := false;
+                                                   while (not SairLoopImpressao) do  // Aguardando o operador confirmar ou cancelar a impressão
+                                                      begin
+                                                        if (frmwebtef.tecla='1') or (frmwebtef.opcao=1) then
+                                                           begin
+                                                              Imprimir          := true;
+                                                              SairLoopImpressao := true;
+                                                           end
+                                                        else if (frmwebtef.tecla='2') or (frmwebtef.opcao=2) or (frmwebtef.Cancelar) then
+                                                           begin
+                                                              Imprimir          := false;
+                                                              SairLoopImpressao := true;
+                                                           end;
+                                                         //---------------------
+                                                         sleep(50);
+                                                      end;
+                                                   //---------------------------
+                                                   frmwebtef.Cancelar := false;
+                                                   //---------------------------
+                                                end;
+                                             //---------------------------------
+                                          end
+                                       else if LComprovanteLojaReduzido=tpiPayerImprimir then   // Tá configurado para imprimir automaticamente
+                                          imprimir := true;
+                                       //---------------------------------------
+                                       if imprimir then   // Reralizar a impressão do comprovante redizido da loja
+                                          begin
+                                             GerenciadorImpressao.Corpo.Text  := LPayerRetornoTEF.ComprovanteLojaReduzido.Text;
+                                             GerenciadorImpressao.SA_Imprimir(1);
+                                          end;
+                                       //---------------------------------------
+
+                                    end;
+                                 //---------------------------------------------
+                              end;
+                           //---------------------------------------------------
+                        end
+                     else if statuscode='404' then  // Não foi encontrado um retorno da PAYER - Continuar consultando
+                        sair := false
+                     else
+                        sair := true;
+                     //---------------------------------------------------------
+                  end;
+               //---------------------------------------------------------------
+            end;
+         //---------------------------------------------------------------------
+         //   Fechando a janela do TEF
+         //---------------------------------------------------------------------
+         frmwebtef.Close;
+         frmwebtef.Release;
+         lExecutando := false;
+         //---------------------------------------------------------------------
+      end).Start;
+
+
+end;
+
+procedure TPayerGateWayTEF.SA_SalvarLog(titulo, dado: string);
+begin
+
+   if not directoryexists(GetCurrentDir+'\mkm_log') then
+      createdir(GetCurrentDir+'\mkm_log');
+   if LSalvarLog then
+      SA_Salva_Arquivo_Incremental(titulo + ' ' +
+                                   formatdatetime('dd/mm/yyyy hh:mm:ss',now)+#13+dado,
+                                   GetCurrentDir+'\mkm_log\logTEFPayerGateWay'+formatdatetime('yyyymmdd',date)+'.txt');
+end;
+
+procedure TPayerGateWayTEF.SA_Salva_Arquivo_Incremental(linha, nome_arquivo: string);
+var
+   arquivo      : TextFile;
+begin
+
+   try
+      AssignFile(arquivo,Nome_arquivo);
+      if not FileExists(Nome_arquivo) then
+         Rewrite(arquivo)
+      else
+         Append(arquivo);
+      Writeln(arquivo,linha);
+      CloseFile(arquivo);
+   except
+   end;
+end;
+
+
+end.

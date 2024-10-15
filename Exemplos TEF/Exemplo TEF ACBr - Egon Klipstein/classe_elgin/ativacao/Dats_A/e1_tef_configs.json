@@ -1,0 +1,11 @@
+{
+    "identificadorPontoCaptura": "0434F",
+    "ipClientTCP": "127.0.0.1",
+    "loja": "01",
+    "nomeEstabelecimento": "MKM Automacao",
+    "operacaoPendenciaCustomizada": true,
+    "portaClientTCP": 60906,
+    "textoPinpad": "MKM Automacao",
+    "verificarTransacoesPendentes": 1,
+    "versaoAC": "Agente Comercial"
+}

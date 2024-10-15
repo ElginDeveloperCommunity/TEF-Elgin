@@ -1,0 +1,605 @@
+object frmconfig: Tfrmconfig
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'Configura'#231#245'es'
+  ClientHeight = 562
+  ClientWidth = 1017
+  Color = clCream
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pntitulo: TPanel
+    Left = 8
+    Top = 16
+    Width = 973
+    Height = 57
+    Caption = 'CONFIGURA'#199#213'ES'
+    Color = 16744448
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindow
+    Font.Height = -37
+    Font.Name = 'Arial Black'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object pnrodape: TPanel
+    Left = 8
+    Top = 477
+    Width = 973
+    Height = 63
+    Color = 16744448
+    ParentBackground = False
+    TabOrder = 1
+    DesignSize = (
+      973
+      63)
+    object btsalvar: TSpeedButton
+      Left = 602
+      Top = 8
+      Width = 153
+      Height = 49
+      Anchors = [akTop, akRight]
+      Caption = 'Salvar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btsalvarClick
+      ExplicitLeft = 502
+    end
+    object btcancelar: TSpeedButton
+      Left = 761
+      Top = 8
+      Width = 202
+      Height = 49
+      Anchors = [akTop, akRight]
+      Caption = 'ESC - Cancelar'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -21
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = btcancelarClick
+      ExplicitLeft = 661
+    end
+  end
+  object pgc: TPageControl
+    Left = 24
+    Top = 88
+    Width = 961
+    Height = 383
+    ActivePage = TabSheet1
+    TabOrder = 2
+    object TabSheet1: TTabSheet
+      Caption = 'Conex'#227'o com o GateWay Payer'
+      object Label307: TLabel
+        Left = 364
+        Top = 10
+        Width = 78
+        Height = 25
+        Caption = 'Empresa'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label308: TLabel
+        Left = 455
+        Top = 9
+        Width = 37
+        Height = 25
+        Caption = 'Loja'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label340: TLabel
+        Left = 522
+        Top = 10
+        Width = 41
+        Height = 25
+        Caption = 'PDV'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label150: TLabel
+        Left = 322
+        Top = 137
+        Width = 39
+        Height = 19
+        Caption = 'Login'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object Label256: TLabel
+        Left = 314
+        Top = 169
+        Width = 47
+        Height = 20
+        Caption = 'Senha'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label290: TLabel
+        Left = 172
+        Top = 201
+        Width = 190
+        Height = 20
+        Caption = 'Comprovante do cliente'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object Label291: TLabel
+        Left = 93
+        Top = 234
+        Width = 269
+        Height = 20
+        Caption = 'Comprovante do estabelecimento'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object Label293: TLabel
+        Left = 98
+        Top = 264
+        Width = 264
+        Height = 20
+        Caption = 'Comprovante reduzido do cliente'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object Label292: TLabel
+        Left = 19
+        Top = 292
+        Width = 343
+        Height = 20
+        Caption = 'Comprovante reduzido do estabelecimento'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object Label1: TLabel
+        Left = 213
+        Top = 76
+        Width = 149
+        Height = 19
+        Caption = 'Nome da Automa'#231#227'o'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object Label2: TLabel
+        Left = 213
+        Top = 106
+        Width = 149
+        Height = 19
+        Caption = 'CallBack da aplica'#231#227'o'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object edtcompanhiaPayer: TMaskEdit
+        Left = 364
+        Top = 37
+        Width = 85
+        Height = 31
+        Color = clInactiveBorder
+        Ctl3D = False
+        EditMask = '999999'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 6
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 0
+        Text = '      '
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object edtLojaPayer: TMaskEdit
+        Left = 455
+        Top = 37
+        Width = 61
+        Height = 31
+        Color = clInactiveBorder
+        Ctl3D = False
+        EditMask = '9999'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 4
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 1
+        Text = '    '
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object edtPDVPayer: TMaskEdit
+        Left = 522
+        Top = 37
+        Width = 42
+        Height = 31
+        Color = clInactiveBorder
+        Ctl3D = False
+        EditMask = '99'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 2
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 2
+        Text = '  '
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object cbsalvarlogPayer: TCheckBox
+        Left = 366
+        Top = 327
+        Width = 120
+        Height = 17
+        Caption = 'Salvar LOG do TEF'
+        TabOrder = 3
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object edtpayer_login: TMaskEdit
+        Left = 364
+        Top = 135
+        Width = 433
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 4
+        Text = ''
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object edtpayer_senha: TMaskEdit
+        Left = 364
+        Top = 167
+        Width = 183
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        PasswordChar = '*'
+        TabOrder = 5
+        Text = ''
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object cbpayer_impressao_cliente: TComboBox
+        Left = 364
+        Top = 198
+        Width = 313
+        Height = 27
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 6
+        Text = 'Imprimir sempre'
+        OnKeyDown = edtcompanhiaPayerKeyDown
+        Items.Strings = (
+          'Imprimir sempre'
+          'Perguntar'
+          'N'#227'o imprimir')
+      end
+      object cbpayer_impressao_Loja: TComboBox
+        Left = 364
+        Top = 231
+        Width = 313
+        Height = 27
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 7
+        Text = 'Imprimir sempre'
+        OnKeyDown = edtcompanhiaPayerKeyDown
+        Items.Strings = (
+          'Imprimir sempre'
+          'Perguntar'
+          'N'#227'o imprimir')
+      end
+      object cbpayer_impressao_reduzido_cliente: TComboBox
+        Left = 364
+        Top = 261
+        Width = 313
+        Height = 27
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 8
+        Text = 'Imprimir sempre'
+        OnKeyDown = edtcompanhiaPayerKeyDown
+        Items.Strings = (
+          'Imprimir sempre'
+          'Perguntar'
+          'N'#227'o imprimir')
+      end
+      object cbpayer_impressao_reduzido_Loja: TComboBox
+        Left = 364
+        Top = 291
+        Width = 313
+        Height = 27
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 9
+        Text = 'Imprimir sempre'
+        OnKeyDown = edtcompanhiaPayerKeyDown
+        Items.Strings = (
+          'Imprimir sempre'
+          'Perguntar'
+          'N'#227'o imprimir')
+      end
+      object edtNomeAutomacaoPayer: TMaskEdit
+        Left = 364
+        Top = 74
+        Width = 433
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 10
+        Text = ''
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+      object edtPayerCallBack: TMaskEdit
+        Left = 364
+        Top = 104
+        Width = 433
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 11
+        Text = ''
+        OnKeyDown = edtcompanhiaPayerKeyDown
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Impressora'
+      ImageIndex = 2
+      object Label53: TLabel
+        Left = 111
+        Top = 36
+        Width = 91
+        Height = 20
+        Caption = 'Impressora'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+      end
+      object btbuscaportawindows: TSpeedButton
+        Left = 766
+        Top = 34
+        Width = 26
+        Height = 26
+        Caption = '...'
+        OnClick = btbuscaportawindowsClick
+      end
+      object Label51: TLabel
+        Left = 45
+        Top = 69
+        Width = 156
+        Height = 19
+        Alignment = taRightJustify
+        Caption = 'Modelo de impressora'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object Label52: TLabel
+        Left = 150
+        Top = 101
+        Width = 52
+        Height = 19
+        Alignment = taRightJustify
+        Caption = 'Avan'#231'o'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
+      object edtporta_impressora_ESC_POS: TMaskEdit
+        Left = 206
+        Top = 34
+        Width = 559
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 0
+        Text = ''
+      end
+      object cbimpressora_ESC_POS: TComboBox
+        Left = 206
+        Top = 66
+        Width = 203
+        Height = 27
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 1
+        Text = 'Bematech'
+        Items.Strings = (
+          'Bematech'
+          'Daruma'
+          'Diebold'
+          'Elgin Vox'
+          'Epson'
+          'Texto'
+          'Epson P2'
+          'Custom Pos'
+          'PosStar'
+          'ZJiang'
+          'GPrinter')
+      end
+      object edtavanco: TMaskEdit
+        Left = 206
+        Top = 99
+        Width = 75
+        Height = 26
+        Color = clInactiveBorder
+        Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MaxLength = 100
+        ParentCtl3D = False
+        ParentFont = False
+        TabOrder = 2
+        Text = ''
+      end
+      object cblistaimpressoras: TComboBox
+        Left = 206
+        Top = 3
+        Width = 559
+        Height = 27
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        Visible = False
+        OnEnter = cblistaimpressorasEnter
+        OnExit = cblistaimpressorasExit
+        OnSelect = cblistaimpressorasSelect
+      end
+    end
+  end
+end
