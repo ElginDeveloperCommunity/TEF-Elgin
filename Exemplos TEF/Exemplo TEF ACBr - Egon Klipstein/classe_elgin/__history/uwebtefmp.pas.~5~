@@ -1,0 +1,513 @@
+unit uwebtefmp;
+
+interface
+
+uses
+  tbotao,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  System.UITypes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Buttons,
+  Vcl.Mask,
+  JvExControls,
+  JvLabel;
+
+type
+  //----------------------------------------------------------------------------
+  TTipoTef = (tpTEFPayer,tpTEFELGIN,tpTEFMercadoPago,tpTEFMultiPlus,tpMKMPix);
+  //----------------------------------------------------------------------------
+  Tfrmwebtef = class(TForm)
+    fundo: TShape;
+    Shape1: TShape;
+    titulo: TLabel;
+    placa_util: TShape;
+    pnoperacao: TShape;
+    Shape12: TShape;
+    Shape11: TShape;
+    Label3: TLabel;
+    lbforma: TLabel;
+    lbvalor: TLabel;
+    Label5: TLabel;
+    logomp: TImage;
+    pnfoto: TShape;
+    lb_tempo: TLabel;
+    pnTemporizador: TShape;
+    Timer: TTimer;
+    pnmensagem: TPanel;
+    panel_menu: TPanel;
+    lblinha1: TLabel;
+    lblinha2: TLabel;
+    pncaptura: TPanel;
+    edtdado: TMaskEdit;
+    pnaviso: TPanel;
+    btdigitarok: TSpeedButton;
+    pnalerta: TPanel;
+    pnadm: TPanel;
+    qrcode_pix: TImage;
+    aviso_linhas_jv: TLabel;
+    procedure Activate(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure edtdadoKeyPress(Sender: TObject; var Key: Char);
+    procedure btdigitarokClick(Sender: TObject);
+    procedure edtdadoChange(Sender: TObject);
+    procedure edtdadoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    procedure btcancelaClick(sender: tobject);
+    procedure btokclick(sender: tobject);
+    { Private declarations }
+  public
+    Cancelar  : boolean;
+    TipoTef   : TTipoTef;
+    entrou    : boolean;
+    //--------------------------------------------------------------------------
+    tecla : string;
+    //--------------------------------------------------------------------------
+    opcoes        : TStringList;
+    botoes        : array of TMKMBotao;
+    btcancelar    : TMKMBotao;
+    opcao         : integer;
+    dado_digitado : string;
+    mensagem      : string;
+    mensagemADM   : string;
+    mensagem1     : string;
+    mensagem2     : string;
+    //--------------------------------------------------------------------------
+    CaracteresDigitaveis : TSysCharSet;
+  end;
+
+var
+  frmwebtef: Tfrmwebtef;
+
+procedure SA_Criar_Menu(ativar: boolean);
+procedure SA_Mostrar_Mensagem(ativar:boolean);
+//procedure SA_ColetarValor(mensagem,mascara:string;senha : boolean);
+procedure SA_ColetarValor(mensagem,mascara:string;senha : boolean;conteudo_campo:string = '');
+procedure SA_AtivarBTCancelar;
+procedure SA_MostrarADM;
+procedure SA_MostrarImagem(ativar:boolean);
+
+implementation
+
+{$R *.dfm}
+
+//------------------------------------------------------------------------------
+//   Mostrar imagem
+//------------------------------------------------------------------------------
+procedure SA_MostrarImagem(ativar:boolean);
+begin
+   if ativar then
+      begin
+         frmwebtef.qrcode_pix.Visible     := true;
+         frmwebtef.qrcode_pix.Left        := frmwebtef.pnTemporizador.Left;
+         frmwebtef.qrcode_pix.Top         := frmwebtef.pnTemporizador.Top;
+         frmwebtef.qrcode_pix.Width       := frmwebtef.pnTemporizador.Width;
+         frmwebtef.qrcode_pix.Height      := frmwebtef.pnTemporizador.Height;
+         frmwebtef.qrcode_pix.Transparent := false;
+         frmwebtef.qrcode_pix.Stretch     := true;
+      end
+   else
+      begin
+         frmwebtef.qrcode_pix.Visible := false;
+      end;
+end;
+//------------------------------------------------------------------------------
+//  Mostrar mensagem administrativo
+//------------------------------------------------------------------------------
+procedure SA_MostrarADM;
+begin
+   if frmwebtef.mensagemADM='' then
+      frmwebtef.mensagemADM := 'ADMINISTRATIVO';
+   frmwebtef.pnadm.Top     := frmwebtef.pnoperacao.Top;
+   frmwebtef.pnadm.Left    := frmwebtef.pnoperacao.Left;
+   frmwebtef.pnadm.Width   := frmwebtef.pnoperacao.Width;
+   frmwebtef.pnadm.Height  := frmwebtef.pnoperacao.Height;
+   frmwebtef.pnadm.Color   := frmwebtef.pnoperacao.Brush.Color;
+   frmwebtef.pnadm.Caption := frmwebtef.mensagemADM;
+   frmwebtef.pnadm.Color   := $00FF8409;
+   frmwebtef.pnadm.Visible := true;
+
+end;
+//------------------------------------------------------------------------------
+//   Criar botão
+//------------------------------------------------------------------------------
+procedure SA_AtivarBTCancelar;
+begin
+   //---------------------------------------------------------------------------
+   frmwebtef.btcancelar              := TMKMBotao.Create;
+   frmwebtef.btcancelar.TpBotao      := tpCancela;
+   frmwebtef.btcancelar.Py           := frmwebtef.placa_util.Top  + 10;
+   frmwebtef.btcancelar.Px           := (frmwebtef.placa_util.Left + frmwebtef.placa_util.Width) - 370;
+   frmwebtef.btcancelar.Altura       := frmwebtef.placa_util.Height - 20;
+   frmwebtef.btcancelar.Largura      := 350;
+   frmwebtef.btcancelar.LarguraIcone := 62;
+   frmwebtef.btcancelar.FontSize     := 12;
+   frmwebtef.btcancelar.OnClick      := frmwebtef.btcancelaClick;
+   frmwebtef.btcancelar.Nome         := 'btcancela';
+   frmwebtef.btcancelar.Pai          := frmwebtef;
+   frmwebtef.btcancelar.show;
+   Application.ProcessMessages;
+   //---------------------------------------------------------------------------
+end;
+//------------------------------------------------------------------------------
+//  Solicitar valor
+//------------------------------------------------------------------------------
+procedure SA_ColetarValor(mensagem,mascara:string;senha : boolean;conteudo_campo:string = '');
+begin
+   //---------------------------------------------------------------------------
+   frmwebtef.pnaviso.Caption     := mensagem;
+   frmwebtef.pncaptura.Top       := frmwebtef.pnTemporizador.Top;
+   frmwebtef.pncaptura.Left      := frmwebtef.pnTemporizador.Left;
+   frmwebtef.pncaptura.Width     := frmwebtef.pnTemporizador.Width;
+   frmwebtef.pncaptura.Height    := frmwebtef.pnTemporizador.Height;
+   frmwebtef.pncaptura.Color     := $00FF8409;
+   frmwebtef.pncaptura.Visible   := true;
+   frmwebtef.edtdado.Enabled     := true;
+   if mascara<>'' then
+      frmwebtef.edtdado.EditMask := mascara
+   else
+      frmwebtef.edtdado.EditMask := '';
+   if senha then
+      frmwebtef.edtdado.PasswordChar := 'X'
+   else
+      frmwebtef.edtdado.PasswordChar := #0;
+//   frmwebtef.edtdado.Text     := '';
+   frmwebtef.edtdado.Text     := conteudo_campo;
+   frmwebtef.edtdado.Top      := trunc(frmwebtef.pncaptura.Height/2)-trunc(frmwebtef.edtdado.Height/2);
+   frmwebtef.btdigitarok.Top  := trunc(frmwebtef.pncaptura.Height/2)-trunc(frmwebtef.btdigitarok.Height/2);
+   //---------------------------------------------------------------------------
+   frmwebtef.edtdado.Left     := frmwebtef.pncaptura.Width - frmwebtef.btdigitarok.Width - frmwebtef.edtdado.Width - 35;
+   frmwebtef.btdigitarok.Left := frmwebtef.pncaptura.Width - frmwebtef.btdigitarok.Width - 30;
+   frmwebtef.edtdado.SetFocus;
+   //---------------------------------------------------------------------------
+
+end;
+//------------------------------------------------------------------------------
+procedure SA_Mostrar_Mensagem(ativar:boolean);
+begin
+   if ativar then
+      begin
+         //---------------------------------------------------------------------
+         frmwebtef.aviso_linhas_jv.Caption := '';
+         frmwebtef.aviso_linhas_jv.Visible := false;
+         //---------------------------------------------------------------------
+         frmwebtef.pnmensagem.Left    := frmwebtef.pnTemporizador.Left;
+         frmwebtef.pnmensagem.Top     := frmwebtef.pnfoto.Top;
+         frmwebtef.pnmensagem.Width   := frmwebtef.pnTemporizador.Width;
+         frmwebtef.pnmensagem.Height  := frmwebtef.placa_util.Top - frmwebtef.pnmensagem.Top - 10;
+         frmwebtef.pnmensagem.Color   := $00FF8409;
+         if frmwebtef.mensagem<>'' then
+           begin
+              frmwebtef.lblinha1.Caption   := '';
+              frmwebtef.lblinha2.Caption   := '';
+              frmwebtef.pnmensagem.Caption := frmwebtef.mensagem;
+              if length(frmwebtef.mensagem)>30 then
+                 frmwebtef.pnmensagem.Font.Size := 20
+              else
+                 frmwebtef.pnmensagem.Font.Size := 36;
+           end
+         else
+           begin
+              //----------------------------------------------------------------
+              frmwebtef.pnmensagem.Caption := '';
+              frmwebtef.lblinha1.Caption   := frmwebtef.mensagem1;
+              frmwebtef.lblinha2.Caption   := frmwebtef.mensagem2;
+              //----------------------------------------------------------------
+              if length(frmwebtef.mensagem1)>30 then
+                 frmwebtef.lblinha1.Font.Size := 20
+              else
+                 frmwebtef.lblinha1.Font.Size := 36;
+              if length(frmwebtef.mensagem2)>30 then
+                 frmwebtef.lblinha2.Font.Size := 20
+              else
+                 frmwebtef.lblinha2.Font.Size := 36;
+              //----------------------------------------------------------------
+           end;
+
+         frmwebtef.lblinha1.Top       := trunc(frmwebtef.pnmensagem.Height/2) - frmwebtef.lblinha1.Height -10;
+         frmwebtef.lblinha1.Left      := 2;
+         frmwebtef.lblinha1.Width     := frmwebtef.Width - 4;
+         frmwebtef.lblinha1.Repaint;
+
+         frmwebtef.lblinha2.Top       := frmwebtef.lblinha1.Top + frmwebtef.lblinha1.Height + 20;
+         frmwebtef.lblinha2.Left      := 2;
+         frmwebtef.lblinha2.Width     := frmwebtef.Width - 4;
+         frmwebtef.lblinha2.Repaint;
+
+         frmwebtef.pnmensagem.Visible := true;
+         frmwebtef.pnmensagem.Repaint;
+         //---------------------------------------------------------------------
+         frmwebtef.mensagem1 := '';
+         frmwebtef.mensagem2 := '';
+         //---------------------------------------------------------------------
+      end
+   else
+      frmwebtef.pnmensagem.Visible := false;
+end;
+//------------------------------------------------------------------------------
+//   Ativar um menu de opções
+//------------------------------------------------------------------------------
+procedure SA_Criar_Menu(ativar:boolean);
+var
+   d               : integer;
+   Linhas_mensagem : TStringList;
+begin
+   //---------------------------------------------------------------------------
+   Linhas_mensagem      := TStringList.Create;
+   Linhas_mensagem.Text := frmwebtef.mensagem;
+   //---------------------------------------------------------------------------
+   frmwebtef.CaracteresDigitaveis := [#1..#255];
+   //---------------------------------------------------------------------------
+   if frmwebtef.opcoes.Count=0 then
+      exit;
+   //---------------------------------------------------------------------------
+   if ativar then
+      begin
+         //---------------------------------------------------------------------
+
+         //---------------------------------------------------------------------
+         frmwebtef.panel_menu.Top     := frmwebtef.pnTemporizador.Top;
+         frmwebtef.panel_menu.Left    := frmwebtef.pnTemporizador.Left;
+         frmwebtef.panel_menu.Width   := frmwebtef.pnTemporizador.Width;
+         frmwebtef.panel_menu.Height  := frmwebtef.pnTemporizador.Height;
+         frmwebtef.panel_menu.Color   := $00FF8409;
+         frmwebtef.panel_menu.Visible := true;
+         //---------------------------------------------------------------------
+         frmwebtef.pnmensagem.Top     := frmwebtef.pnoperacao.Top;
+         frmwebtef.pnmensagem.Left    := frmwebtef.pnoperacao.Left;
+         frmwebtef.pnmensagem.Width   := frmwebtef.pnoperacao.Width;
+         frmwebtef.pnmensagem.Height  := frmwebtef.pnoperacao.Height;
+         frmwebtef.pnmensagem.Color   := frmwebtef.pnoperacao.Brush.Color;
+         if (Linhas_mensagem.Count>1) and (Linhas_mensagem.Count<=3) then
+            begin
+               frmwebtef.pnmensagem.Caption        := '';
+               frmwebtef.aviso_linhas_jv.Visible   := true;
+               frmwebtef.aviso_linhas_jv.Top       := 10;
+               frmwebtef.aviso_linhas_jv.Left      := 10;
+               frmwebtef.aviso_linhas_jv.Font.Size := 36;
+               frmwebtef.aviso_linhas_jv.Width     := frmwebtef.pnmensagem.Width - 20;
+               frmwebtef.aviso_linhas_jv.Height    := frmwebtef.pnmensagem.Height - 20;
+               frmwebtef.aviso_linhas_jv.WordWrap  := true;
+               frmwebtef.aviso_linhas_jv.Alignment := taCenter;
+               frmwebtef.aviso_linhas_jv.Caption   := Linhas_mensagem.Text;
+            end
+         else if (Linhas_mensagem.Count>3) then
+            begin
+               frmwebtef.pnmensagem.Top     := frmwebtef.pnoperacao.Top;
+               frmwebtef.pnmensagem.Left    := frmwebtef.pnfoto.Left;
+               frmwebtef.pnmensagem.Width   := frmwebtef.pnfoto.Width;
+               frmwebtef.pnmensagem.Height  := frmwebtef.pnfoto.Height + frmwebtef.pnfoto.Top - frmwebtef.pnoperacao.Top;
+               frmwebtef.pnmensagem.Color   := frmwebtef.pnoperacao.Brush.Color;
+
+               Linhas_mensagem.Text := StringReplace(Linhas_mensagem.Text,'<MSG_REM>',' ',[rfReplaceAll]);
+               Linhas_mensagem.Text := StringReplace(Linhas_mensagem.Text,'</MSG_REM>',' ',[rfReplaceAll]);
+
+               frmwebtef.panel_menu.Top     := frmwebtef.pnmensagem.Top;
+               frmwebtef.panel_menu.Left    := frmwebtef.pnTemporizador.Left;
+               frmwebtef.panel_menu.Width   := frmwebtef.pnTemporizador.Width;
+               frmwebtef.panel_menu.Height  := frmwebtef.pnmensagem.Height;
+
+               frmwebtef.pnmensagem.Caption        := '';
+               frmwebtef.aviso_linhas_jv.Visible   := true;
+               frmwebtef.aviso_linhas_jv.Top       := 10;
+               frmwebtef.aviso_linhas_jv.Left      := 10;
+               frmwebtef.aviso_linhas_jv.Font.Size := 10;
+               frmwebtef.aviso_linhas_jv.Width     := frmwebtef.pnmensagem.Width - 20;
+               frmwebtef.aviso_linhas_jv.Height    := frmwebtef.pnmensagem.Height - 20;
+               frmwebtef.aviso_linhas_jv.WordWrap  := true;
+               frmwebtef.aviso_linhas_jv.Alignment := taCenter;
+               frmwebtef.aviso_linhas_jv.Caption   := Linhas_mensagem.Text;
+            end
+         else
+            begin
+               frmwebtef.aviso_linhas_jv.Visible := false;
+               frmwebtef.pnmensagem.Caption      := frmwebtef.mensagem;
+            end;
+         //---------------------------------------------------------------------
+         frmwebtef.pnmensagem.Visible := true;
+         //---------------------------------------------------------------------
+         if length(frmwebtef.botoes)>0 then
+            begin
+               for d := 1 to length(frmwebtef.botoes) do
+                  frmwebtef.botoes[d-1].free;
+            end;
+         //---------------------------------------------------------------------
+         setlength(frmwebtef.botoes,frmwebtef.opcoes.Count);
+         //---------------------------------------------------------------------
+         for d := 1 to frmwebtef.opcoes.Count do
+            begin
+               frmwebtef.botoes[d-1]              := TMKMBotao.Create;
+               frmwebtef.botoes[d-1].TpBotao      := tpCustom;
+               frmwebtef.botoes[d-1].Py           := ((d-1) * 60)+10;
+               frmwebtef.botoes[d-1].Px           := 10;
+               frmwebtef.botoes[d-1].Altura       := 50;
+               frmwebtef.botoes[d-1].Largura      := frmwebtef.panel_menu.Width - 20;
+               frmwebtef.botoes[d-1].ArqIcone     := GetCurrentDir+'\icones\setad.bmp';
+               frmwebtef.botoes[d-1].IconStretch  := false;
+               frmwebtef.botoes[d-1].LarguraIcone := 62;
+               frmwebtef.botoes[d-1].FontSize     := 12;
+               frmwebtef.botoes[d-1].OnClick      := frmwebtef.btokclick;
+               frmwebtef.botoes[d-1].Nome         := 'bt'+d.ToString+formatdatetime('yyyymmdd_hhmmsszzz',now);
+               frmwebtef.botoes[d-1].Pai          := frmwebtef.panel_menu;
+               frmwebtef.botoes[d-1].tag          := d;
+               frmwebtef.botoes[d-1].CorFundo     := $004728D7;
+               frmwebtef.botoes[d-1].CorLetra     := $00DFFFFF;
+               frmwebtef.botoes[d-1].CorIcone     := $00EEEEEE;
+               frmwebtef.botoes[d-1].Texto        := d.ToString+' - '+frmwebtef.opcoes[d-1];
+               frmwebtef.botoes[d-1].Visible      := true;
+               frmwebtef.botoes[d-1].show;
+            end;
+         //---------------------------------------------------------------------
+      end
+   else
+      begin
+         for d := 1 to frmwebtef.opcoes.Count do
+            frmwebtef.botoes[d-1].Free;
+         setlength(frmwebtef.botoes,0);
+         frmwebtef.panel_menu.Visible := false;
+         frmwebtef.pnmensagem.Visible := false;
+      end;
+   //---------------------------------------------------------------------------
+end;
+//------------------------------------------------------------------------------
+procedure tfrmwebtef.btcancelaClick(sender:tobject);
+begin
+   frmwebtef.Cancelar := true;
+end;
+
+procedure Tfrmwebtef.btdigitarokClick(Sender: TObject);
+begin
+   if edtdado.Text<>'' then
+      frmwebtef.dado_digitado := edtdado.Text
+   else
+      begin
+         beep;
+         pnalerta.Caption      := 'Valor inválido !';
+         pnalerta.Color        := clRed;
+         pnalerta.Font.Color   := clYellow;
+         edtdado.SetFocus;
+      end;
+end;
+
+//------------------------------------------------------------------------------
+procedure tfrmwebtef.btOkClick(sender:tobject);
+begin
+   opcao := (sender as TSpeedButton).Tag;
+end;
+
+
+procedure Tfrmwebtef.edtdadoChange(Sender: TObject);
+begin
+   pnalerta.Caption := '';
+   pnalerta.Color   := clSilver;
+
+end;
+
+procedure Tfrmwebtef.edtdadoKeyDown(Sender: TObject; var Key: Word;  Shift: TShiftState);
+begin
+   if not edtdado.CanFocus then
+      begin
+
+         case key of
+            vk_escape:btcancelaClick(sender);
+            VK_NUMPAD0:tecla := '0';
+            VK_NUMPAD1:tecla := '1';
+            VK_NUMPAD2:tecla := '2';
+            VK_NUMPAD3:tecla := '3';
+            VK_NUMPAD4:tecla := '4';
+            VK_NUMPAD5:tecla := '5';
+            VK_NUMPAD6:tecla := '6';
+            VK_NUMPAD7:tecla := '7';
+            VK_NUMPAD8:tecla := '8';
+            VK_NUMPAD9:tecla := '9';
+         end;
+
+
+      end
+   else
+      begin
+         case key of
+            vk_return:btdigitarok.Click;
+            vk_escape:btcancelaClick(sender);
+         end;
+      end;
+end;
+
+procedure Tfrmwebtef.edtdadoKeyPress(Sender: TObject; var Key: Char);
+begin
+   if key=#13 then
+      key := #0;
+   if not charinset(key,CaracteresDigitaveis) then
+      key := #0;
+end;
+
+procedure Tfrmwebtef.FormCreate(Sender: TObject);
+begin
+   CaracteresDigitaveis := [#1..#255];
+   entrou := false;
+   //---------------------------------------------------------------------------
+end;
+
+procedure Tfrmwebtef.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+   case key of
+      vk_escape:btcancelaClick(sender);
+      VK_NUMPAD0:tecla := '0';
+      VK_NUMPAD1:tecla := '1';
+      VK_NUMPAD2:tecla := '2';
+      VK_NUMPAD3:tecla := '3';
+      VK_NUMPAD4:tecla := '4';
+      VK_NUMPAD5:tecla := '5';
+      VK_NUMPAD6:tecla := '6';
+      VK_NUMPAD7:tecla := '7';
+      VK_NUMPAD8:tecla := '8';
+      VK_NUMPAD9:tecla := '9';
+   end;
+end;
+
+procedure Tfrmwebtef.Activate(Sender: TObject);
+begin
+   frmwebtef.WindowState := wsMaximized;
+   pnmensagem.Visible    := false;
+   fundo.Align           := alClient;
+   frmwebtef.Repaint;
+   //---------------------------------------------------------------------------
+   if not entrou then
+      begin
+         entrou             := true;
+         //---------------------------------------------------------------------------
+         try
+            case TipoTef of   // Selecionando a imagem a ser apresentada durante a transação do TEF
+              tpTEFPayer       : logomp.Picture.LoadFromFile(GetCurrentDir+'\icones\tef_payer.bmp');  // PAYER
+              tpTEFELGIN       : logomp.Picture.LoadFromFile(GetCurrentDir+'\icones\tef_elgin.bmp');  // ELGIN
+              tpTEFMercadoPago : logomp.Picture.LoadFromFile(GetCurrentDir+'\icones\tef_mp.bmp');     // Mercado Pago
+              tpTEFMultiPlus   : logomp.Picture.LoadFromFile(GetCurrentDir+'\icones\tef_mplpay.bmp');    // MultiPlus
+              tpMKMPix         : logomp.Picture.LoadFromFile(GetCurrentDir+'\icones\tef_mkmpix.bmp');    // Pix MKM
+            end;
+         except
+
+         end;
+         //---------------------------------------------------------------------
+         case TipoTef of   // Selecionando o título apresentado durante a transação do TEF
+           tpTEFPayer       : titulo.Caption := 'MKM TEF Payer';    // PAYER
+           tpTEFELGIN       : titulo.Caption := 'MKM TEF ELGIN'; // ELGIN
+           tpTEFMercadoPago : titulo.Caption := 'MKM Web TEF MP';    // Mercado Pago
+           tpTEFMultiPlus   : titulo.Caption := 'MKM TEF MULTIPLUS';    // Multiplus Pay
+           tpMKMPix         : titulo.Caption := 'MKM API PIX';    // Pix API MKM
+         end;
+         frmwebtef.Repaint;
+      end;
+   //---------------------------------------------------------------------------
+end;
+
+end.

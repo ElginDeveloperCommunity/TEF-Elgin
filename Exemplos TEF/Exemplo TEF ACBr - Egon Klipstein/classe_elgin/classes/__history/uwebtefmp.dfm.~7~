@@ -1,0 +1,286 @@
+object frmwebtef: Tfrmwebtef
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'WEB TEF Mercado Pago'
+  ClientHeight = 700
+  ClientWidth = 1068
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnActivate = Activate
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  DesignSize = (
+    1068
+    700)
+  PixelsPerInch = 96
+  TextHeight = 13
+  object fundo: TShape
+    Left = 8
+    Top = 8
+    Width = 65
+    Height = 89
+    Brush.Color = 12906495
+  end
+  object Shape1: TShape
+    Left = 15
+    Top = 14
+    Width = 1036
+    Height = 89
+    Anchors = [akLeft, akTop, akRight]
+    Brush.Color = clSilver
+    Pen.Style = psClear
+    Shape = stRoundRect
+  end
+  object titulo: TLabel
+    Left = 25
+    Top = -1
+    Width = 1015
+    Height = 99
+    Alignment = taCenter
+    Anchors = [akLeft, akTop, akRight]
+    AutoSize = False
+    Caption = 'Web TEF PAYER'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = 3618615
+    Font.Height = -75
+    Font.Name = 'Arial Black'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+  end
+  object pnoperacao: TShape
+    Left = 15
+    Top = 113
+    Width = 1036
+    Height = 162
+    Anchors = [akLeft, akTop, akRight]
+    Brush.Color = 6711039
+    Pen.Style = psClear
+    Shape = stRoundRect
+  end
+  object Shape11: TShape
+    Left = 540
+    Top = 124
+    Width = 499
+    Height = 68
+    Anchors = [akTop, akRight]
+    Pen.Style = psClear
+    Shape = stRoundRect
+  end
+  object Label3: TLabel
+    Left = 43
+    Top = 126
+    Width = 491
+    Height = 58
+    Alignment = taRightJustify
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Forma de pagamento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -48
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object lbforma: TLabel
+    Left = 546
+    Top = 126
+    Width = 488
+    Height = 58
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'CARTAO DE DEBITO'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -48
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object Label5: TLabel
+    Left = 86
+    Top = 199
+    Width = 452
+    Height = 58
+    Alignment = taRightJustify
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Valor do pagamento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -48
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object Shape12: TShape
+    Left = 540
+    Top = 197
+    Width = 499
+    Height = 68
+    Anchors = [akTop, akRight]
+    Pen.Style = psClear
+    Shape = stRoundRect
+  end
+  object lbvalor: TLabel
+    Left = 546
+    Top = 199
+    Width = 488
+    Height = 58
+    Alignment = taRightJustify
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = '0,000'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -48
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
+  object pnTemporizador: TShape
+    Left = 430
+    Top = 282
+    Width = 621
+    Height = 305
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Brush.Color = 16764622
+    Pen.Style = psClear
+  end
+  object pnfoto: TShape
+    Left = 15
+    Top = 282
+    Width = 409
+    Height = 305
+    Anchors = [akLeft, akTop, akBottom]
+    Pen.Style = psClear
+  end
+  object placa_util: TShape
+    Left = 15
+    Top = 595
+    Width = 1036
+    Height = 89
+    Anchors = [akLeft, akRight, akBottom]
+    Brush.Color = 12040191
+    Pen.Style = psClear
+    Shape = stRoundRect
+  end
+  object logomp: TImage
+    Left = 34
+    Top = 368
+    Width = 366
+    Height = 161
+    Anchors = [akLeft, akTop, akBottom]
+    Center = True
+  end
+  object lb_tempo: TLabel
+    Left = 443
+    Top = 290
+    Width = 592
+    Height = 279
+    Alignment = taCenter
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    AutoSize = False
+    Caption = '0'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = 3684408
+    Font.Height = -200
+    Font.Name = 'Arial Black'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object pnadm: TPanel
+    Left = 66
+    Top = 411
+    Width = 1033
+    Height = 118
+    Caption = 'ADMINISTRATIVO'
+    Color = 16745481
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -48
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+  end
+  object pnmensagem: TPanel
+    Left = 275
+    Top = 368
+    Width = 1033
+    Height = 151
+    Color = 16745481
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -48
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    Visible = False
+    object lblinha1: TLabel
+      Left = 6
+      Top = 11
+      Width = 1020
+      Height = 55
+      AutoSize = False
+      Caption = 'lblinha1'
+    end
+    object lblinha2: TLabel
+      Left = 6
+      Top = 68
+      Width = 1020
+      Height = 55
+      AutoSize = False
+      Caption = 'lblinha1'
+    end
+    object aviso_linhas_jv: TJvLabel
+      Left = 266
+      Top = 40
+      Width = 631
+      Height = 49
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Linha1\nLinha2'
+      Transparent = True
+      Visible = False
+      WordWrap = True
+      HotTrackFont.Charset = ANSI_CHARSET
+      HotTrackFont.Color = clWindowText
+      HotTrackFont.Height = -48
+      HotTrackFont.Name = 'Arial'
+      HotTrackFont.Style = []
+    end
+  end
+  object panel_menu: TPanel
+    Left = 18
+    Top = 426
+    Width = 516
+    Height = 163
+    Color = 16745481
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -48
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+  end
+end

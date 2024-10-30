@@ -1,0 +1,547 @@
+unit uPayerTypes;
+
+interface
+
+uses
+   uescpos,
+   System.UITypes,
+   system.Classes;
+
+type
+   //---------------------------------------------------------------------------
+   TPayerrejectionInfo = record
+      rejectionCode    : string;
+      rejectionMessage : string;
+   end;
+   //---------------------------------------------------------------------------
+   TPayerRetornoTEF = record
+     correlationId                 : string;
+     idPayer                       : string;
+     paymentProvider               : string;
+     acquirer                      : string;
+     flag                          : string;
+     statusTransaction             : string;
+     operationType                 : string;
+     companyId                     : string;
+     storeId                       : string;
+     terminalId                    : string;
+     value                         : real;
+     paymentMethod                 : string;
+     paymentType                   : string;
+     paymentMethodSubType          : string;
+     installments                  : string;
+     cardNumber                    : string;
+     paymentDate                   : string;
+     transactionDateTime           : string;
+     thirdPartyId                  : string;
+     authorizerId                  : string;
+     authorizerUsn                 : string;
+     documentNumber                : string;
+     shopTextReceipt               : string;
+     customerTextReceipt           : string;
+     reducedShopPaymentReceipt     : string;
+     reducedCustomerPaymentReceipt : string;
+     rejectionInfo                 : TPayerrejectionInfo;
+     ComprovanteLoja               : TStringList;
+     ComprovanteCliente            : TStringList;
+     ComprovanteLojaReduzido       : TStringList;
+     ComprovanteClienteReduzido    : TStringList;
+   end;
+   //---------------------------------------------------------------------------
+   TPayerIDToken = record
+      IDToken  : string;
+      Validade : integer;
+      Expiraem : TDateTime;
+   end;
+   //---------------------------------------------------------------------------
+   TTpPayerCartaoOperacaoTEF  = (tpPayerEscolher , tpPayerCredito, tpPayerCreditoVista , tpPayerCreditoParceladoADM , tpPayerCreditoParceladoLoja , tpPayerDebito, tpPayerDebitovISTA, tpPayerDebitoPRE, tpPayerValeAlimentacao, tpPayerValeRefeicao, tpPayerFrota, tpPayerPIX);
+   //---------------------------------------------------------------------------
+   TtpPayerImpressao          = (tpiPayerImprimir, tpiPayerPerguntar , tpiPayerNaoImprimir);
+   //---------------------------------------------------------------------------
+   TMKMPixPSP             = (pspNENHUM,pspBB,pspSICREDI);
+   TTMKMPixStatusConsulta = (tPgtoPIXAguardando,tPgtoPIXRealizado,tPgtoPIXInexistente,tPgtoPIXErro,tPgtoPIXCancelado,tPgtoPIXIndefinido,tPgtoPIXExpirado);
+   //---------------------------------------------------------------------------
+   TTipoTef = (tpTEFPayer,tpTEFELGIN,tpTEFMercadoPago,tpTEFMultiPlus,tpMKMPix);
+   TFinalidadeImagem = (tpFinalidadeGeral,tpFinalidadeCartaz);
+   //---------------------------------------------------------------------------
+   TPRetornoMultiPlus = (TPMultiPlusMENU , TPMultiPlusMSG , TPMultiPlusPERGUNTA , TPMultiPlusRETORNO , TPMultiPlusERROABORTAR , TPMultiPlusERRODISPLAY,TPMultiPlusINDEFINIDO);
+   //---------------------------------------------------------------------------
+   TMultiPlusMenu = record
+      Titulo : string;
+      Opcoes : TStringList;
+   end;
+   //---------------------------------------------------------------------------
+   TMultiPlusTTipoDado = (TtpINT, TtpSTRING, TtpDECIMAL, TtpDATE , TtpINDEFINIDO);
+   //---------------------------------------------------------------------------
+   TMultiPlusPergunta = record
+      Titulo         : string;
+      Tipo           : TMultiPlusTTipoDado;
+      TamanhoMinimo  : integer;
+      TamanhoMaximo  : integer;
+      VlMinimo       : string;
+      VlMaximo       : string;
+      CasasDecimais  : integer;
+      Mascara        : string;
+      ValorColetado  : string;
+   end;
+   //---------------------------------------------------------------------------
+   //   Tipo RECORD para armazenar os dados de uma solicitação PIX
+   //---------------------------------------------------------------------------
+   TMultiPlusDadosPix = record
+      NSU    : string;
+      ORIGEM : string;
+      VALOR  : real;
+      QRCODE : string;
+   end;
+   //---------------------------------------------------------------------------
+   TMultiPlusRetornoTransacao = record
+      CUPOM              : string;
+      VALOR              : real;
+      COD_BANDEIRA       : string;
+      COD_REDE           : string;
+      COD_AUTORIZACAO    : string;
+      NSU                : string;
+      QTDE_PARCELAS      : integer;
+      TAXA_SERVICO       : real;
+      BIN_CARTAO         : string;
+      ULT_DIGITOS_CARTAO : string;
+      CNPJ_AUTORIZADORA  : string;
+      NOME_CLIENTE       : string;
+      NSU_REDE           : string;
+      VENCTO_CARTAO      : string;
+      COMPROVANTE        : TStringList;
+      VIAS_COMPROVANTE   : integer;
+      NOME_BANDEIRA      : string;
+      NOME_REDE          : string;
+      CARTAO_PRE_PAGO    : boolean;
+      COD_TIPO_TRANSACAO : string;
+      DESC_TRANSACAO     : string;
+      DadosPIX           : TMultiPlusDadosPix;
+      E2E                : string;   // Retorno da transação PIX
+      ComprovanteLoja    : TStringList;
+      Data               : TDate;
+      Hora               : TTime;
+      OperacaoExecutada  : boolean;
+   end;
+   //---------------------------------------------------------------------------
+   TtipoImagem = (tpArquivo , tpLinkInternet);
+   //---------------------------------------------------------------------------
+   TImagem = record
+      imagem : string;
+      tipo   : TtipoImagem;
+   end;
+   TImagens = array of TImagem;
+   //---------------------------------------------------------------------------
+   //  Mensagems do MKM MEssanger
+   //---------------------------------------------------------------------------
+   TMensagem = record
+      Numero       : integer;
+      Emitente     : integer;
+      Destinatario : integer;
+      dh           : TDateTime;
+      Mensagem     : string;
+      Leitura      : boolean;
+   end;
+   //---------------------------------------------------------------------------
+   TMensagens = array of TMensagem;  // Lista de mensagens
+   //---------------------------------------------------------------------------
+   //  Integração com POS para adicionar na NFce
+   //---------------------------------------------------------------------------
+   TDadosPOS = record
+      CNPJ     : string;
+      Bandeira : integer;
+      cAut     : string;
+   end;
+   //---------------------------------------------------------------------------
+   //   Record para armazenar um participante ou destinatário
+   //---------------------------------------------------------------------------
+   TPart = record
+      id   : integer;
+      cnpj : string;
+      nome : string;
+   end;
+   //---------------------------------------------------------------------------
+   TParts = array of TPart;
+   //---------------------------------------------------------------------------
+   //  Para trabalhar com vale
+   //---------------------------------------------------------------------------
+   TVale = record
+      barra : string;
+      valor : real;
+   end;
+   //---------------------------------------------------------------------------
+   //  Tipo para atualizar arquivos
+   //---------------------------------------------------------------------------
+   TArquivo = record
+      arquivo : string;
+      dh      : TDateTime;
+      versao  : string;
+   end;
+   //---------------------------------------------------------------------------
+   TArquivos = array of TArquivo;
+   //---------------------------------------------------------------------------
+   THistorico_tributos = record
+      definido   : boolean;
+      barra      : string;
+      uf_origem  : string;
+      uf_destino : string;
+      mva        : real;
+      icms       : real;
+      reducao    : real;
+      ncm        : string;
+      cest       : string;
+      pST        : real;
+      vBCSTRet   : real;
+      qtde       : integer;
+   end;
+   //---------------------------------------------------------------------------
+   //   Comanda
+   //---------------------------------------------------------------------------
+   TComanda = record
+      numero         : integer;
+      carregada      : boolean;
+      id1            : string;
+      id2            : string;
+      id3            : string;  // Mesa
+      data           : tdate;
+      hora           : ttime;
+      codigo         : integer;
+      nome           : string;
+      produtos       : real;
+      servicos       : real;
+      encargos       : real;
+      descontos      : real;
+      liquido        : real;
+      tipo_movimento : integer;
+      status         : boolean;
+      terminal       : string;
+      obs1_venda     : string;
+      obs2_venda     : string;
+      obs3_venda     : string;
+      obs4_venda     : string;
+      garcom         : integer;
+      nome_garcom    : string;
+   end;
+   //---------------------------------------------------------------------------
+   //  Tipo para impresso
+   //---------------------------------------------------------------------------
+   TGuia_Producao = record
+      ESCPosServices       : TESCPos;
+      codigo_impressora    : string;
+      departamento         : string;
+      documento_nome       : string;
+      ticket_numero        : string;
+   end;
+   //---------------------------------------------------------------------------
+   //   Para controlar o pedido na entrega
+   //---------------------------------------------------------------------------
+   TPedido_producao = record
+      numero             : string;
+      data               : TDate;
+      hora               : TTime;
+      codigo_status      : string;
+      descricao          : string;
+      data_para_executar : TDate;
+      hora_para_executar : TTime;
+      cor                : string;
+   end;
+   //---------------------------------------------------------------------------
+   TLista_Pedidos_producao = array of TPedido_producao;
+   //---------------------------------------------------------------------------
+   TLista_Guia_Producao = array of TGuia_Producao;
+   //---------------------------------------------------------------------------
+   //---------------------------------------------------------------------------
+   //   Pre Venda em TXT
+   //---------------------------------------------------------------------------
+   TPreVendaTXT = record
+      tem_produto : boolean;
+      origem      : string;
+      codigo      : string;
+      ref         : string;
+      barra       : string;
+      descricao   : string;
+      un          : string;
+      ncm         : string;
+      qtde        : real;
+      valor       : real;
+      total       : real;
+      arquivo     : string;
+   end;
+   //---------------------------------------------------------------------------
+   TListaPrevenda_TXT = array of TPreVendaTXT;
+   //---------------------------------------------------------------------------
+   //   Tipo para retorno da SEFAZ
+   //---------------------------------------------------------------------------
+   TRetorno_NFe_Sefaz = record
+      retorno  : integer;
+      cStat    : integer;
+      xMotivo  : string;
+      nProt    : string;
+      mensagem : TStringList;
+   end;
+   //---------------------------------------------------------------------------
+   //   Padrão de cores
+   //---------------------------------------------------------------------------
+   TCores = record
+      principal_letra_normal            : TColor;
+      principal_letra_destaque          : TColor;
+      principal_letra_titulo_normal     : TColor;
+      principal_letra_titulo_destaque   : TColor;
+      principal_placa_titulo_destaque   : TColor;
+      principal_placa_titulo_normal     : TColor;
+      retaguarda_fundo                  : TColor;
+   end;
+   //---------------------------------------------------------------------------
+   //  Tipo para armazenar complemento
+   //---------------------------------------------------------------------------
+   TComplemento = record
+      tem_complemento    : boolean;
+      codigo             : integer;
+      descricao          : string;
+      valor              : real;
+   end;
+   //----------------------------------------------------------------------------
+   //   Tipo para retorno de WS sefaz
+   //----------------------------------------------------------------------------
+   TRetorno_SEFAZ = record
+      cStat   : integer;
+      xMotivo : string;
+      XML     : WideString;
+   end;
+  //----------------------------------------------------------------------------
+  //   Login no sistema
+  //---------------------------------------------------------------------------
+  TLogin = record
+     Usuario_principal_codigo  : integer;
+     Usuario_principal_Nome    : string;
+     Usuario_principal_logado  : boolean;
+     Usuario_secundario_codigo : integer;
+     Usuario_secundario_nome   : string;
+     Usuario_secundario_logado : boolean;
+  end;
+  //----------------------------------------------------------------------------
+  //   Produtos do TOUCH
+  //----------------------------------------------------------------------------
+  TProduto_TOUCH = record
+     ativo     : boolean;
+     codigo    : integer;
+     ref       : string;
+     descricao : string;
+     un        : string;
+     barra     : string;
+     custo     : real;
+     venda     : real;
+  end;
+  //----------------------------------------------------------------------------
+  TItem_composicao_produto = record
+     codigo            : integer; // Código do produto componente
+     ref               : string;  // Referência do produto componente
+     descricao         : string;  // Descrição do produto componente
+     un                : string;  // Unidade de Medida do produto componente
+     classe            : string;  // Marca / Fábrica do produto componente
+     linha             : string;  // Grupo / Linha do produto componente
+     qtde              : real;    // Qtde que compõe o produto composto
+     custo             : real;    // Custo do produto componente
+     venda             : real;    // Valor de venda do produto componente
+     qtde_composicao   : real;    // Quantidade do produto composto - Para multiplicar pela quantidade
+     qtde_total        : real;    // Quantidade total do ítem na composição
+     custo_total       : real;    // Custo multiplicado
+     venda_total       : real;    // Valor total de venda
+     atualizar_estoque : boolean; //
+     atualizar_custo   : boolean;
+     atualizar_venda   : boolean;
+  end;
+  //----------------------------------------------------------------------------
+  //  Produto composto
+  //----------------------------------------------------------------------------
+  TComposicao_produto = record
+     definido          : boolean;   //  Definido o produto - Se o produto foi encontrado
+     codigo            : integer;   //  Codigo do produto composto
+     ref               : string;    //  Referência do produto composto
+     descricao         : string;    //  Descrição do produto composto
+     un                : string;    //  Unidade de medida do produto composto
+     classe            : string;    //  Marca / Fábrica do produto composto
+     linha             : string;    //  Grupo / linha do produto composto
+     qtde              : real;      //  Qtde do produto composto
+     custo             : real;      //  Custo do produto composto
+     venda             : real;      //  Valor de Venda do produto composto
+     atualizar_estoque : boolean;   //
+     atualizar_custo   : boolean;
+     atualizar_venda   : boolean;
+     embalado          : boolean;   //  True se o produto componente for embalado
+     composicao        : array of TItem_composicao_produto;  //  Lista de produtos que compõem
+  end;
+  //----------------------------------------------------------------------------
+  //   Lista de produtos para processamento de composição
+  //----------------------------------------------------------------------------
+  TLista_Produtos_processo = array of TComposicao_produto;
+  //----------------------------------------------------------------------------
+  TItem_Venda_NFCe = record
+     codigo                     : integer;
+     barra                      : string;
+     ref                        : string;
+     descricao                  : string;
+     un                         : string;
+     marca                      : string;
+     linha                      : string;
+     qtde                       : real;
+     valor_unitario             : real;
+     valor_minimo               : real;
+     desconto_percentual        : real;
+     desconto_valor             : real;
+     valor_liq_unitario         : real;
+     total_bruto                : real;
+     total_liquido              : real;
+     ncm                        : string;
+     CEST                       : string;
+     ANP                        : string;
+     tributo_percentual         : real;
+     tributo_valor              : real;
+     CSOSN_CST                  : string;
+     CFOP                       : string;
+     CST_PIS_COFINS             : string;
+     Valor_Unit_definido        : boolean;  // Se estiver setado como true, o valor assumido é o que estiver carregado
+     custo                      : real;     // Custo do produto
+     tipo_de_complemento        : integer;  // 0 - Opcional / 1 - Obrigatório / 2 - Não complementável
+     impressora                 : integer;  // Impressora que está definida para a impressão da guia de produção
+     codigo_da_unidade_embalada : integer;  // Se o produtoi for embalado este é o código do produto que foi embalado, do contrário é o código do produto
+     qtde_de_unidades_vendidas  : real;     // Quantidade total da venda, se embalado será o resultado da multiplicação pela quantidade embalada
+     produto_e_KIT              : boolean;  // Se o produto é um KIT esta variável será true
+     preco_cadastrado           : real;     // O preço que está no cadastro
+  end;
+  //----------------------------------------------------------------------------
+  //  Pagamento
+  //----------------------------------------------------------------------------
+   TPgto = record
+      ok          : boolean;
+      atalho      : string;
+      documento   : string;
+      descricao   : string;
+      forma       : string;
+      vencimento  : TDateTime;
+      valor       : real;
+      saida       : real;
+      acrescimo_p : real;
+      acrescimo_v : real;
+      liquido     : real;
+      evento      : integer;
+      tpIntegra   : integer; // Tipo de integração de TEF  - 0 - tiNaoInformado / 1 - tiPagIntegrado / 2 - tiPagNaoIntegrado
+      NomeProduto : string;  // Cartão
+      rede        : string;
+      CNPJ        : string;  // CNPJ do integrador TEF
+      indPag      : integer; // Tipo de pagamento
+      tBand       : integer; // Bandeira de cartao de Crédito / Débito
+      cAut        : string;  // NSU / Código de autorização
+      NSU         : string;  // NSU / Código de autorização
+      forma_nfe   : Integer; // Forma de pagamento da NFe
+   end;
+   //---------------------------------------------------------------------------
+   //   Pagamentos
+   //---------------------------------------------------------------------------
+   TPagamento = record
+      ok             : boolean;
+      movimento      : real;   // OID para os lançamentos
+      movimentocaixa : real;
+      codigo         : integer;
+      descricao      : string;
+      documento      : string;
+      bruto          : real;
+      desconto       : real;
+      encargo        : real;
+      liquido        : real;
+      pagamento      : real;
+      saldo          : real;
+      troco          : real;
+      pagamentos     : array of TPgto;
+   end;
+   //---------------------------------------------------------------------------
+   TTributos = record
+     pRedBCEfet : real;
+     vBCEfet    : real;
+     pICMSEfet  : real;
+     vICMSEfet  : real;
+   end;
+   //---------------------------------------------------------------------------
+   // Aliquota e CST de PIS e COFINS
+   //---------------------------------------------------------------------------
+   TDados_NCM = record
+      NCM                    : string;
+      CEST                   : string;
+      descricao              : string;
+      IBPT_ibpt_aliq_est     : real;
+      IBPT_ibpt_aliq_fed     : real;
+      IBPT_ibpt_aliq_mun     : real;
+      IBPT_Total_tributos    : real;
+      aliquota_ICMS          : real;
+      reducao_ICMS           : real;
+      mva                    : real;
+      Aliq_ICMS_Destino      : real;
+   end;
+   //---------------------------------------------------------------------------
+   // Record para retornar pgto PIX
+   //---------------------------------------------------------------------------
+   TPgto_PIX = record
+      Pgto_Realizado : boolean;
+      TxID           : String;
+      E2E            : String;
+      valor          : real;
+   end;
+   //---------------------------------------------------------------------------
+   TTributosNFe = record
+      Definido       : boolean;
+      vBCSTRet       : real;
+      pST            : real;
+      cBenef         : string;
+      cst_icms       : real;
+      cst_pis_cofins : real;
+      icms           : real;
+      pis            : real;
+      cofins         : real;
+      red_bc         : real;
+      pFCP           : real;
+      pDif           : real;
+   end;
+   //---------------------------------------------------------------------------
+   //   Tipo para retorno de TEF
+   //---------------------------------------------------------------------------
+{
+   TRetorno_TEF = record
+      operacao                   : string;
+      documento                  : string;
+      valor                      : real;
+      quando                     : tdatetime;
+      data                       : tdate;
+      hora                       : ttime;
+      rede                       : string;
+      codigo_de_controle         : string;
+      nome_do_cliente            : string;
+      Tipo_de_Parcelamento       : string;
+      Tipo_de_financiamento      : string;
+      Qtde_Parcelas              : string;
+      Tipo_de_Cartao             : string;
+      NSU                        : string;
+      Codigo_de_autorizacao      : string;
+      Indice_rede_adquirente     : string;
+      Numero_do_cartao           : string;
+      Nome_do_Produto            : string;
+      Valor_devido               : string;
+      Valor_reajustado           : string;
+      Data_pre_datado            : string;
+      NSU_Original               : string;
+      Mensagem_ao_operador       : string;
+      Nome_do_Cartao             : string;
+      Valor_original             : string;
+      Valor_do_Troco             : string;
+      Valor_do_Desconto          : string;
+      Taxa_de_Servico            : string;
+      Taxa_de_Embarque           : string;
+      Data_vencimento            : string;
+      Nome_do_cartao_padronizado : string;
+      Data_no_Comprovante        : string;
+      Hora_No_Comprovante        : string;
+   end;
+}
+
+implementation
+
+end.

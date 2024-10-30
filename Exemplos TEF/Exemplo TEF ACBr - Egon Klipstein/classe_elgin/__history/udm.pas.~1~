@@ -1,0 +1,125 @@
+unit udm;
+
+interface
+
+uses
+  midaslib,
+  System.SysUtils,
+  System.Classes,
+  Data.DB,
+  Datasnap.DBClient;
+
+type
+  Tdm = class(TDataModule)
+    tblconf: TClientDataSet;
+    tblconfLoja: TStringField;
+    tblconfPDV: TStringField;
+    tblconfSalvarLOG: TBooleanField;
+    tblconfIMPRESSORAPortaNome: TStringField;
+    tblconfIMPRESSORAModelo: TIntegerField;
+    tblconfIMPRESSORAAvanco: TIntegerField;
+    tblconfCompanhia: TStringField;
+    tblconfLogin: TStringField;
+    tblconfSenha: TStringField;
+    tblconfComprovanteLoja: TIntegerField;
+    tblconfComprovanteCliente: TIntegerField;
+    tblconfComprovanteReduzidoLoja: TStringField;
+    tblconfComprovanteReduzidoCliente: TIntegerField;
+    tblconfNomeAutomacao: TStringField;
+    tblconfCallBackPAYER: TStringField;
+    tbltef: TClientDataSet;
+    tbltefcorrelationId: TStringField;
+    tbltefidPayer: TStringField;
+    tbltefacquirer: TStringField;
+    tbltefflag: TStringField;
+    tbltefoperationType: TStringField;
+    tbltefcompanyId: TStringField;
+    tbltefstoreId: TStringField;
+    tbltefterminalId: TStringField;
+    tbltefvalue: TFloatField;
+    tbltefpaymentMethod: TStringField;
+    tbltefpaymentType: TStringField;
+    tbltefpaymentMethodSubType: TStringField;
+    tbltefinstallments: TIntegerField;
+    tbltefcardNumber: TStringField;
+    tbltefpaymentDate: TStringField;
+    tblteftransactionDateTime: TStringField;
+    tbltefthirdPartyId: TStringField;
+    tbltefauthorizerId: TStringField;
+    tbltefauthorizerUsn: TStringField;
+    tbltefdocumentNumber: TStringField;
+    tbltefshopTextReceipt: TMemoField;
+    tbltefcustomerTextReceipt: TMemoField;
+    tbltefreducedShopPaymentReceipt: TMemoField;
+    tbltefreducedCustomerPaymentReceipt: TMemoField;
+    tbltefrejectionCode: TStringField;
+    tbltefrejectionMessage: TStringField;
+    tbltefpaymentProvider: TStringField;
+    dtstef: TDataSource;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+begin
+   //---------------------------------------------------------------------------
+   tblconf.CreateDataSet;
+   tblconf.Open;
+   tblconf.EmptyDataSet;
+   if fileexists(GetCurrentDir+'\config.xml') then  // Verificando se o arquivo de configurações existe na pasta (diretório) corrente
+      tblconf.LoadFromFile(GetCurrentDir+'\config.xml')  // Carregar o arquivo de configurações para o DataSet
+   else
+      begin
+         //---------------------------------------------------------------------
+         //   Se o arquivo de configurações não existir, criar com as configurações padrão
+         //---------------------------------------------------------------------
+         tblconf.Append;
+         //---------------------------------------------------------------------
+         dm.tblconf.FieldByName('Companhia').AsString                    := '000001';
+         dm.tblconf.FieldByName('Loja').AsString                         := '0001';
+         dm.tblconf.FieldByName('PDV').AsString                          := '01';
+         dm.tblconf.FieldByName('NomeAutomacao').AsString                := 'AUTOMACAO_TESTE'; // Nome da aplicação
+
+         dm.tblconf.FieldByName('login').AsString                        := '';
+         dm.tblconf.FieldByName('senha').AsString                        := '';
+
+         dm.tblconf.FieldByName('CallBackPAYER').AsString                := '';
+         dm.tblconf.FieldByName('ComprovanteCliente').AsInteger          := 1;                 // Via do cliente - 1 = Perguntar
+         dm.tblconf.FieldByName('ComprovanteLoja').AsInteger             := 1;                 // Via da Loja -    1 = Perguntar
+         dm.tblconf.FieldByName('ComprovanteReduzidoCliente').AsInteger  := 1;                 // Via reduzida do cliente 1 = Perguntar
+         dm.tblconf.FieldByName('ComprovanteReduzidoLoja').AsInteger     := 1;                 // Via reduzida da loja 1 = Perguntar
+         dm.tblconf.FieldByName('SalvarLOG').AsBoolean                   := true;              // Salvar LOG automaticamente
+         //---------------------------------------------------------------------
+         tblconf.FieldByName('IMPRESSORAPortaNome').AsString          := '';
+         tblconf.FieldByName('IMPRESSORAModelo').AsInteger            := 4;  // Padrão EPSON
+         tblconf.FieldByName('IMPRESSORAAvanco').AsInteger            := 5;  //  Padrão 5 linhas
+         tblconf.Post;
+         tblconf.SaveToFile('config.xml');
+         //---------------------------------------------------------------------
+      end;
+   //---------------------------------------------------------------------------
+   // Operações TEF realizadas
+   //---------------------------------------------------------------------------
+   tbltef.CreateDataSet;
+   tbltef.Open;
+   tbltef.EmptyDataSet;
+   if fileexists(GetCurrentDir+'\tef.xml') then
+      tbltef.LoadFromFile(GetCurrentDir+'\tef.xml');
+   if not DirectoryExists(GetCurrentDir+'\comprovantes') then
+      createdir(GetCurrentDir+'\comprovantes');
+   //---------------------------------------------------------------------------
+end;
+
+end.
