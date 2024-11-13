@@ -35,6 +35,29 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 ----------------------------------------------
 <!-- Adicionar novas entradas abaixo deste comentário -->
 
+## 31/10/2024 - v02.22.01
+
+### Melhorias
+
+### Correções
+
+### Componentes
+  - Nova versão do provider 3
+    - Adiciona suporte a apresentação do valor da transação na tela do pinpad durante a captura do cartão.
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.22.01    |
+| E1_ETX      | 03.08.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.00.08    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
 ## 26/09/2024 - v02.22.01
 
 ### Melhorias
