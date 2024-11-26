@@ -18,13 +18,13 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 02.22.01    |
-| E1_ETX      | 03.08.00    |
+| E1_TEF      | 02.25.00    |
+| E1_ETX      | 04.00.00    |
 | E1_UPDATER  | 01.02.00    |
-| E1_UPLOADER | 01.00.08    |
+| E1_UPLOADER | 01.01.00    |
 | E1_Connect  | 01.02.00    |
-| Provider 2  | 2.3.0       |
-| Provider 3  | C042000-D00 |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
 | Provider 5  | 4.3.9       |
 
 ----------------------------------------------
@@ -34,6 +34,52 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - GP TEFHUB
 ----------------------------------------------
 <!-- Adicionar novas entradas abaixo deste comentário -->
+## 12/11/2024 - v2.24.00
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.26.00.
+  - Nessa versão foi implementado as funções de coleta de dados no pinpad.
+
+### Correções
+
+### Componentes
+ - Atualização do provider 2 para versão 2.3.5
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.26.00    |
+| E1_ETX      | 04.00.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 04/11/2024 - v02.23.00
+
+### Melhorias
+- Atualização da lib do ETH para versão 02.25.00.
+  - Nessa versão foram realizadas melhorias no armazenamento dos dados do terminal e das transações e melhorias na identificação do terminal.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.25.00    |
+| E1_ETX      | 04.00.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.0       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
 
 ## 31/10/2024 - v02.22.01
 
@@ -42,8 +88,8 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 ### Correções
 
 ### Componentes
-  - Nova versão do provider 3
-    - Adiciona suporte a apresentação do valor da transação na tela do pinpad durante a captura do cartão.
+- Nova versão do provider 3.
+  - Adiciona suporte a apresentação do valor da transação na tela do pinpad durante a captura do cartão.
 
 | Componente  | Versão      |
 |-------------|-------------|
