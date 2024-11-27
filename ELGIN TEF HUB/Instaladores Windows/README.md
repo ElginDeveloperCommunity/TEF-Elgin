@@ -23,7 +23,7 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 01.01.00    |
 | E1_Connect  | 01.02.00    |
-| Provider 2  | 2.3.5       |
+| Provider 2  | 2.3.0       |
 | Provider 3  | C042300-D00 |
 | Provider 5  | 4.3.9       |
 
@@ -34,29 +34,6 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - GP TEFHUB
 ----------------------------------------------
 <!-- Adicionar novas entradas abaixo deste comentário -->
-## 12/11/2024 - v2.24.00
-
-### Melhorias
-- Atualização da lib do ETH para versão 02.26.00.
-  - Nessa versão foi implementado as funções de coleta de dados no pinpad.
-
-### Correções
-
-### Componentes
- - Atualização do provider 2 para versão 2.3.5
-
-| Componente  | Versão      |
-|-------------|-------------|
-| E1_TEF      | 02.26.00    |
-| E1_ETX      | 04.00.00    |
-| E1_UPDATER  | 01.02.00    |
-| E1_UPLOADER | 01.01.00    |
-| E1_Connect  | 01.02.00    |
-| Provider 2  | 2.3.5       |
-| Provider 3  | C042300-D00 |
-| Provider 5  | 4.3.9       |
-
-----------------------------------------------
 
 ## 04/11/2024 - v02.23.00
 

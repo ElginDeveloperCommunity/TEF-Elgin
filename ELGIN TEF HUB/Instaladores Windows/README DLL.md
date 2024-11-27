@@ -22,7 +22,7 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 01.01.00    |
 | Provider 2  | 2.3.0       |
-| Provider 3  | C042300-D00 |
+| Provider 3  | C042000-D00 |
 | Provider 5  | 4.3.9       |
 
 ----------------------------------------------
@@ -32,90 +32,6 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - Lib E1_TEF
 ----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
-
-## 12/11/2024 - v2.26.00
-
-### Melhorias
-- Função de coleta de dados no pinpad
-  - A partir desta versão a biblioteca passa a suportar coleta de dados no pinpad.
-  - Para utilização deste recurso se faz necessário um PINPAD USB com protocolo ABECS 2.12.
-  -  Os seguintes dados são suportados: 
-      - 0001 = DIGITE O RG <br>
-      - 0002 = DIGITE O CPF <br>
-      - 0003 = DIGITE O CNPJ <br>
-      - 0004 = DIGITE O DDD+TELEFONE <br>
-      - 0010 = DIGITE O DDD <br>
-      - 0011 = REDIGITE O DDD <br>
-      - 0012 = DIGITE O TELEFONE <br>
-      - 0013 = REDIGITE O TELEFONE <br>
-      - 0014 = DIGITE DDD+TELEFONE <br>
-      - 0015 = REDIGITE DDD+TELEFONE <br>
-      - 0016 = DIGITE O CPF <br>
-      - 0017 = REDIGITE O CPF <br>
-      - 0018 = DIGITE O RG <br>
-      - 0019 = REDIGITE O RG <br>
-      - 0020 = DIGITE OS 4 ÚLTIMOS DÍGITOS <br>
-      - 0021 = DIGITE CÓDIGO DE SEGURANÇA <br>
-      - 0022 = DIGITE O CNPJ <br>
-      - 0023 = REDIGITE O CNPJ <br>
-      - 0024 = DIGITE A DATA (DDMMAAAA) <br>
-      - 0025 = DIGITE A DATA (DDMMAA) <br>
-      - 0026 = DIGITE A DATA (DDMM) <br>
-      - 0027 = DIGITE O DIA (DD) <br>
-      - 0028 = DIGITE O MÊS (MM) <br>
-      - 0029 = DIGITE O ANO (AA) <br>
-      - 0030 = DIGITE O ANO (AAAA) <br>
-      - 0031 = DATA DE NASCIMENTO (DDMMAAAA) <br>
-      - 0032 = DATA DE NASCIMENTO (DDMMAA) <br>
-      - 0033 = DATA DE NASCIMENTO (DDMM) <br>
-      - 0034 = DIA DO NASCIMENTO (DD) <br>
-      - 0035 = MÊS DO NASCIMENTO (MM) <br>
-      - 0036 = ANO DO NASCIMENTO (AA) <br>
-      - 0037 = ANO DO NASCIMENTO (AAAA) <br>
-      - 0038 = DIGITE IDENTIFICAÇÃO <br>
-      - 0039 = CÓDIGO DE FIDELIDADE <br>
-      - 0040 = NÚMERO DA MESA <br>
-      - 0041 = QUANTIDADE DE PESSOAS <br>
-      - 0042 = DIGITE QUANTIDADE <br>
-      - 0043 = NÚMERO DA BOMBA <br>
-      - 0044 = NÚMERO DA VAGA <br>
-      - 0045 = NÚMERO DO GUICHÊ/CAIXA <br>
-      - 0046 = CÓDIGO DO VENDEDOR <br>
-      - 0047 = CÓDIGO DO GARÇOM <br>
-      - 0048 = NOTA DO ATENDIMENTO <br>
-      - 0049 = NÚMERO DA NOTA FISCAL <br>
-      - 0050 = NÚMERO DA COMANDA <br>
-      - 0051 = PLACA DO VEÍCULO <br>
-      - 0052 = DIGITE QUILOMETRAGEM <br>
-      - 0053 = QUILOMETRAGEM INICIAL <br>
-      - 0054 = QUILOMETRAGEM FINAL <br>
-      - 0055 = DIGITE PORCENTAGEM <br>
-      - 0056 = PESQUISA DE SATISFAÇÃO (0 a 10) <br>
-      - 0057 = AVALIE ATENDIMENTO (0 a 10) <br>
-      - 0058 = DIGITE O TOKEN <br>
-      - 0059 = DIGITE NÚMERO DO CARTÃO <br>
-      - 0060 = NÚMERO DE PARCELAS <br>
-      - 0061 = CÓDIGO DO PLANO <br>
-      - 0062 = CÓDIGO DO PRODUTO
-- Função de confirmação de dados no pinpad.
-  - Essa função pode ser utilizada com o retorno da função de coleta de dados no pinpad para validar a entrada do usuário.
-  - A automação também pode enviar um texto livre para ser validado pelo usuário no pinpad, para tal, basta enviar o prefixo "data=" seguido do conteúdo a ser validado.
-  - O pinpad irá apresentar a informação solicitada pela automação com um prefixo "Confirme: ".
-  - O pinpad possui limitações de apresentação, por isso é importante que a automação não envie um texto acima de 50 caracteres.
-### Correções
-
-### Componentes
-
-| Componente  | Versão      |
-|-------------|-------------|
-| E1_ETX      | 04.00.00    |
-| E1_UPDATER  | 01.02.00    |
-| E1_UPLOADER | 01.01.00    |
-| Provider 2  | 2.3.0       |
-| Provider 3  | C042300-D00 |
-| Provider 5  | 4.3.9       |
-
-----------------------------------------------
 
 ## 04/11/2024 - v02.25.00
 
