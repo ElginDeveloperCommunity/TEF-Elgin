@@ -18,10 +18,10 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_ETX      | 04.00.00    |
+| E1_ETX      | 04.00.02    |
 | E1_UPDATER  | 01.02.00    |
-| E1_UPLOADER | 01.01.00    |
-| Provider 2  | 2.3.0       |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
 | Provider 3  | C042300-D00 |
 | Provider 5  | 4.3.9       |
 
@@ -32,6 +32,209 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - Lib E1_TEF
 ----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
+## 27/01/2025 - v03.02.01
+
+### Melhorias
+
+### Correções
+- Correção da função de relatório.
+  - Corrigido o processo de parsing da data de consulta, que causava a geração de relatórios com dados inconsistentes.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 22/01/2025 - v03.02.00
+
+### Melhorias
+- Criação de tratamento para o parâmetro "versaoAC" Auttar.
+  - Criação de um método para tratar o conteúdo da String retornada em versaoAC no Flow da Auttar.
+- Adição de funcionalidade na função Administrativa Reimpressão.
+  - Seguindo o padrão TEF Elgin, hoje se o usuário não informar a data da transação (primeiro dado solicitado para captura), a E1_TEF realizará
+    a impressão da última venda feita.
+
+### Correções
+- Correção da função de reimpressão - Bug 148.
+  - Inclusão no TEF HUB de todos os campos retornados no TEF Elgin.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 15/01/2025 - v03.01.01
+
+### Melhorias
+
+### Correções
+- Correções na função Manutenção.
+  - Correção da mensagem de retorno ao finalizar o processo de Manutenção;
+  - Reset do objeto DB para não ser mais necessário a reinicialização da Automação Comercial;
+  - Inclusão de uma mensagem de Sucesso no LOG.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 09/01/2025 - v03.01.00
+
+### Melhorias
+- Implementação da função Manutenção, responsável pela desativação do terminal.
+  - A função Manutencao faz parte o pacote de funções administrativas;
+  - A função valida a senha adm parametrizada no servidor. Caso nenhuma senha esteja cadastrada, utiliza-se a senha padrão "833482".;
+  - Suporte para todos os motores TEF que operamos.
+
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 18/12/2024 - v03.00.03
+
+### Melhorias
+- Suporte a pinpad Lane3600
+  - Suporte a comunicação com Lane3600 para as operações de pix.
+  - Suporte a comunicação com Lane3600 para operações de TEF com provider 3 em ambiente linux.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 16/12/2024 - v03.00.02
+
+### Melhorias
+- Atualização do módulo E1_UPLOADER
+  - Atualiza a versão do módulo de contingência para versão 02.00.00 com suporte a linux 32 bits.
+- Suporte a pinpad Lane3000
+  - Suporte a comunicação com Lane3000 para as operações de pix.
+  - Suporte a comunicação com Lane3000 para operações de TEF com provider 3 em ambiente linux.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 12/12/2024 - v03.00.01
+
+### Melhorias
+
+### Correções
+- Correção na operação de débito parcelado e pré datado.
+  - Correção na formatação da data enviada para o provedor 3 nas operações de débito parcelado e pré datado.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 03/12/2024 - v03.00.00
+
+### Melhorias
+- Performance na Operação PIX
+  - Redução do intervalo de tempo entre as verificações de status de pagamento, proporcionando uma atualização mais ágil e uma experiência de usuário aprimorada.
+
+### Correções
+- Compatibilidade com Linux 32 bits
+  - Remoção de dependências incompatíveis com ambientes Linux 32 bits, garantindo o funcionamento adequado da aplicação nessas plataformas.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 28/11/2024 - v02.26.03
+
+### Melhorias
+
+### Correções
+- Correção na transação debito.
+  - Correção para operação de debito no fluxo do provider 2 para terminais com configuração de pré-datado habilitado.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
 
 ## 27/11/2024 - v02.26.02
 
@@ -49,6 +252,27 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 01.01.00    |
 | Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 21/11/2024 - v2.26.01
+
+### Melhorias
+
+### Correções
+- Correção para loop na captura de data.
+  - Corrige operação de coleta de data para transações pré-datadas com a utilização do provider 3.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.00.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| Provider 2  | 2.3.0       |
 | Provider 3  | C042300-D00 |
 | Provider 5  | 4.3.9       |
 

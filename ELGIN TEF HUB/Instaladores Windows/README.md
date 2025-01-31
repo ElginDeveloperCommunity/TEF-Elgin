@@ -18,10 +18,10 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 02.25.00    |
-| E1_ETX      | 04.00.00    |
+| E1_TEF      | 03.00.03    |
+| E1_ETX      | 04.00.02    |
 | E1_UPDATER  | 01.02.00    |
-| E1_UPLOADER | 01.01.00    |
+| E1_UPLOADER | 02.00.00    |
 | E1_Connect  | 01.02.00    |
 | Provider 2  | 2.3.5       |
 | Provider 3  | C042300-D00 |
@@ -33,8 +33,198 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 -->
 # Release Notes - GP TEFHUB
 ----------------------------------------------
-<!-- Adicionar novas entradas abaixo deste comentário -->
-## 27/11/2024 - v02.24.01
+
+## 27/01/2025 - v03.02.01
+
+### Melhorias
+- Atualização do componente E1_TEF para a versão 03.02.01
+  - Atualiza versão do componente E1_TEF com correções na operação de relatório diário.
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.02.01    |
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 23/01/2025 - v03.02.00
+
+### Melhorias
+- Atualização do componente E1_TEF para a versão 03.02.00
+  - Criação de tratamento para o parâmetro "versaoAC" Auttar.
+  - Adição de funcionalidade na função Administrativa Reimpressão.
+  - Inclusão no TEF HUB de todos os campos retornados no TEF Elgin.
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.02.00    |
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+
+## 15/01/2024 - v03.01.01
+
+### Melhorias
+- Atualização do componete E1_TEF para a versão 03.01.01 e componente E1_ETX para a versão 04.01.01.
+  - A versão 03.01.01 corrige apontamentos levantados na fase de teste:
+    - Tratamento de retorno para Automação Comercial;
+    - Inclusão de novas linhas de LOG;
+    - Refaturação em algumas funções do DB Local.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.01.01    |
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 13/01/2025 - v03.01.00
+
+### Melhorias
+
+### Correções
+
+### Componentes
+ - Atualização do componente E1_Tef para versão 03.01.00
+  - A versão 03.01.00 implementa a função Manutencao faz parte o pacote de funções administrativas.
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.01.00    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 03/01/2025 - v03.00.04
+
+### Melhorias
+- Melhoria nas transições entre janelas.
+  - Ao finalizar a operação o foco é devolvido para a automação.
+- Aumento da área de apresentação do logotipo.
+  - A área para apresentação do logotipo foi ajustada para 220x80 px.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.00.03    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 18/12/2024 - v03.00.03
+
+### Melhorias
+- Atualização da lib_ppelgin.
+  - Atualiza a lib de comunicação com pinpad com suporte ao pinpad Lane3600.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.00.03    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 16/12/2024 - v03.00.02
+
+### Melhorias
+- Atualização da lib E1_Tef.
+  - Atualização da lib E1_Tef para versão 03.00.02 com melhorias na integração com módulo e1_uploader;
+- Atualização da lib_ppelgin.
+  - Atualiza a lib de comunicação com pinpad com suporte ao pinpad Lane3000.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.00.02    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+## 03/12/2024 - v03.00.00
+
+### Melhorias
+- Atualização E1_TEF
+  - Atualização da lib E1_TEF com melhorias na operação PIX.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 03.00.00    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 28/11/24 - v02.25.01
 
 ### Melhorias
 
@@ -42,11 +232,37 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 ### Componentes
 - Atualização da lib E1_TEF
-  - Atualização para versão 02.26.02 com correções referente a integração do provider 2.
+  - Atualiza lib E1_TEF para versão 02.26.03 com melhorias na integração com provider 2.
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 02.26.02    |
+| E1_TEF      | 02.26.03    |
+| E1_ETX      | 04.00.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 01.01.00    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
+## 21/11/2024- v2.25.00
+
+### Melhorias
+- Melhorias geral no instalador
+  - Remove arquivos antigos de instalação do provedor 3.
+  - Altera pasta de instalação do provider 3 para utilizar o diretório padrão de instalação do TEFHUB.
+- Atualiza o client E1_TEF
+  - Atualiza o client E1_TEF para a versão 02.26.01.
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 02.26.01    |
 | E1_ETX      | 04.00.00    |
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 01.01.00    |
