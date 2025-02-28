@@ -166,8 +166,8 @@ begin
   // Se usuário não escolher escrever o valor pedido, pedir para que seja 
   // escrito
   if (txtOperador.Text = '') and (txtOperador.Visible) then begin
-    ShowMessage('Escreva o valor pedido');
-    exit;
+   ShowMessage('Escreva o valor pedido');
+   exit;
   end;
 
   // pega valor escolhido pelo usuário

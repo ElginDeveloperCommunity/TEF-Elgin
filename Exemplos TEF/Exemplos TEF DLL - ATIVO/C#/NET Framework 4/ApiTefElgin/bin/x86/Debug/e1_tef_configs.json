@@ -3,7 +3,8 @@
     "ipClientTCP": "127.0.0.1",
     "loja": "01",
     "nomeEstabelecimento": "Elgin",
+    "operacaoPendenciaCustomizada": true,
     "portaClientTCP": 60906,
-    "textoPinpad": "Meu PDV",
+    "textoPinpad": "Meu PDV C#",
     "versaoAC": "v1.0.000"
 }

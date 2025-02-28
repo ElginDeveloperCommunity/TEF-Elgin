@@ -219,13 +219,22 @@ namespace WpfTesteVs
                 btnCancelar.Visibility = Visibility.Hidden;
                 txtOperador.Visibility = Visibility.Hidden;
                 imgQRCode.Visibility = Visibility.Hidden;
-                
+
                 // QRCODE PIX
                 if (msg.Contains("QRCODE;"))
                 {
-                    int start = msg.IndexOf(";") + 1;
-                    int end = msg.LastIndexOf(";");
-                    string hexQrCodeString = msg.Substring(start, end - start);
+                    string[] partes = msg.Split(';');
+                    string hexQrCodeString = "";
+
+                    for (int i = 0; i < partes.Length - 1; i++)
+                    {
+                        if (partes[i] == "QRCODE")
+                        {
+                            hexQrCodeString = partes[i + 1];
+                            break;
+                        }
+                    }
+
                     ShowQRCode(hexQrCodeString);
 
                     imgQRCode.Visibility = Visibility.Visible;
@@ -236,6 +245,7 @@ namespace WpfTesteVs
                 {
                     lblOperador1.Content = msg;
                     lblOperador1.Visibility = Visibility.Visible;
+                 
 
                     // quando uma dessas mensagens estiver presente não mostrar os botões
                     string[] msgArray = { "aguarde", 
