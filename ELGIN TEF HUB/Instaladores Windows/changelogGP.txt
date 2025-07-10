@@ -1,4 +1,0 @@
-# Changelog - GP Versão 99.12.02
-
-## Alterado
-- Lib E1_Tef atualizada para versão 99.12.01

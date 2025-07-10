@@ -1,4 +1,0 @@
-# Changelog - E1_Tef Versão 99.12.01
-
-## Adicionado
-- Coleta da informação "vias de reimpressão" na operação "adm reimprimir" (card #1965)

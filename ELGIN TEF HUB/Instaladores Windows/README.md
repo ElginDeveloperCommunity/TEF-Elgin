@@ -33,6 +33,84 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 ----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
 
+## 09/04/2025 - v04.00.01
+
+### Melhorias
+
+### Correções
+- Correção referente ao card Bug/194:
+  - Foi adicionado uma validação na função de inicialização de loja aditum, onde a rotina de inicialização só será executada na primeira vez.
+    - Esta implementação acaba com a atualização de tabelas em todas as transações seguintes a uma transação PIX.
+  - Correção na exibição do QRCode nos pinpads PPC-930.
+- Correção de um bug encontrado no retorno das transações mal sucedidas Destaxa.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+
+----------------------------------------------
+
+## 13/02/2025 - v04.00.00
+
+### Melhorias
+- Implementação da Ativação silenciosa para motor Destaxa.
+	- A partir desta versão a ativação do motor é feita automaticamente durante a inicialização.
+  - Não será mais necessário a inserção dos dados de CNPJ e Código de Assinatura.
+- Implementação da função de Desativação Destaxa.
+	- A desativação é feita através da operação de Manutenção.
+- Atualização do componente E1_ETX para a versão 04.01.02.
+	- Melhorias no processo de autenticação.
+- Atualização dos Motores TEF para as versões mais recentes, conforme destacado na sessão componentes.
+  - Motor Destaxa - Versão 4.4.3:
+    - Suporte a ativação silenciosa.
+  - Motor Auttar - Versão 4.24.3:
+    - Melhoria do horário de verão.
+  - Motor Aditum - Versão 2.3.7:
+    - Melhorias gerais do fluxo transacional.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.02    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+
+----------------------------------------------
+
+## 07/02/2025 - v03.04.01
+
+### Melhorias
+
+### Correções
+- Correção da função administrativa de relatório.
+  - Inclusão do campo Loja e resultadoTransacao no retorno da função. Correção do BUG 178.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.01.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.00    |
+| Provider 2  | 2.3.5       |
+| Provider 3  | C042300-D00 |
+| Provider 5  | 4.3.9       |
+
+----------------------------------------------
+
 ## 05/02/2025 - v03.04.00
 
 ### Melhorias
@@ -151,7 +229,7 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 ### Melhorias
 - Implementação da função Manutenção, responsável pela desativação do terminal.
   - A função Manutencao faz parte o pacote de funções administrativas;
-  - A função valida a senha adm parametrizada no servidor. Caso nenhuma senha esteja cadastrada, utiliza-se a senha padrão "833482".;
+  - A função valida a senha adm parametrizada no servidor. Caso nenhuma senha esteja cadastrada, utiliza-se a senha padrão "833482";
   - Suporte para todos os motores TEF que operamos.
 
 
