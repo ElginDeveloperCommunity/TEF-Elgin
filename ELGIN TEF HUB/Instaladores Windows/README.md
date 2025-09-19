@@ -32,7 +32,77 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 # Release Notes - Lib E1_TEF
 ----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
+## 07/08/2025 - v05.00.02
 
+### Melhorias
+- Atualização da Lib E1_Tef
+ - Atualiza a lib E1_Tef para versão 05.00.02 com melhorias do protocolo provider 7
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 25/07/2025 - v05.00.01
+
+### Melhorias
+  
+### Correções
+- Correção do card 219 e 221:
+	- Foi incluída uma nova rotina de exclusão de arquivos legados.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.03    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 28/06/2025 - v05.00.00
+
+### Melhorias
+- Inclusão do componente E1_Provider7 e dependências.
+  - Nesta versão foram incluidos os componentes do novo Provider
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
 ## 09/04/2025 - v04.00.01
 
 ### Melhorias
