@@ -6,17 +6,17 @@ Para compreender o funcionamento da API usar como referência a [documentação]
 ## Exemplos Delphi para utilizar a API do Tef Elgin.
 
 Para o exemplo foi usada a seguinte biblioteca:
-- [E1_Tef01.dll](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Biblioteca), depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Instaladores)
+- [E1_Tef01.dll](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/ELGIN%20TEF%20HUB/Instaladores%20Windows/Bibliotecas), depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/ELGIN%20TEF%20HUB/Instaladores%20Windows)
 
 ## Exemplo
 - [Delphi 10.4](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin)
 <hr>
 
 ## Requisitos para Teste ##
-Antes de poder testar o exemplo, instalar todos os componentes necessários descritos na [documentação de instalação](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Instaladores/Manual%20instala%C3%A7%C3%A3o%20TEF%20Elgin_Homologa%C3%A7%C3%A3o.pdf).
+Antes de testar o exemplo, instalar os componentes necessários [neste link](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/ELGIN%20TEF%20HUB/Instaladores%20Windows).
 
 ### Teste
-Para testar o exemplo já compilado para Windows 32-bits baixar [essa pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/blob/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin/Win32/Debug).
+Para testar o exemplo já compilado para Windows 32-bits baixar e executar o arquivo "ExemploAPITEFElgin.exe" [nessa pasta](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin).
 
 ## Imagens do Programa ##
 
