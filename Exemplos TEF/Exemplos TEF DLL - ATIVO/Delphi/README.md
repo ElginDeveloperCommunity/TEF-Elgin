@@ -9,7 +9,7 @@ Para o exemplo foi usada a seguinte biblioteca:
 - [E1_Tef01.dll](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/ELGIN%20TEF%20HUB/Instaladores%20Windows/Bibliotecas), depende da instalação dos programas neste [link.](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/ELGIN%20TEF%20HUB/Instaladores%20Windows)
 
 ## Exemplo
-- [Delphi 10.4](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF%20API%20-%20Ativo/Delphi/ApiTefElgin)
+- [Delphi 10.4](https://github.com/ElginDeveloperCommunity/TEF-Elgin/tree/master/Exemplos%20TEF/Exemplos%20TEF%20DLL%20-%20ATIVO/Delphi/ApiTefElgin)
 <hr>
 
 ## Requisitos para Teste ##
