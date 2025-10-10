@@ -29,78 +29,212 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 
 ///FIM
 -->
-# Release Notes - Lib E1_TEF
-----------------------------------------------
 <!-- Adiciona novas entradas abaixo deste comentário -->
+
+# Release Notes - Lib E1_TEF
+
+## 09/10/2025 - v05.04.01
+
+### Melhorias
+
+### Correções
+- Normalização de NSU nas consultas do banco de dados.
+  - Implementação de comparação numérica via CAST para garantir compatibilidade entre NSUs com ou sem zeros à esquerda.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.06.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 02.00.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 09/10/2025 - v05.04.00
+
+### Melhorias
+- Atualização do componente TEF Passivo.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.04.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.04.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 02/10/2025 - v05.03.00
+
+### Melhorias
+- Atualização modulo ETX
+ - Nova versão do modulo ETX possui melhorias para funcionamento do TEFWEB Assincrono.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.04.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.04.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 18/09/2025 - v05.02.00
+
+### Melhorias
+- Implementação da Manutenção (desativação) para o motor Scope
+- Compatibilização de versões do ElginTEFPassivo (GP)
+  - Modo de operação troca de arquivos passa a ser exclusivo na operação do GP.
+    Dessa forma não será possível realizar operações financeiras que não sejam iniciadas pela automação integrada.
+    Operações via TEF Autônomo somente serão possíveis se a parametrização do terminal estiver configurada para tal.
+ 
+### Correções
+- Correção referente ao card 246.
+  - Foi corrigida a exibição das mensagens MsgOp1 e MsgCI2 para o provider 7.
+- Toda a ativação silenciosa Destaxa teve timeout padronizado.
+- Correção referente ao card 253.
+- Desfazimento Aditum corrigido.
+- Correção referente ao card 257.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.03.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 26/08/2025 - v05.01.00
+
+### Melhorias
+- Atualização de motores
+ - Atualiza versão do provider 2 para 2.4.3
+ - Atualiza versão do provider 3 para 4.29.1
+ - Atualiza versão do provider 5 para 4.4.4-5
+- Melhorias nas regras de bloqueio do terminal.
+  - Melhorias gerais na regra para bloqueio de terminais.
+
+### Correções
+- Correção referente ao card 235
+  - Foi adicionada uma nova forma de validação para aguardar o provider5 se tornar responsivo após inicialização.
+- Correção referente ao card 238.
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_ETX      | 04.03.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
 ## 07/08/2025 - v05.00.02
 
 ### Melhorias
-- Atualização da Lib E1_Tef
- - Atualiza a lib E1_Tef para versão 05.00.02 com melhorias do protocolo provider 7
   
 ### Correções
+- Correções no protoloco para compatibilidade com Provider7
+  - Correção no mapeamento das chaves tipocartao e formapagamento
 
 ### Componentes
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 05.00.02    |
 | E1_ETX      | 04.02.01    |
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 02.00.01    |
-| E1_Connect  | 01.03.00    |
 | Provider 2  | 2.3.7       |
 | Provider 3  | 4.24.03     |
 | Provider 5  | 4.4.3       |
+| Provider 6  | 1.0.0       |
 | Provider 7  | 4.1.1       |
 
 ----------------------------------------------
 
-## 25/07/2025 - v05.00.01
+## 27/06/2025 - v05.00.00
 
 ### Melhorias
+- Implementação da integração com novo motor.
+  - Primeira versão com suporte ao provedor 7
+  - Implementação das operações de Débito, Crédito, Pré-Datado, Voucher (via débito) e Cancelamento.
   
 ### Correções
-- Correção do card 219 e 221:
-	- Foi incluída uma nova rotina de exclusão de arquivos legados.
 
 ### Componentes
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 04.00.03    |
 | E1_ETX      | 04.02.01    |
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 02.00.01    |
-| E1_Connect  | 01.03.00    |
 | Provider 2  | 2.3.7       |
 | Provider 3  | 4.24.03     |
 | Provider 5  | 4.4.3       |
+| Provider 6  | 1.0.0       |
 | Provider 7  | 4.1.1       |
 
 ----------------------------------------------
 
-## 28/06/2025 - v05.00.00
+## 06/06/2025 - v04.00.02
 
 ### Melhorias
-- Inclusão do componente E1_Provider7 e dependências.
-  - Nesta versão foram incluidos os componentes do novo Provider
-  
+- Correção referente ao card 205.
+  - Foi implementado a função abort da API Aditum, responsável por abortar transações já iniciadas e aguardando interação do      consumidor.
+- Correção referente ao card 206.
+  - Esta correção tem relação com o card Bug/194:
+    - Implementada uma nova validação no retorno da função IniciarLojaAditum.
+    - Se a inicialização falhar, a flag de validação não sofre mais alterações. Fazendo com que em caso de falha seja solicitada nova inicialização de loja Aditum.
+- Correção referente ao card 210.
+  - Para que não tenha mais nenhum tipo de incompatibilidade, foi implementada a exclusão do atalho Client TEF.lnk da pasta de inicialização do sistema operacional.
+- Exclusão do diretório legado Auttar C:\CTFClient.
+- Correção referente ao card 212.
+  - Alteração na validação da chave CancellationStatus.
+
 ### Correções
 
 ### Componentes
 
 | Componente  | Versão      |
 |-------------|-------------|
-| E1_TEF      | 04.00.02    |
 | E1_ETX      | 04.02.01    |
 | E1_UPDATER  | 01.02.00    |
 | E1_UPLOADER | 02.00.01    |
-| E1_Connect  | 01.03.00    |
 | Provider 2  | 2.3.7       |
 | Provider 3  | 4.24.03     |
 | Provider 5  | 4.4.3       |
-| Provider 7  | 4.1.1       |
+| Provider 6  | 1.0.0       |
 
 ----------------------------------------------
 ## 09/04/2025 - v04.00.01

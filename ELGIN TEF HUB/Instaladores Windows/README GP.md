@@ -33,6 +33,262 @@ Para novas atualizações adicione o bloco abaixo com os detalhes da liberação
 -->
 # Release Notes - GP TEFHUB
 
+## 09/10/2025 - v05.04.01
+
+### Melhorias
+
+### Correções
+- Normalização de NSU nas consultas do banco de dados.
+  - Implementação de comparação numérica via CAST para garantir compatibilidade entre NSUs com ou sem zeros à esquerda.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.04.01    |
+| E1_ETX      | 04.06.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 02.00.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 03/10/2025 - v05.04.00
+
+### Melhorias
+- Implementação do endpoint /consulta
+  - Permite consultar a resposta de transações síncronas (identificador) e assíncronas (uuid).
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.03.00    |
+| E1_ETX      | 04.05.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 02.00.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 02/10/2025 - v05.03.00
+
+### Melhorias
+- Implementação do modo assíncrono do TEFWEB
+  - Nova versão suporta transações assíncronas com retornos via webhook.
+
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.03.00    |
+| E1_ETX      | 04.04.00    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.04.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 18/09/2025 - v05.02.00
+
+### Melhorias
+- Compatibilização de versões do ElginTEFPassivo (GP)
+  - Versão Amigao inserida na versão corrente do GP.
+  - O modo padrão passa a ser o modo troca de arquivos.
+  - A partir dessa versão inicia-se a substituição gradativa do arquivo config_tef.json 
+- Atualização do componente E1_Tef:
+ - Implementação da Manutenção (desativação) para o motor Scope.
+  
+### Correções
+- Correções no componente E1_Tef.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.02.00    |
+| E1_ETX      | 04.03.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 22/08/2025 - v05.01.00
+
+### Melhorias
+- Atualização de motores
+ - Atualiza versão do provider 2 para 2.4.3
+ - Atualiza versão do provider 3 para 4.29.1
+ - Atualiza versão do provider 5 para 4.4.4-5
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.01.00    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.29.1      |
+| Provider 5  | 4.4.4-5     |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 07/08/2025 - v05.00.02
+
+### Melhorias
+- Atualização da Lib E1_Tef
+ - Atualiza a lib E1_Tef para versão 05.00.02 com melhorias do protocolo provider 7
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 05.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 25/07/2025 - v05.00.01
+
+### Melhorias
+  
+### Correções
+- Correção do card 219 e 221:
+	- Foi incluída uma nova rotina de exclusão de arquivos legado VBI.
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.03    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 28/06/2025 - v05.00.00
+
+### Melhorias
+- Inclusão do componente E1_Provider7 e dependêcias.
+  - Nesta versão foi incluido os componentes do novo Provider
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+| Provider 7  | 4.1.1       |
+
+----------------------------------------------
+
+## 26/06/2025 - v04.00.03
+
+### Melhorias
+- Atualização do componente E1_Connect para a versão 01.03.00 
+  - Correção referente ao card 46 - TEF WEB.
+    - Foi criado uma nova rota para recuperar o ultimo retorno.
+    - A rota a ser estimulada é a http://localhost:2001/tef/v1/ultimo_retorno via método GET.
+    - Esta rota retornará o último retorno referente a última interação realizada.
+  - Correção referente ao card 111 - TEF WEB.
+    - Foi implementado a possibilidade de solicitar uma reimpressão enviando todos os dados necessários de uma só vez (data e nsu da transação).
+  - Correção referente ao card 58 - TEF WEB.
+    - Foi implementada a adequação do valor das chaves do Json de retorno de venda.
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.03.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+
+----------------------------------------------
+
+## 06/06/2025 - v04.00.02
+
+### Melhorias
+- Atualização do componente E1_TEF para a versão 04.00.02 
+  - Correção referente ao card 205.
+  - Correção referente ao card 206.
+  - Correção referente ao card 210.
+    - Atualização do instalador para exclusão do atalho Client TEF.lnk na pasta de inicialização do sistema operacional.
+  - Atualização do instalador para Exclusão do diretório legado Auttar C:\CTFClient.
+  
+### Correções
+
+### Componentes
+
+| Componente  | Versão      |
+|-------------|-------------|
+| E1_TEF      | 04.00.02    |
+| E1_ETX      | 04.02.01    |
+| E1_UPDATER  | 01.02.00    |
+| E1_UPLOADER | 02.00.01    |
+| E1_Connect  | 01.02.00    |
+| Provider 2  | 2.3.7       |
+| Provider 3  | 4.24.03     |
+| Provider 5  | 4.4.3       |
+
+----------------------------------------------
+
 ## 09/04/2025 - v04.00.01
 
 ### Melhorias
