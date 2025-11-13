@@ -19,11 +19,7 @@
 * Android:
   * Versão 7 ou superior.
   * Hardware: 2GB de RAM. 16GB de espaço em disco.
-* ARM:
-  * Debian Bullseye, para Rasp 2B, 3B e 4.
-  * Ubuntu 20.04 para Rasp 4B.
-  * Hardware: Placas Rasp 2B, 3B, 4 e 4B.
-   
+
   
 ## Elgin TEF
 O Tef Pay Elgin é uma solução que fornece para Automação Comercial integração para que seja possivel a captura de transações financeiras através de diversos concentradores de Tef disponíveis no mercado.
